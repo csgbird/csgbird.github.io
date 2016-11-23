@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-23T09:40:54.118Z</updated>
+  <updated>2016-11-23T10:28:09.944Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/11/23/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
     <id>http://yoursite.com/2016/11/23/HBase伪分布式搭建/</id>
     <published>2016-11-23T09:08:56.296Z</published>
-    <updated>2016-11-23T09:40:54.118Z</updated>
+    <updated>2016-11-23T10:28:09.944Z</updated>
     
     <content type="html"><![CDATA[<!DOCTYPE html><html><head><title>HBase伪分布式搭建</title><meta charset="utf-8"><link href="https://dn-maxiang.qbox.me/res-min/themes/marxico.css" rel="stylesheet"><style></style></head><body><div id="preview-contents" class="note-content">
                         
@@ -314,8 +314,6 @@ software中是存放的个软件 <br>
 
 <ul><li>配置yarn-site.xml</li>
 </ul>
-
-
 
 <pre class="prettyprint hljs-dark"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">configuration</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-title">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-title">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="hljs-tag">&lt;/<span class="hljs-title">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-title">value</span>&gt;</span>mapreduce_shuffle<span class="hljs-tag">&lt;/<span class="hljs-title">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-title">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-title">configuration</span>&gt;</span><br></code></pre>
 
