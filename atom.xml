@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>csgbird博客</title>
+  <title>CSG博客</title>
   <subtitle>新手程序员</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>csgbird</name>
+    <name>陈双刚</name>
     
   </author>
   
