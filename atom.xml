@@ -17,9 +17,9 @@
   
   <entry>
     <title>HBase伪分布式搭建</title>
-    <link href="http://yoursite.com/2016/11/24/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
-    <id>http://yoursite.com/2016/11/24/HBase伪分布式搭建/</id>
-    <published>2016-11-24T00:43:33.345Z</published>
+    <link href="http://yoursite.com/2016/11/24/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
+    <id>http://yoursite.com/2016/11/24/HBase伪分布式搭建/HBase伪分布式搭建/</id>
+    <published>2016-11-24T00:45:46.117Z</published>
     <updated>2016-11-24T00:37:18.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="HBase伪分布式搭建"><a href="#HBase伪分布式搭建" class="headerlink" title="HBase伪分布式搭建"></a>HBase伪分布式搭建</h1><p>@(csg)[bigdata, HBase, Hadoop,Linux]</p>
