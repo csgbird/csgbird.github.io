@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-24T08:01:12.055Z</updated>
+  <updated>2017-05-06T07:59:05.040Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,149 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HBase伪分布式搭建</title>
+    <link href="http://yoursite.com/2017/05/06/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA2222/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
+    <id>http://yoursite.com/2017/05/06/HBase伪分布式搭建2222/HBase伪分布式搭建/</id>
+    <published>2017-05-06T07:58:34.005Z</published>
+    <updated>2017-05-06T07:59:05.040Z</updated>
+    
+    <content type="html"><![CDATA[<p>@(大数据)[bigdata, HBase, Hadoop, Linux]</p>
+<p>#HBase伪分布式搭建<br>运行环境：centos7 64位<br>vm虚拟机<br>参考地址：<a href="http://www.jikexueyuan.com/course/2089_3.html?ss=1" target="_blank" rel="external">http://www.jikexueyuan.com/course/2089_3.html?ss=1</a></p>
+<p>##1、关闭防火墙和SELinux</p>
+<p>###1.1.1防火墙关闭<br>centos7以下的6版本都是采用iptables进行防火墙设置，centos从7开始默认用的是firewalld，这个是基于iptables的，虽然有iptables的核心，但是iptables的服务是没安装的。所以你只要停止firewalld服务即可： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl stop firewalld.service &amp;&amp; sudo systemctl disable firewalld.service</div></pre></td></tr></table></figure>
+<p>或者（这是我采用的方法）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service firewalld stop</div></pre></td></tr></table></figure>
+<p>不过上面这一条只是临时关闭防火墙，所以还的加一条：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig firewalld off</div></pre></td></tr></table></figure>
+<p>如果你要改用iptables的话，需要安装iptables服务： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo yum install iptables-services </div><div class="line">sudo systemctl enable iptables &amp;&amp; sudo systemctl enable ip6tables </div><div class="line">sudo systemctl start iptables &amp;&amp; sudo systemctl start ip6tables</div></pre></td></tr></table></figure>
+<p>###1.1.2SELinux的关闭<br>只需要改变一个文件夹内容即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/selinux</div></pre></td></tr></table></figure>
+<p>修改文件中的selinux为disabled即可<br><img src="./1479823243416.png" alt="Alt text"></p>
+<p>##2、配置IP、DNS<br>这里ip我暂时还未配置，只是让ip地址能够成功上网就行<br>具体为<br>首先虚拟机与主机的链接方式为NAT<br><img src="./1479865806710.png" alt="Alt text"><br>修改一个配置文件，<br><img src="./1479865726599.png" alt="Alt text"><br><img src="./1479865950243.png" alt="Alt text"></p>
+<p><strong><em> 将最后一行的ONBOOT=no改为ONBOOT=yes,如图<br>最后输入:wq 保存并退出，再重启一下network： </em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service network restart</div></pre></td></tr></table></figure>
+<p>测试：<br><img src="./1479865989095.png" alt="Alt text"><br>就能上网了</p>
+<p>##3、配置主机名</p>
+<ul>
+<li>所以需要配置主机名:配置方法</li>
+</ul>
+<ol>
+<li><p>方式1:命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostnamectl set-hostname locallinux（主机名，可随意）</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件<br>在CentOS6及其以下版本一般通过修改配置文件的办法来修改主机名，此配置文件一般为/etc/sysconfig/network，但在CentOS7中，很多系统管理工具都被替换了，所以需要在/etc/hostname中修改（参考：<a href="http://www.centoscn.com/CentOS/2015/0620/5700.html）" target="_blank" rel="external">http://www.centoscn.com/CentOS/2015/0620/5700.html）</a></p>
+</li>
+</ol>
+<ul>
+<li>修改完主机名后记得修改ip映射关系，在/etc/hosts中添加前面是本机linux的ip地址，后面是主机名<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.120.128  locallinux</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##4、设置SSH免密码登录<br>生成秘钥：输入ssh-keygen -t rsa，然后输入四个回车<br><img src="./1479866320592.png" alt="Alt text"><br>拷贝秘钥：<br><img src="./1479866471036.png" alt="Alt text"></p>
+<p>##5、安装JDK<br>新建文件夹—&gt;然后拷贝jdk的安装解压包到该路径下,解压,改名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir  /usr/jvm</div><div class="line">cp ../jdk-7u25-linux-x64.tar.gz    /usr/jvm</div><div class="line">cd /usr/jvm</div><div class="line">tar -zxvf jdk-7u25-linux-x64.tar.gz</div><div class="line">mv jdk1.7.25 jdk7</div></pre></td></tr></table></figure>
+<p>更改环境变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure></p>
+<p>在尾部添加环境变量配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/jvm/jdk7</div><div class="line">JRE_HOME=/usr/java/jdk7/jre</div><div class="line">CLASS_PATH=.:$JRE_HOME/lib:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</div><div class="line">PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin</div><div class="line">export JAVA_HOME JRE_HOME CLASS_PATH PATH</div></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure>
+<p><img src="./1479863068190.png" alt="Alt text"></p>
+<p>可以发现原本的open-jdk仍然占据主导地位,此时java -version的时候还会发现java版本还是 OpenJDK。这个时候进入/usr/bin目录  查找java  javac 可以发现，这两个符号链接指向系统默认的jdk目录。删除java javac并且把新的java命令放在其中</p>
+<p>具体操作如下：<br><img src="./1479863536751.png" alt="Alt text"><br>这下可以发现新的jdk已经代替了原来的</p>
+<p>##6、Hadoop环境搭建</p>
+<p>###6.6.1、下载编译<br>我是把个大数据的软件都放在一起的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir /usr/local/bigdata</div><div class="line">cd /usr/local/bigdata</div><div class="line">mkdir tools</div><div class="line">mkdir software</div></pre></td></tr></table></figure></p>
+<p>tools文件夹下放入的是软件压缩包<br>software中是存放的个软件<br>上传hadoop的压缩包<br>具体下载地址为：<a href="http://www.apache.org/dyn/closer.cgi/hadoop/common" target="_blank" rel="external">http://www.apache.org/dyn/closer.cgi/hadoop/common</a><br>上传到tools文件夹下，解压(注意此处-C是大写的)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxf hadoop-2.7.2.tar.gz -C ../software/</div></pre></td></tr></table></figure>
+<p>###6.6.2、配置HDFS、YARN<br>总共配置了如下5个文件<br><img src="./1479886023478.png" alt="Alt text"></p>
+<p>####6.6.2.1配置HDFS<br>然后采用noteapp++的插件nppftp对linux中的文件进行修改<br>插件下载位置：<a href="https://sourceforge.net/projects/nppftp/?source=typ_redirect" target="_blank" rel="external">https://sourceforge.net/projects/nppftp/?source=typ_redirect</a><br>然后放入noteapp下的plugins文件夹下<br><img src="./1479870868947.png" alt="Alt text"></p>
+<ul>
+<li>重启noteapp++:<br><img src="./1479870893274.png" alt="Alt text"></li>
+<li>配置ftp：<br><img src="./1479871660459.png" alt="Alt text"><br>链接后，这样就能看到链接的linux结构目录</li>
+<li>查看官方文档开始配置：<a href="http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="external">http://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/SingleCluster.html</a><br>首先进入hadoop2.7.2/etc/hadoop目录下发现以下文件夹</li>
+</ul>
+<ul>
+<li><p>配置hadoop-env.sh<br><img src="./1479873700714.png" alt="Alt text"></p>
+</li>
+<li><p>配置core-site.xml</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">	&lt;property&gt;</div><div class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</div><div class="line">        &lt;value&gt;hdfs://192.168.120.128:9000&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>配置hdfs-site.xml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</div><div class="line">        &lt;value&gt;1&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>配置数据位置，默认是linux系统中的tmp文件夹但是会被系统删除<br>所以配置在另一个位置，在hadoop-2.7.2新建data<br>复制data位置信息到到配置的core-site.xml中<br><img src="./1479874318016.png" alt="Alt text"></li>
+</ul>
+<p><img src="./1479874278837.png" alt="Alt text"></p>
+<p>####6.6.2.2、配置YARN</p>
+<ul>
+<li>配置mapred-site.xml<br>,先把模板改名字<br><img src="./1479874539411.png" alt="Alt text"></li>
+</ul>
+<p>指定mapreduce使用yarn（mapred-site.xml）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line"> &lt;property&gt;</div><div class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</div><div class="line">        &lt;value&gt;yarn&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>配置yarn-site.xml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</div><div class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure>
+<p><strong>这样我们的hadoop已经配置成功了</strong></p>
+<p>###6.6.3、格式化(第一次启动时需要)</p>
+<ul>
+<li>第一次启动会需要格式化，回到hadoop主目录执行bin/hdfs<br><img src="./1479874922800.png" alt="Alt text"></li>
+<li>格式化<br><img src="./1479875041409.png" alt="Alt text"></li>
+<li>出现successful表示配置成功<br><img src="./1479875118214.png" alt="Alt text"><br>###6.6.4、启动测试</li>
+<li>启动hadoop（在hadoop2…主目录下sbin/start-dfs.sh）<br><img src="./1479876710914.png" alt="Alt text"></li>
+<li><p>启动yarn（sbin/start-yarn.sh）<br><img src="./1479877251538.png" alt="Alt text"></p>
+</li>
+<li><p>测试一下（自带的jar执行计算文件中的单词个数）<br>创立文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop fs  -mkdir -p /user/root/mr/wc/in</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>-查看该文件夹已然存在<br><img src="./1479883950387.png" alt="Alt text"><br>-上传一个文件，我上传的是linux的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/hadoop fs -put /etc/profile /user/root/mr/wc/in</div></pre></td></tr></table></figure>
+<ul>
+<li>执行wordcount<br><img src="./1479884591585.png" alt="Alt text"></li>
+<li>查看输出文件是否生成<br><img src="./1479884354772.png" alt="Alt text"><br>从图中看出我们的hadoop已然搭建成功，<br>不过最后还有一步，为了让hadoop命令能在整个linux下执行，我们还需配置一下hadoop的环境变量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure>
+<p>添加：</p>
+<blockquote>
+<p>export HADOOP_HOME=/usr/local/bigdata/software/hadoop-2.7.2/bin<br>export PATH=$PATH:$HADOOP_HOME<br>重置配置文件<br>执行hadoop<br><img src="./1479885204924.png" alt="Alt text"><br>这样hadoop就搭建好了</p>
+</blockquote>
+<p>##7、Hbase的环境搭建</p>
+<p>###7.1、下载解压<br>从官网中下载hbase压缩文件，运行解压（注意文件目录，-C是大写）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost tools]# tar -zxf hbase-1.2.4-bin.tar.gz -C ../software/</div></pre></td></tr></table></figure>
+<p>###7.2、配置文件<br>进入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/bigdata/software/hbase-1.2.4/conf</div></pre></td></tr></table></figure>
+<ul>
+<li>配置java环境（hbase-env.sh）<br><img src="./1479886310315.png" alt="Alt text"></li>
+<li>配置hbase在hdfs中的路径，文件(hbase-site.xml)先要在hbase主目录下创建data目录<br><img src="./1479887285515.png" alt="Alt text"></li>
+<li>在regionservers输入linux的ip，该文件主要管理我们的regionsever的主机<br>-<img src="./1479887419826.png" alt="Alt text"><br>###7.3、启动测试</li>
+<li>首先启动zookeeper</li>
+<li>然后启动master</li>
+<li>最后启动regionserver<br><img src="./1479887716843.png" alt="Alt text"><br>jps查看<br><img src="./1479887881615.png" alt="Alt text"><br>从主机浏览器打开linux端口16010（有的是60010）<br><img src="./1479888532310.png" alt="Alt text"><br>这样表示我们的hbase安装搭建成功了！</li>
+</ul>
+<p>##备注Hbase中的hadoop jar包替换(出现jar包不兼容问题采用采用，我使用后启动不了我的hbase shell，)<br>查看hbase的lib目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">ls lib |grep hadoop</div><div class="line"></div><div class="line">hadoop-annotations-2.5.1-beta.jar</div><div class="line">hadoop-auth-2.5.1-beta.jar</div><div class="line">hadoop-client-2.5.1-beta.jar</div><div class="line">hadoop-common-2.5.1-beta.jar</div><div class="line">hadoop-hdfs-2.5.1-beta.jar</div><div class="line">hadoop-hdfs-2.5.1-beta-tests.jar</div><div class="line">hadoop-mapreduce-client-app-2.5.1-beta.jar</div><div class="line">hadoop-mapreduce-client-common-2.5.1-beta.jar</div><div class="line">hadoop-mapreduce-client-core-2.5.1-beta.jar</div><div class="line">hadoop-mapreduce-client-jobclient-2.5.1-beta.jar</div><div class="line">hadoop-mapreduce-client-jobclient-2.5.1-beta-tests.jar</div><div class="line">hadoop-mapreduce-client-shuffle-2.5.1-beta.jar</div><div class="line">hadoop-yarn-api-2.5.1-beta.jar</div><div class="line">hadoop-yarn-client-2.5.1-beta.jar</div><div class="line">hadoop-yarn-common-2.5.1-beta.jar</div><div class="line">hadoop-yarn-server-common-2.5.1-beta.jar</div><div class="line">hadoop-yarn-server-nodemanager-2.5.1-beta.jar</div></pre></td></tr></table></figure>
+<p>看到它是基于hadoop2.5.1的，所以我们需要用我们的hadoop2.7.2下的jar包来替换2.5.1的，保证版本的一致性，hadoop下的jar包都是在$HADOOP_HOME/share/hadoop下的.</p>
+<p>我们先cd 到 /home/hadoop/hbase-1.2.4/lib下运行命令： rm -rf hadoop*.jar删掉所有的hadoop相关的jar包，然后运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find /usr/local/bigdata/software/hadoop-2.7.2/share/hadoop/ -name &quot;hadoop*jar&quot; | xargs -i cp &#123;&#125; /usr/local/bigdata/software/hbase-1.2.4/lib/</div></pre></td></tr></table></figure></p>
+<p> 拷贝所有hadoop2.7.2下的jar包到hbase/lib下进行hadoop版本的统一<br><strong>完结撒花！！！</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;@(大数据)[bigdata, HBase, Hadoop, Linux]&lt;/p&gt;
+&lt;p&gt;#HBase伪分布式搭建&lt;br&gt;运行环境：centos7 64位&lt;br&gt;vm虚拟机&lt;br&gt;参考地址：&lt;a href=&quot;http://www.jikexueyuan.com/course
+    
+    </summary>
+    
+    
+      <category term="bigdata,HBase, Hadoop, Centos7" scheme="http://yoursite.com/tags/bigdata-HBase-Hadoop-Centos7/"/>
+    
+  </entry>
   
   <entry>
     <title>Hbase的伪分布模式搭建</title>
