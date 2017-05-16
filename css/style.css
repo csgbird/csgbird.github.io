@@ -41,7 +41,7 @@ html {
   color: rgba(0,0,0,0.8);
 }
 .container {
-  width: 700px;
+  width: 800px;
 }
 @media (max-width: 767px) {
   .container {
@@ -173,6 +173,9 @@ nav .brand-logo {
 }
 .fa {
   margin-right: 5px;
+}
+footer.page-footer {
+  padding-top: inherit;
 }
 html,
 body {
@@ -520,6 +523,9 @@ a.social-link {
 a.social-link:hover {
   color: #e0e0e0;
 }
+.footer-container {
+  padding-top: 20px;
+}
 .slider-image {
   border: none;
   border-radius: 0;
@@ -610,7 +616,7 @@ a.social-link:hover {
   position: fixed;
   top: 0px;
   margin-top: 15%;
-  left: calc(50% + 350px);
+  left: calc(50% + 370px);
 }
 .toc ol {
   list-style-type: none;
