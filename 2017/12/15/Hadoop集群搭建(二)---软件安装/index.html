@@ -1,0 +1,708 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Hadoop集群搭建(二)--软件安装 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Hadoop集群搭建(二)--软件安装"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/大数据/">大数据</a><a class="breadcrumb" href="/categories/技术/大数据/hadoop/">hadoop</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Hadoop集群搭建(二)--软件安装</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-12-14T16:09:02.148Z"><a href="/2017/12/15/Hadoop集群搭建(二)---软件安装/">2017-12-15</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/大数据/" class="chip green lighten-1">大数据</a>
+        
+            <a href="/tags/Hadoop/" class="chip green lighten-1">Hadoop</a>
+        
+            <a href="/tags/yum/" class="chip green lighten-1">yum</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-创建本地yum仓库。"><span class="section table-of-contents-text">1. 创建本地yum仓库。</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-搭建简单的apache的web服务器"><span class="section table-of-contents-text">2. 搭建简单的apache的web服务器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-在master上安装yum仓库。"><span class="section table-of-contents-text">3. 在master上安装yum仓库。</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4-在savler上配置yum"><span class="section table-of-contents-text">4. 在savler上配置yum</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#5-其他设置"><span class="section table-of-contents-text">5. 其他设置</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#ntp同步时间"><span class="section table-of-contents-text">ntp同步时间</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#配置network的hostname"><span class="section table-of-contents-text">配置network的hostname</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#master中安装mysql"><span class="section table-of-contents-text">master中安装mysql</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>主要介绍vm安装centos7系统最小设置，采用3个虚拟机搭建大数据集群。安装chd5.7.4版本。<br>参考网址：<a href="https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_command_line.html" target="_blank" rel="external">https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_command_line.html</a><br><a id="more"></a></p>
+<p>前面已经讲解了三台机器<code>hadoop-master</code>、<code>hadoop-slaver1</code>、<code>hadoop-slaver2</code>的基本环境配置，下面在master机器上搭建yum服务器，然后只需要master下载安装包，slaver1，slaver2就能够直接从master下载安装无需在通过网络。</p>
+<h2 id="1-创建本地yum仓库。"><a href="#1-创建本地yum仓库。" class="headerlink" title="1. 创建本地yum仓库。"></a>1. 创建本地yum仓库。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/ #进入yum的配置文件</div><div class="line">vi CentOS-Cloudera.repo #创建新仓库文件</div></pre></td></tr></table></figure>
+<p>创建yum的cloudera仓库文件：添加如下内容。指定到5.7.4的版本，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[cloudera-cdh5.7.4]</div><div class="line"># Packages for Cloudera&apos;s Distribution for Hadoop, Version 5, on RedHat or CentOS 7 x86_64</div><div class="line">name=Cloudera&apos;s Distribution for Hadoop, Version 5</div><div class="line">baseurl=https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/5.7.4/</div><div class="line">gpgkey =https://archive.cloudera.com/cdh5/redhat/7/x86_64/cdh/RPM-GPG-KEY-cloudera</div><div class="line">gpgcheck = 0</div></pre></td></tr></table></figure></p>
+<p>安装yum-utils,和creterepo工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install yum-utils createrepo</div></pre></td></tr></table></figure></p>
+<p>同步仓库,从先前<code>/etc/yum.repos.d/CentOS-Cloudera.repo</code>文件中的<code>[cloudera-cdh5.7.4]</code>路径下同步需要的软件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /usr/local</div><div class="line">mkdir bigdata</div><div class="line">cd bigdata</div><div class="line">reposync -r cloudera-cdh5.7.4         #同步软件,cloudera-cdh5.7.4表示yum中的一个配置仓库名</div></pre></td></tr></table></figure></p>
+<h2 id="2-搭建简单的apache的web服务器"><a href="#2-搭建简单的apache的web服务器" class="headerlink" title="2. 搭建简单的apache的web服务器"></a>2. 搭建简单的apache的web服务器</h2><p>搭建web服务器作为savler1，savler2 的yum安装软件源网址，只需要master从网络中下载cdh软件，其他savler机器以后从master中获取该软件下载即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span>  /usr/<span class="built_in">local</span>/bigdata</div><div class="line">mkdir -p /usr/<span class="built_in">local</span>/bigdata/cdh/5</div><div class="line">mv  cloudera-cdh5.7.4/RPMS  cdh/5  <span class="comment">#移动之前下载的rpm包到cdh/5中</span></div></pre></td></tr></table></figure>
+<p>搭建web服务器参考：<a href="http://blog.csdn.net/wenwenxiong/article/details/50499134" target="_blank" rel="external">Centos7安装apache web服务器</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">yum install httpd apr apr-util  <span class="comment">#重新安装httpd和apr、apr-util，</span></div><div class="line">yum install httpd-manual mod_ssl mod_perl mod_auth_mysql  <span class="comment">#Apache扩展模块</span></div><div class="line">systemctl start httpd.service  <span class="comment">#启动web服务器</span></div><div class="line">systemctl <span class="built_in">enable</span> httpd.service   <span class="comment">#设置成开机自动启动</span></div><div class="line">ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/bigdata/cdh/ /var/www/html/ </div><div class="line"> <span class="comment">#建立软连接到hadoop各软件，apache的web项目默认路径为/var/www/html/</span></div></pre></td></tr></table></figure>
+<p>建立软连接后，就能在<code>/var/www/html</code>下面看到cdh的目录了。<br><img src="/images/cluster/1509604618950.png" alt="Alt text"><br>然后从windows主机中，输入masterip地址，就能访问cdh中的文件目录<br><img src="/images/cluster/1509604693949.png" alt="Alt text"><br>这下本地已经拥有所有安装hadoop的软件了，可以断开网络安装hadoop了。<br>搭建web服务器才能让局域网的其他机器通过http方式访问到master中的安装包。</p>
+<h2 id="3-在master上安装yum仓库。"><a href="#3-在master上安装yum仓库。" class="headerlink" title="3. 在master上安装yum仓库。"></a>3. 在master上安装yum仓库。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/bigdata/cdh/5</div><div class="line">createrepo .    #在该目录下创建yum的元数据文件，</div></pre></td></tr></table></figure>
+<p>生成文件repodata的文件，如下：<br><img src="/images/cluster/1509606198662.png" alt="Alt text"></p>
+<p>回到最开始配置yum 的cloudera的url路径</p>
+<p>修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/yum.repos.d/CentOS-Cloudera.repo</div></pre></td></tr></table></figure>
+<p>修改后如下:<br><img src="/images/cluster/1509611499617.png" alt="Alt text"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum update #更新</div><div class="line">yum clean all  #清理缓存</div><div class="line">yum makecache #建立新缓存</div><div class="line">yum install hadoop #安装hadoop</div></pre></td></tr></table></figure>
+<p><img src="/images/cluster/1509611188723.png" alt="Alt text"><br>安装时要求nc 和psmisc<br>所以先安装这两个再安装hadoop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install nc psmisc</div></pre></td></tr></table></figure>
+<p> 很快就能安装成功。<br><img src="/images/cluster/1509611332250.png" alt="Alt text"></p>
+<p>一旦您确认了内部镜像的工作，您就可以将这个修改后的repo文件分发给任何可以连接到存储库服务器的系统。这些系统现在可以在没有网络访问的情况下从本地存储库中安装CDH。遵循安装最新的CDH 5版本的说明，从步骤2开始(您已经完成了第1步)。</p>
+<h2 id="4-在savler上配置yum"><a href="#4-在savler上配置yum" class="headerlink" title="4. 在savler上配置yum"></a>4. 在savler上配置yum</h2><p>把 <code>/etc/yum.repos.d/CentOS-Cloudera.repo</code>传输给两台savler，采用scp，首先需要在三台机器上都执行  <code>yum install openssh-clients -y</code><br>在master上执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">scp /etc/yum.repos.d/CentOS-Cloudera.repo  root@192.168.2.5:/etc/yum.repos.d/                                             </div><div class="line"> </div><div class="line">scp /etc/yum.repos.d/CentOS-Cloudera.repo  root@192.168.2.6:/etc/yum.repos.d/</div></pre></td></tr></table></figure>
+<h2 id="5-其他设置"><a href="#5-其他设置" class="headerlink" title="5. 其他设置"></a>5. 其他设置</h2><h3 id="ntp同步时间"><a href="#ntp同步时间" class="headerlink" title="ntp同步时间"></a>ntp同步时间</h3><p>实现三台机器时间保持一致，采用ntp进行同步。主要有以下几步：<br>参考：<a href="https://www.cloudera.com/documentation/enterprise/5-4-x/topics/install_cdh_enable_ntp.html" target="_blank" rel="external">ntp时间同步</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum install ntp  #安装ntp</div><div class="line">systemctl start ntpd  #启动ntp</div><div class="line">systemctl enable ntpd #开机自启动ntp</div><div class="line">ntpdate -u cn.ntp.org.cn #同步到中国时间服务器，可能出error，多试几次。</div><div class="line">hwclock --systohc  #同步到系统时间</div></pre></td></tr></table></figure>
+<h3 id="配置network的hostname"><a href="#配置network的hostname" class="headerlink" title="配置network的hostname"></a>配置network的hostname</h3><p>在所有机器中添加/etc/hosts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</div><div class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</div><div class="line">192.168.2.4 hadoop-master</div><div class="line">192.168.2.5 hadoop-slaver1</div><div class="line">192.168.2.6 hadoop-slaver6</div></pre></td></tr></table></figure>
+<h3 id="master中安装mysql"><a href="#master中安装mysql" class="headerlink" title="master中安装mysql"></a>master中安装mysql</h3><p>参考：<a href="https://www.cnblogs.com/starof/p/4680083.html" target="_blank" rel="external">https://www.cnblogs.com/starof/p/4680083.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[~] wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div><div class="line">[~] rpm -ivh mysql-community-release-el7-5.noarch.rpm</div><div class="line">[~] yum install mysql-community-server</div></pre></td></tr></table></figure>
+<p>启动和开机自启动配置</p>
+<p>安装成功后启动mysql服务，设置开机自启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">systemctl restart mysqld.service</div><div class="line">systemctl enable mysqld.service</div></pre></td></tr></table></figure>
+<p>进入mysql配置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  mysql -u root</div><div class="line">mysql&gt; set password for &apos;root&apos;@&apos;localhost&apos; =password(&apos;password&apos;);</div></pre></td></tr></table></figure>
+<p>mysql配置文件为<code>/etc/my.cnf</code><br>最后加上编码配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[mysql]</div><div class="line">default-character-set =utf8</div></pre></td></tr></table></figure>
+<p>这里的字符编码必须和<code>/usr/share/mysql/charsets/Index.xml</code>中一致。</p>
+
+                
+<p class="green-link-context">
+    <a href="/2017/12/15/Hadoop集群搭建(三)--集群配置/" rel="next" title="Hadoop集群搭建(三)---集群配置">
+    下一篇：Hadoop集群搭建(三)---集群配置
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/12/14/Hadoop集群搭建(一)--环境配置/" rel="next" title="Hadoop集群搭建(一)--环境配置">
+    上一篇：Hadoop集群搭建(一)--环境配置
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

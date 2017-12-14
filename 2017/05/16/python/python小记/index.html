@@ -1,0 +1,955 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Python小记 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Python小记"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/Python/">Python</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Python小记</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-05-16T08:23:10.245Z"><a href="/2017/05/16/python/python小记/">2017-05-16</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Python/" class="chip green lighten-1">Python</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#python小记"><span class="section table-of-contents-text">python小记</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1、简洁if语句"><span class="section table-of-contents-text">1、简洁if语句</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2、print-使用"><span class="section table-of-contents-text">2、print()使用</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3、dict的小记"><span class="section table-of-contents-text">3、dict的小记</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4、set小记"><span class="section table-of-contents-text">4、set小记</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#5、函数可以返回多个值"><span class="section table-of-contents-text">5、函数可以返回多个值</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#6、函数的默认值传入"><span class="section table-of-contents-text">6、函数的默认值传入</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#7、迭代问题"><span class="section table-of-contents-text">7、迭代问题</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-1，字典迭代"><span class="section table-of-contents-text">7.1，字典迭代</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-2迭代下标"><span class="section table-of-contents-text">7.2迭代下标</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#8、列表生成式，list"><span class="section table-of-contents-text">8、列表生成式，list</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#8、判断python中变量是不是字符串，采用isinstance"><span class="section table-of-contents-text">8、判断python中变量是不是字符串，采用isinstance</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#9、生成器"><span class="section table-of-contents-text">9、生成器</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-1采用列表生成式创建生成器"><span class="section table-of-contents-text">9.1采用列表生成式创建生成器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-2打印生成器之——-next-不常用"><span class="section table-of-contents-text">9.2打印生成器之——-next()不常用</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-3打印生成器之——for迭代"><span class="section table-of-contents-text">9.3打印生成器之——for迭代</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-4yield生成器"><span class="section table-of-contents-text">9.4yield生成器</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#10、迭代器"><span class="section table-of-contents-text">10、迭代器</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#10-1什么是迭代器"><span class="section table-of-contents-text">10.1什么是迭代器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#10-2判断是否为可迭代对象（Iterator）—–isinstance"><span class="section table-of-contents-text">10.2判断是否为可迭代对象（Iterator）—–isinstance()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#10-3，为什么list不是迭代器"><span class="section table-of-contents-text">10.3，为什么list不是迭代器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#10-4、迭代器小结"><span class="section table-of-contents-text">10.4、迭代器小结</span></a></li></ol></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#chain-‘ABC’-‘DEF’-–-gt-A-B-C-D-E-F"><span class="section table-of-contents-text">chain(‘ABC’, ‘DEF’) –> A B C D E F</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#11、高阶函数"><span class="section table-of-contents-text">11、高阶函数</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#11-1、函数也是变量"><span class="section table-of-contents-text">11.1、函数也是变量</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#11-2、函数调用函数—-高阶函数"><span class="section table-of-contents-text">11.2、函数调用函数—-高阶函数</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#11-3、可变参数"><span class="section table-of-contents-text">11.3、可变参数</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#12、python中的map-reduce"><span class="section table-of-contents-text">12、python中的map/reduce</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#12-1、map。"><span class="section table-of-contents-text">12.1、map。</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#12-2、reduce"><span class="section table-of-contents-text">12.2、reduce</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#13、lambda的使用"><span class="section table-of-contents-text">13、lambda的使用,</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#14、高阶函数之—–filter的使用"><span class="section table-of-contents-text">14、高阶函数之—–filter的使用</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#15、排序算法—–sorted"><span class="section table-of-contents-text">15、排序算法—–sorted</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#16、返回函数和匿名函数"><span class="section table-of-contents-text">16、返回函数和匿名函数</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#16-1、返回函数"><span class="section table-of-contents-text">16.1、返回函数</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#17、装饰者"><span class="section table-of-contents-text">17、装饰者</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#18、偏函数—–functools-partial"><span class="section table-of-contents-text">18、偏函数—–functools.partial</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#19、备注："><span class="section table-of-contents-text">19、备注：</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#19-1、重要的内置函数"><span class="section table-of-contents-text">19.1、重要的内置函数</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#19-2、列表的方法"><span class="section table-of-contents-text">19.2、列表的方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#19-3、字典的方法"><span class="section table-of-contents-text">19.3、字典的方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#19-4、字符串的方法"><span class="section table-of-contents-text">19.4、字符串的方法</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>俗话说：好记性不如烂笔头，所以对于很多细节知识点我个人喜欢记录下来，本篇博文主要是学习<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="external">廖雪峰的python教程</a>从中总结需要掌握的部分知识点，记录下来方便以后查询<br><a id="more"></a></p>
+<h1 id="python小记"><a href="#python小记" class="headerlink" title="python小记"></a>python小记</h1><h3 id="1、简洁if语句"><a href="#1、简洁if语句" class="headerlink" title="1、简洁if语句"></a>1、简洁if语句</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> x:</div><div class="line">    print(<span class="string">'True'</span>)</div></pre></td></tr></table></figure>
+<p>只要x是<strong>非零数值、非空字符串、非空list</strong>等，就判断为True，否则为False。</p>
+<h3 id="2、print-使用"><a href="#2、print-使用" class="headerlink" title="2、print()使用"></a>2、print()使用</h3><p><strong>end，sep</strong>参数的使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#输出HelloWorld,end=&apos;&apos;空字符，中间不换行</div><div class="line">print(&apos;hello&apos;,end=&apos;&apos;)</div><div class="line">print(&apos;world&apos;)</div><div class="line">#输出hello,world,csg-------&gt;中间由sep来分割的，不写默认分割符为空格。</div><div class="line">#print(&apos;hello&apos;,&apos;world&apos;,&apos;csg&apos;,sep=&apos;,&apos;)</div></pre></td></tr></table></figure></p>
+<h3 id="3、dict的小记"><a href="#3、dict的小记" class="headerlink" title="3、dict的小记"></a>3、dict的小记</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dic = &#123;&apos;1&apos;: &apos;csg&apos;, &apos;2&apos;: &apos;csl&apos;&#125;</div><div class="line">print(dic[&apos;1&apos;])  # ----&gt;csg</div><div class="line">print(dic[&apos;3&apos;])  # ----&gt;报错</div><div class="line">print(dic.get(&apos;1&apos;))  # ----&gt;csg</div><div class="line">print(dic.get(&apos;3&apos;))#-----&gt;None，不报错</div><div class="line">print(dic.get(&apos;3&apos;, &apos;chen&apos;))#-----&gt;chen,若不存在就用chen代替，不报错</div></pre></td></tr></table></figure>
+<p>采用get方法取值，就算没有也不会报错<br>字典常用方法：</p>
+<ul>
+<li>pop(key)删除某个键值</li>
+<li><p>has_keys(x) 若字典中有x返回true</p>
+</li>
+<li><p>keys() 返回键的列表</p>
+</li>
+<li><p>values() 返回值的列表</p>
+</li>
+<li><p>dict.items() 返回tuples的列表。每个tuple有字典的dict的键和相应的值组成</p>
+</li>
+<li><p>clear() 删除词典的所有条目</p>
+</li>
+<li><p>copy() 返回字典的高层结构的拷贝，但不复制嵌入结构，而复制那些结构的引用。</p>
+</li>
+<li><p>update(x) 用字典x中的键/值对更新字典的内容。</p>
+</li>
+<li><p>get(x[,y]) 返回键x。若未找到返回None</p>
+</li>
+<li>radiansdict.setdefault(key, default=None)：和get()类似, 但如果键不已经存在于字典中，将会添加键并将值设为default，<br><strong>注意：</strong>dic.setdefault(‘4’, ‘wudi’)这样才对<br>dic.setdefault(‘4’, default = ‘wudi’)，报错：TypeError: setdefault() takes no keyword arguments<h3 id="4、set小记"><a href="#4、set小记" class="headerlink" title="4、set小记"></a>4、set小记</h3></li>
+</ul>
+<p>set数据类型类似于dict中的key的集合，不能重复，<br>    存放不可变对象，比如数字，字符串等，不能存放像list这样的可变对象，和dict中的key一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">setTest = set([1,2,3,4,4])</div><div class="line">	print(setTest)# ---&gt;1，2,3,4</div></pre></td></tr></table></figure></p>
+<h3 id="5、函数可以返回多个值"><a href="#5、函数可以返回多个值" class="headerlink" title="5、函数可以返回多个值"></a>5、函数可以返回多个值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import math</div><div class="line">def move(x, y, step, angle=0):</div><div class="line">    nx = x + step * math.cos(angle)</div><div class="line">    ny = y - step * math.sin(angle)</div><div class="line">    return nx, ny</div></pre></td></tr></table></figure>
+<p><code>import math</code>语句表示导入math包，并允许后续代码引用math包里的sin、cos等函数。</p>
+<p>然后，我们就可以同时获得返回值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; x, y = move(100, 100, 60, math.pi / 6)</div><div class="line">&gt;&gt;&gt; print(x, y)</div><div class="line">151.96152422706632 70.0</div></pre></td></tr></table></figure>
+<p>但其实这只是一种假象，Python函数返回的仍然是单一值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; r = move(100, 100, 60, math.pi / 6)</div><div class="line">&gt;&gt;&gt; print(r)</div><div class="line">(151.96152422706632, 70.0)</div></pre></td></tr></table></figure>
+<p>原来返回值是一个tuple！但是，在语法上，返回一个tuple可以省略括号，而多个变量可以同时接收一个tuple，按位置赋给对应的值，所以，Python的函数返回多值其实就是返回一个tuple，但写起来更方便。</p>
+<h3 id="6、函数的默认值传入"><a href="#6、函数的默认值传入" class="headerlink" title="6、函数的默认值传入"></a>6、函数的默认值传入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def function(x, y=2):# 这里的y如果只传入x一个参数，function(x)第二个参数默认为2	</div><div class="line">pass</div></pre></td></tr></table></figure>
+<h3 id="7、迭代问题"><a href="#7、迭代问题" class="headerlink" title="7、迭代问题"></a>7、迭代问题</h3><h4 id="7-1，字典迭代"><a href="#7-1，字典迭代" class="headerlink" title="7.1，字典迭代"></a>7.1，字典迭代</h4><p>只要是可迭代对象，无论有无下标，都可以迭代，比如dict就可以迭代：<br>默认采用key来迭代<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; d = &#123;&apos;a&apos;: 1, &apos;b&apos;: 2, &apos;c&apos;: 3&#125;</div><div class="line">&gt;&gt;&gt; for key in d:</div><div class="line">...     print(key)</div><div class="line">...</div><div class="line">a</div><div class="line">c</div><div class="line">b</div></pre></td></tr></table></figure></p>
+<p>如果要迭代value，。如果要迭代value，可以用<code>for value in d.values()</code><br>同时迭代key，value采用<code>for k, v in d.items()</code>。</p>
+<h4 id="7-2迭代下标"><a href="#7-2迭代下标" class="headerlink" title="7.2迭代下标"></a>7.2迭代下标</h4><p>如果要对list实现类似Java那样的下标循环怎么办？Python内置的<strong>enumerate</strong>函数可以把一个list变成索引-元素对，这样就可以在for循环中同时迭代索引和元素本身：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; for i, value in enumerate([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]):</div><div class="line">...     print(i, value)</div><div class="line">...</div><div class="line">0 A</div><div class="line">1 B</div><div class="line">2 C</div></pre></td></tr></table></figure>
+<h3 id="8、列表生成式，list"><a href="#8、列表生成式，list" class="headerlink" title="8、列表生成式，list"></a>8、列表生成式，list</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; [x * x for x in range(1, 11)]</div><div class="line">[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</div></pre></td></tr></table></figure>
+<p>写列表生成式时，把要生成的元素<strong>x * x</strong>放到前面，后面跟<strong>for</strong>循环，就可以把list创建出来，十分有用，多写几次，很快就可以熟悉这种语法。</p>
+<p>for循环后面还可以加上<font color="red"><strong>if</strong></font>判断，这样我们就可以筛选出仅偶数的平方：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; [x * x for x in range(1, 11) if x % 2 == 0]</div><div class="line">[4, 16, 36, 64, 100]</div></pre></td></tr></table></figure>
+<p>还可以使用两层循环，可以生成全排列：（三层和三层以上的就很少用了）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; [m + n for m in &apos;ABC&apos; for n in &apos;XYZ&apos;]</div><div class="line">[&apos;AX&apos;, &apos;AY&apos;, &apos;AZ&apos;, &apos;BX&apos;, &apos;BY&apos;, &apos;BZ&apos;, &apos;CX&apos;, &apos;CY&apos;, &apos;CZ&apos;]</div></pre></td></tr></table></figure></p>
+<p>把list中的所有字符串变成小写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; L = [&apos;Hello&apos;, &apos;World&apos;, &apos;IBM&apos;, &apos;Apple&apos;]</div><div class="line">&gt;&gt;&gt; [s.lower() for s in L]</div><div class="line">[&apos;hello&apos;, &apos;world&apos;, &apos;ibm&apos;, &apos;apple&apos;]</div></pre></td></tr></table></figure>
+<p><strong>注意：</strong>这里并没有改变原来的L列表，而是从新生成了一个新的小写字母列表</p>
+<h3 id="8、判断python中变量是不是字符串，采用isinstance"><a href="#8、判断python中变量是不是字符串，采用isinstance" class="headerlink" title="8、判断python中变量是不是字符串，采用isinstance"></a>8、判断python中变量是不是字符串，采用isinstance</h3><p>eg:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt;x=&apos;abc&apos;</div><div class="line">&gt;&gt;&gt;isinstance(s,str)</div><div class="line">True</div></pre></td></tr></table></figure></p>
+<p>比如下面的代码就可以判断是否是list或者tuple：其中的任意一种即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; isinstance([1, 2, 3], (list, tuple))</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance((1, 2, 3), (list, tuple))</div><div class="line">True</div></pre></td></tr></table></figure>
+<h3 id="9、生成器"><a href="#9、生成器" class="headerlink" title="9、生成器"></a>9、生成器</h3><p>通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。<br>所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元素呢？这样就不必创建完整的list，从而节省大量的空间。在Python中，这种一边循环一边计算的机制，称为生成器：<strong>generator</strong>。</p>
+<h4 id="9-1采用列表生成式创建生成器"><a href="#9-1采用列表生成式创建生成器" class="headerlink" title="9.1采用列表生成式创建生成器"></a>9.1采用列表生成式创建生成器</h4><p>只需要把“[]“——-变成——》“（）“即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; L = [x * x for x in range(10)]</div><div class="line">&gt;&gt;&gt; L</div><div class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</div><div class="line">&gt;&gt;&gt; g = (x * x for x in range(10))</div><div class="line">&gt;&gt;&gt; g</div><div class="line">&lt;generator object &lt;genexpr&gt; at 0x1022ef630&gt;</div></pre></td></tr></table></figure>
+<h4 id="9-2打印生成器之——-next-不常用"><a href="#9-2打印生成器之——-next-不常用" class="headerlink" title="9.2打印生成器之——-next()不常用"></a>9.2打印生成器之——-next()不常用</h4><p>采用<code>next()</code>一个一个打印，没执行一次获得generator的下一个返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; next(g)</div><div class="line">0</div><div class="line">&gt;&gt;&gt; next(g)</div><div class="line">1</div><div class="line">&gt;&gt;&gt; next(g)</div><div class="line">4</div><div class="line">&gt;&gt;&gt; next(g)</div></pre></td></tr></table></figure>
+<p>generator,保存的是算法，知道计算到最后一个元素，没有更多的元素时就会出现<code>StopIteration</code>的错误</p>
+<h4 id="9-3打印生成器之——for迭代"><a href="#9-3打印生成器之——for迭代" class="headerlink" title="9.3打印生成器之——for迭代"></a>9.3打印生成器之——for迭代</h4><p>generator 可以采用迭代打印，这样就不需要关系<code>StopIteration</code>的错误了，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for s in g:</div><div class="line">    print(s,type(s))</div></pre></td></tr></table></figure></p>
+<h4 id="9-4yield生成器"><a href="#9-4yield生成器" class="headerlink" title="9.4yield生成器"></a>9.4yield生成器</h4><p>如果一个函数中包含<code>yield</code>，那他就是生成器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 斐波那契额数列</div><div class="line">def fib(max):</div><div class="line">    pass</div><div class="line">    n,a,b=0,0,1</div><div class="line">    while n&lt;max:</div><div class="line">        yield b</div><div class="line">        a,b=b,a+b</div><div class="line">        n=n+1</div><div class="line">    return &apos;done&apos;</div></pre></td></tr></table></figure>
+<p>是用for循环调用generator时，发现拿不到generator的return语句的返回值。如果想要拿到返回值，必须捕获<code>StopIteration</code>错误，返回值包含在StopIteration的value中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; g = fib(6)</div><div class="line">&gt;&gt;&gt; while True:</div><div class="line">...     try:</div><div class="line">...         x = next(g)</div><div class="line">...         print(&apos;g:&apos;, x)</div><div class="line">...     except StopIteration as e:</div><div class="line">...         print(&apos;Generator return value:&apos;, e.value)</div><div class="line">...         break</div></pre></td></tr></table></figure>
+<h3 id="10、迭代器"><a href="#10、迭代器" class="headerlink" title="10、迭代器"></a>10、迭代器</h3><h4 id="10-1什么是迭代器"><a href="#10-1什么是迭代器" class="headerlink" title="10.1什么是迭代器"></a>10.1什么是迭代器</h4><p>可以直接作用于for循环的数据类型有以下几种：</p>
+<ul>
+<li><p>一类是集合数据类型，如list、tuple、dict、set、str等；</p>
+</li>
+<li><p>一类是generator，包括生成器和带yield的generator function。</p>
+</li>
+</ul>
+<p>这些可以直接作用于for循环的对象统称为可迭代对象：<strong><code>Iterable</code></strong>。<br>注意: 这仅仅是<strong>可迭代对象Iterable</strong>,不是迭代器<strong>Iterator</strong></p>
+<p>迭代器(Iterator)：可以被<code>next()</code>函数调用并不断返回下一个值的对象称为迭代器：<code>Iterator</code>。<br>所以：list列表———&gt;可迭代对象Iterable，不是迭代器Iterator<br>            生成器———&gt;可迭代对象Iterable，也是迭代器Iterator</p>
+<h4 id="10-2判断是否为可迭代对象（Iterator）—–isinstance"><a href="#10-2判断是否为可迭代对象（Iterator）—–isinstance" class="headerlink" title="10.2判断是否为可迭代对象（Iterator）—–isinstance()"></a>10.2判断是否为可迭代对象（Iterator）—–isinstance()</h4><p>可以使用<code>isinstance()</code>判断一个对象是否是<code>Iterable</code>对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from collections import Iterable</div><div class="line">&gt;&gt;&gt; isinstance([], Iterable)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance(&#123;&#125;, Iterable)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance(&apos;abc&apos;, Iterable)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance((x for x in range(10)), Iterable)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance(100, Iterable)</div><div class="line">False</div></pre></td></tr></table></figure>
+<h4 id="10-3，为什么list不是迭代器"><a href="#10-3，为什么list不是迭代器" class="headerlink" title="10.3，为什么list不是迭代器"></a>10.3，为什么list不是迭代器</h4><p>把list、dict、str等Iterable变成Iterator可以使用iter()函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; isinstance(iter([]), Iterator)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; isinstance(iter(&apos;abc&apos;), Iterator)</div><div class="line">True</div></pre></td></tr></table></figure>
+<p>这是因为Python的Iterator对象表示的是一个<strong>数据流</strong>，Iterator对象可以被next()函数调用并不断返回下一个数据，直到没有数据时抛出StopIteration错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过next()函数实现按需计算下一个数据，所以Iterator的计算是惰性的，只有在需要返回下一个数据时它才会计算。</p>
+<h4 id="10-4、迭代器小结"><a href="#10-4、迭代器小结" class="headerlink" title="10.4、迭代器小结"></a>10.4、迭代器小结</h4><ul>
+<li><p>凡是可作用于<code>for</code>循环的对象都是<code>Iterable</code>类型；</p>
+</li>
+<li><p>凡是可作用于<code>next()</code>函数的对象都是<code>Iterator</code>类型，它们表示一个惰性计算的序列；</p>
+</li>
+<li><p>集合数据类型如<code>list、dict、str</code>等是<code>Iterable</code>但不是<code>Iterator，</code>不过可以通过<code>iter()</code>函数获得一个<code>Iterator</code>对象。</p>
+</li>
+<li><p>Python的for循环本质上就是通过不断调用next()函数实现的</p>
+</li>
+<li>itertools.chain(<em>iterables)合并多个iterables<br>def chain(</em>iterables):<h1 id="chain-‘ABC’-‘DEF’-–-gt-A-B-C-D-E-F"><a href="#chain-‘ABC’-‘DEF’-–-gt-A-B-C-D-E-F" class="headerlink" title="chain(‘ABC’, ‘DEF’) –&gt; A B C D E F"></a>chain(‘ABC’, ‘DEF’) –&gt; A B C D E F</h1>  for it in iterables:<pre><code>for element in it:
+    yield element
+</code></pre></li>
+</ul>
+<h3 id="11、高阶函数"><a href="#11、高阶函数" class="headerlink" title="11、高阶函数"></a>11、高阶函数</h3><h4 id="11-1、函数也是变量"><a href="#11-1、函数也是变量" class="headerlink" title="11.1、函数也是变量"></a>11.1、函数也是变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; x = abs(-10)</div><div class="line">&gt;&gt;&gt; x</div><div class="line">&gt;&gt;&gt; f = abs</div><div class="line">&gt;&gt;&gt; f</div><div class="line">&lt;built-in function abs&gt;</div></pre></td></tr></table></figure>
+<p>结论：函数本身也可以赋值给变量，即：变量可以指向函数。<br>如果一个变量指向了一个函数，那么，可否通过该变量来调用这个函数？用代码验证一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; f = abs</div><div class="line">&gt;&gt;&gt; f(-10)</div></pre></td></tr></table></figure></p>
+<p>成功！说明变量f现在已经指向了abs函数本身。直接调用abs()函数和调用变量f()完全相同。</p>
+<h4 id="11-2、函数调用函数—-高阶函数"><a href="#11-2、函数调用函数—-高阶函数" class="headerlink" title="11.2、函数调用函数—-高阶函数"></a>11.2、函数调用函数—-高阶函数</h4><p>传入函数</p>
+<p>既然变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数，这种函数就称之为高阶函数。<br>一个最简单的高阶函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def add(x, y, f):</div><div class="line">    return f(x) + f(y)</div></pre></td></tr></table></figure>
+<p>编写高阶函数，就是让函数的参数能够接收别的函数。<br>把<strong>函数作为参数传入</strong>，这样的函数称为高阶函数，函数式编程就是指这种高度抽象的编程范式。（还能动态返回一个函数）</p>
+<h4 id="11-3、可变参数"><a href="#11-3、可变参数" class="headerlink" title="11.3、可变参数"></a>11.3、可变参数</h4><p>在函数参数中传入<strong>*</strong>表示可变参数，采用for循环提出数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def add(*a):</div><div class="line">	num=0</div><div class="line">	for s in a:</div><div class="line">		num =num+ s</div><div class="line">	return num</div></pre></td></tr></table></figure></p>
+<p>甚至可以出入可变函数列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">def getmul(a):</div><div class="line">	return a ** 2</div><div class="line">#传入函数列表的函数</div><div class="line">def get2(a, *f):</div><div class="line">	num = 0</div><div class="line">	for i in f:</div><div class="line">		num = num + i(a)</div><div class="line">	return num</div><div class="line">f = getmul</div><div class="line">print(get2(3, f))  # 9</div><div class="line">print(get2(3, f, f))  # 18</div><div class="line">print(get2(3, f, f, f))  # 27</div></pre></td></tr></table></figure>
+<h3 id="12、python中的map-reduce"><a href="#12、python中的map-reduce" class="headerlink" title="12、python中的map/reduce"></a>12、python中的map/reduce</h3><p>google的三大论文<strong>：GFS、map/reduce、BigTable</strong>。必读！！！</p>
+<h4 id="12-1、map。"><a href="#12-1、map。" class="headerlink" title="12.1、map。"></a>12.1、map。</h4><p>map()函数：接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。<code>Iterator</code>是属于惰性求值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def f(a):</div><div class="line">	return a ** 2</div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">	mapT = map(f, (i for i in range(1,10))) # map会对list所有的元素都进行如下处理</div><div class="line">	# map属于迭代器</div><div class="line">	print(isinstance(mapT, Iterator))#----True</div><div class="line">	for i in mapT:</div><div class="line">		print(i, end=&quot;,  &quot;)#-1,  4,  9,  16,  25,  36,  49,  64,  81,</div></pre></td></tr></table></figure>
+<p>map能作用很多方面，比如把所有元素变成字符串，只需一行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))</div><div class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;]</div></pre></td></tr></table></figure>
+<h4 id="12-2、reduce"><a href="#12-2、reduce" class="headerlink" title="12.2、reduce"></a>12.2、reduce</h4><p>导入模块：<code>from functools import reduce</code><br>reduce把一个函数作用在一个序列[x1, x2, x3, …]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)</div></pre></td></tr></table></figure>
+<p>比如一个序列求和，就能采用此方式。下例算1-9的和<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt;rt = reduce(f, (i for i in range(1,10)))</div><div class="line">45</div></pre></td></tr></table></figure></p>
+<p>当然求和运算可以直接用Python内建函数<code>sum()</code>，没必要动用reduce。</p>
+<h3 id="13、lambda的使用"><a href="#13、lambda的使用" class="headerlink" title="13、lambda的使用,"></a>13、lambda的使用,</h3><p>lambda是用来创建匿名函数：更准确的说lambda是一个表达式.<br>Python lambda语法：</p>
+<blockquote>
+<p>lambda [arg1[,arg2,arg3….argN]] : expression</p>
+</blockquote>
+<p>Python允许单行快速定义一个最小函数，这便是lambda函数;<br>lambda会创建一个函数对象，但不会把这个函数对象赋给一个标识符，而def则会把函数对象赋值给一个变量<br>常用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def add(x,y):</div><div class="line">	return x+y</div></pre></td></tr></table></figure>
+<p>若采用lambda函数简化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">add_by_lambda=lambda x,y : x+y</div><div class="line">print(add_by_lambda(1,2))#-----&gt;3</div></pre></td></tr></table></figure>
+<p>甚至还可以直接在后面追加实参来直接获取返回值，比如<code>(lambda x, y: x + y)(2,3)</code>返回结果就是5</p>
+<h4 id="14、高阶函数之—–filter的使用"><a href="#14、高阶函数之—–filter的使用" class="headerlink" title="14、高阶函数之—–filter的使用"></a>14、高阶函数之—–filter的使用</h4><p>filter用于过滤序列，对满足返回值为True的序列值保留，False剔除。<br>eg,序列只保留奇数，去除偶数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def is_odd(n):</div><div class="line">    return n % 2 == 1</div><div class="line">list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15]))</div><div class="line"># 结果: [1, 5, 9, 15]</div></pre></td></tr></table></figure>
+<p>注意到filter()函数返回的是一个<code>Iterator</code>，也就是一个惰性序列，所以要强迫filter()完成计算结果，需要用list()函数获得所有结果并返回list。</p>
+<h4 id="15、排序算法—–sorted"><a href="#15、排序算法—–sorted" class="headerlink" title="15、排序算法—–sorted"></a>15、排序算法—–sorted</h4><p>sorted对列表排序，但是并不改变原列表，而是从新生成一个新的排好序的列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; sorted([36, 5, -12, 9, -21])</div><div class="line">[-21, -12, 5, 9, 36]</div></pre></td></tr></table></figure></p>
+<p><code>sorted()函数</code>也是一个高阶函数，它还可以接收一个<code>key函数</code>来实现自定义的排序，例如按绝对值大小排序：</p>
+<p>key指定的函数将作用于list的每一个元素上，<strong>并根据key函数返回的结果进行排序</strong>。对比原始的list和经过key=abs处理过的list。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; sorted([36, 5, -12, 9, -21], key=abs)</div><div class="line">[5, 9, -12, -21, 36]</div></pre></td></tr></table></figure>
+<p>我们能用一个key函数把字符串映射为忽略大小写排序即可。忽略大小写来比较两个字符串，实际上就是先把字符串都变成大写（或者都变成小写），再比较。返回结果还是原来的list，<strong>值得注意的是，这次是str函数而不是某个函数传入值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; sorted([&apos;bob&apos;, &apos;about&apos;, &apos;Zoo&apos;, &apos;Credit&apos;], key=str.lower)</div><div class="line">[&apos;about&apos;, &apos;bob&apos;, &apos;Credit&apos;, &apos;Zoo&apos;]</div></pre></td></tr></table></figure></p>
+<p>反向排序我们只需传入第三个参数即可reverse=True</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; sorted([&apos;bob&apos;, &apos;about&apos;, &apos;Zoo&apos;, &apos;Credit&apos;], key=str.lower, reverse=True)</div><div class="line">[&apos;Zoo&apos;, &apos;Credit&apos;, &apos;bob&apos;, &apos;about&apos;]</div></pre></td></tr></table></figure>
+<h3 id="16、返回函数和匿名函数"><a href="#16、返回函数和匿名函数" class="headerlink" title="16、返回函数和匿名函数"></a>16、返回函数和匿名函数</h3><h4 id="16-1、返回函数"><a href="#16-1、返回函数" class="headerlink" title="16.1、返回函数"></a>16.1、返回函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def lazy_sum(*args):</div><div class="line">    def sum():</div><div class="line">        ax = 0</div><div class="line">        for n in args:</div><div class="line">            ax = ax + n</div><div class="line">        return ax</div><div class="line">    return sum</div></pre></td></tr></table></figure>
+<p>调用返回结果：最开始只是函数变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; f = lazy_sum(1, 3, 5, 7, 9)</div><div class="line">&gt;&gt;&gt; f</div><div class="line">&lt;function lazy_sum.&lt;locals&gt;.sum at 0x101c6ed90&gt;</div><div class="line">#调用函数f时，才真正计算求和的结果：</div><div class="line">&gt;&gt;&gt; f()</div><div class="line">25</div></pre></td></tr></table></figure>
+<p>在函数lazy_sum中又定义了函数sum，并且，内部函数sum可以引用外部函数lazy_sum的参数和局部变量，当lazy_sum返回函数sum时，<strong>相关参数和变量都保存在返回的函数中，这种称为“闭包（Closure）”的程序结构拥有极大的威力</strong><br>返回的函数并没有立刻执行，而是直到调用了f()才执行。我们来看一个例子<br>特别注意以下的闭包:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def count():</div><div class="line">    fs = []</div><div class="line">    for i in range(1, 4):</div><div class="line">        def f():</div><div class="line">             return i*i</div><div class="line">        fs.append(f)</div><div class="line">    return fs</div><div class="line">f1, f2, f3 = count()</div><div class="line">&gt;&gt;&gt; f1() #输出结果</div><div class="line">9</div><div class="line">&gt;&gt;&gt; f2()</div><div class="line">9</div><div class="line">&gt;&gt;&gt; f3()</div><div class="line">9</div></pre></td></tr></table></figure></p>
+<p>原以为输出1,4,9，结果全是9，原因就在于返回的函数引用了变量i，但它并非立刻执行。等到3个函数都返回时，它们所引用的变量i已经变成了3，因此最终结果为9。</p>
+<p><font color="red"><strong>返回闭包时牢记的一点就是：返回函数不要引用任何外函数的循环变量，或者后续会发生变化的变量。</strong></font></p>
+<h3 id="17、装饰者"><a href="#17、装饰者" class="headerlink" title="17、装饰者"></a>17、装饰者</h3><p>python中，一个函数也是一个对象，所以函数对象也有<code>__name__</code>属性，可以得到函数的名字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; abs.__name__</div><div class="line">&apos;abs&apos;</div></pre></td></tr></table></figure>
+<p>假设我们要增强now()函数的功能，比如，在函数调用前后自动打印日志，但又不希望修改now()函数的定义，这种在<strong>代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。</strong><br>decorator就是一个<strong>接收函数为参数，并且返回也是函数的高阶函数</strong>。所以，我们要定义一个能打印日志的decorator，可以定义如下：</p>
+<ul>
+<li>带一个星号（*）参数的函数传入的参数存储为一个元组（tuple）；</li>
+<li>带两个星号（*）参数的函数传入的参数则存储为一个字典（dict），并且在<br>调用是采取 a = 1, b = 2, c = 3 的形式。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def log(func):</div><div class="line">    def wrapper(*args, **kw):</div><div class="line">        print(&apos;call %s():&apos; % func.__name__)</div><div class="line">        return func(*args, **kw)</div><div class="line">    return wrapper</div><div class="line">log</div><div class="line">def now():</div><div class="line">    print(&apos;2015-3-25&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#执行</div><div class="line">&gt;&gt;&gt; now()</div><div class="line">call now():</div><div class="line">2015-3-25</div></pre></td></tr></table></figure>
+<p>这里相当于调用了<code>now = log(now)</code>方法，但此时的函数名会产生变化。<br>一个完整的decorator写法：<br><code>@functools.wraps(func)</code>是为了让，原函数的函数名等未产生变化，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import functools</div><div class="line">def log(func):</div><div class="line">    @functools.wraps(func)</div><div class="line">    def wrapper(*args, **kw):</div><div class="line">        print(&apos;call %s():&apos; % func.__name__)</div><div class="line">        return func(*args, **kw)</div><div class="line">    return wrapper</div></pre></td></tr></table></figure></p>
+<p>当然带<strong>参数的decorator</strong>的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import functools</div><div class="line"></div><div class="line">def log(text):</div><div class="line">    def decorator(func):</div><div class="line">        @functools.wraps(func)</div><div class="line">        def wrapper(*args, **kw):</div><div class="line">            print(&apos;%s %s():&apos; % (text, func.__name__))</div><div class="line">            return func(*args, **kw)</div><div class="line">        return wrapper</div><div class="line">    return decorator</div></pre></td></tr></table></figure>
+<p>作业：<br>编写一个decorator，</p>
+<ul>
+<li>能在函数调用的前后打印出’begin call’和’end call’的日志。</li>
+<li>能否写出一个@log的decorator，使它既支持：<code>@log</code>又支持<code>@log(&#39;execute&#39;)</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">def log2(text=None):</div><div class="line">	def decorator(func):</div><div class="line">		print(&apos;start call&apos;)</div><div class="line">		@functools.wraps(func)</div><div class="line">		def wrapper(*args, **kw):</div><div class="line">		</div><div class="line">			print(text, &apos;%s():&apos; % func.__name__)</div><div class="line">			#先执行，然后打印，再返回结果</div><div class="line">			x = func(*args, **kw)</div><div class="line">			print(&apos;end call&apos;)</div><div class="line">			return x</div><div class="line">		return wrapper</div><div class="line">	#这里不加这一句就会报错</div><div class="line">	if isinstance(text, str):</div><div class="line">		return decorator</div><div class="line">	else:</div><div class="line">		return decorator(text)</div></pre></td></tr></table></figure>
+<p>不传参的情况下，logs(info=None) 会请求一个info参数，这时就直接把 f 传进去了，decorator(func) 请求的参数就缺失了。<br>会报错 TypeError: decorator() missing 1 required positional argument: ‘func’<br>而直接使用：f = logs()(f) 这种明确语法就没有问题~</p>
+<h3 id="18、偏函数—–functools-partial"><a href="#18、偏函数—–functools-partial" class="headerlink" title="18、偏函数—–functools.partial"></a>18、偏函数—–functools.partial</h3><p>类似于包装器，直接可以固定住原函数的参数，<br>eg，<code>int(&#39;123&#39;)</code>中默认以十进制转123，但还有一个base参数确认进制。<code>int(&#39;12345&#39;,base=8)</code>结果是5349<br>当我们需要转为2进制时，又不想多次输出参数可以用偏函数进行封装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import functools</div><div class="line">&gt;&gt;&gt; int2 = functools.partial(int, base=2)</div><div class="line">&gt;&gt;&gt; int2(&apos;1000000&apos;)</div><div class="line">64</div></pre></td></tr></table></figure>
+<p>还有一种情况，默认添加参数，比如<br>max2 = functools.partial(max, 10)<br>实际上会把10作为*args的一部分自动加到左边，也就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">max2(5, 6, 7)----------》args = (10, 5, 6, 7)</div><div class="line">						max(*args)</div></pre></td></tr></table></figure>
+<h3 id="19、备注："><a href="#19、备注：" class="headerlink" title="19、备注："></a>19、备注：</h3><h4 id="19-1、重要的内置函数"><a href="#19-1、重要的内置函数" class="headerlink" title="19.1、重要的内置函数"></a>19.1、重要的内置函数</h4><ul>
+<li>abs(numbers)                           返回一个数的绝对值</li>
+<li>apply(func[,arg[,kwargs]])             调用给定的函数，可选择提供参数</li>
+<li>all(iterable)                          如果所有iterable的元素均为真则返回True,否则返回False</li>
+<li>any(iterable)                          如果有任一iterable的元素为真则返回True,否则返回False</li>
+<li>basestring()                           str和unicode抽象超类，取决于obj的布尔值</li>
+<li>callable(obj)                          检查对象是否可调用</li>
+<li>char(number)                           返回ASCII为给定的字符</li>
+<li>classmethod(func)                      通过一个实例方法创建类的方法</li>
+<li>cmp(x,y)                               比较x,y。x<y:返回负数;x>y:返回正数;x==y,返回0</y:返回负数;x></li>
+<li>complex(real[,imag])                   返回给定实部的复数</li>
+<li>delattr([mapping-or-sequence])         从给定的对象中删除给定的属性</li>
+<li>dict([mapping-or-sequence])            构造字典，可选择从键值对组成的列表构造。也可以用关键字参数调用</li>
+<li>dir(object)                            列出给定对象的大多数特性</li>
+<li>divmod(a,b)                            返回(a//b,a%b)</li>
+<li>enumerate(iterable)                    对iterable所有项进行迭代</li>
+<li>eval(string[,globals[,locals]])        对包含表达式的字符串进行计算。可选择给定的全局或局部作用域中进行</li>
+<li>execfile(file[,globals[,locals]])      执行一个Python文件，可选在给定全局或者局部作用域中进行</li>
+<li>file(filename[,mode[,bufsize]])        创建给定文件名的文件，可选择使用给定的模式和缓存区大小</li>
+<li>float(object)                          将字符串或者数值转换为浮点型</li>
+<li>frozenset([iterable])                  创建一个不可变集合，这意味着不能将它添加到其他集合中</li>
+<li>getattr(object,name[,default])         返回给定对象中指定的特性的值，可选择给定默认值</li>
+<li>globals()                              返回表示当前作用域的字典</li>
+<li>hasattr(object,name)                   检查给定的对象是否有指定的属性</li>
+<li>help([object])                         调用内置的帮助系统，或打印给定对象的帮助信息</li>
+<li>hex(number)                            将数字转换为十六进制表示的字符串</li>
+<li>id(object)                             返回给定对象的唯一ID</li>
+<li>input([prompt])                        等同于eval(raw_input(prompt))</li>
+<li>int(object[,radix])                    将字符串或者数字转换为整数</li>
+<li>isinstance(object,classinfo)           检查给定的对象是否是给定的classinfo值的实例<pre><code>classinfo可以是类对象、类型对象或者类对象和类型对象的元祖
+</code></pre></li>
+<li>issubclass(class1,class2)              检查class1是否是class2的子类</li>
+<li>iter(object[,sentinel])                返回一个迭代对象，可以用于迭代序列的object_iter()迭代器，或者提供一个sentinel,<pre><code>迭代器会在每次迭代中调用object,真到返回sentinel
+</code></pre></li>
+<li>len(object)                            返回给定对象的长度</li>
+<li>list([object])                         构造一个列表</li>
+<li>locals()                               返回表示当前局部作用域的字典</li>
+<li>long(object[,radix])                   将字符串或者数字转换为长整形</li>
+<li>map(function,seq1,…)                 创建给定函数func应用到列表seq中每一项时返回的值组成的列表</li>
+<li>max(obj1[,obj2]…)                    如果obj1为非空序列，则返回最大的元素;否则返回所提供参数的最大值  </li>
+<li>mix(obj1[,obj2]…)                    如果obj1为非空序列，则返回最小的元素;否则返回所提供参数的最小值       </li>
+<li>object()                               返回所有新式类的基数Object的实例</li>
+<li>oct(number)                            将整型转换为八进制表示的字符串</li>
+<li>open(filename[,mode[,bufsize]])        file的别名，在打开文件的时候使用open而不是file</li>
+<li>pow(x,y[,z])                           返回x的y次方，可选择模除z</li>
+<li>ord(char)                              返回给定单字符的ASCII值</li>
+<li>range([start,]stop[,step])             使用给定的起始值和结束值来创建数值范围</li>
+<li>property(fget[,fset[,fdel[,doc]]])     通过一组访问器创建属性</li>
+<li>raw_input([prompt])                    将用户输入的数据作为字符串返回，可选择使用给定的提示符prompt</li>
+<li>reduce(func,seq[,initializer])         将序列的所有渐增应用给定的函数，使用累积的结果作为第一个参数<pre><code>所有的项作为第二个参数，可选择给定起始值
+</code></pre></li>
+<li>reload(module)                         重载入一个已经载入的模块并且将其返回</li>
+<li>repr(object)                           返回表示对象的字符串，一般作为eval的参数使用</li>
+<li>reversed(object)                       返回序列的反向迭代器</li>
+<li>round(float[,n])                       将给定的浮点四舍五入，小数点后保留n位</li>
+<li>set([iterable])                        返回从iterable生成的元素集合</li>
+<li>setattr(object,name,value)             设定给定对象的指定属性的值为给定值</li>
+<li>sorted(iterable[,cmp][,key][,reverse]) 从iterable中返回一个新排序后的列表，可选的参数和列表方法sort中的参数相同</li>
+<li>staticmethod(func)                     从一个实例方法创建静态类方法</li>
+<li>str(object)                            返回表示给定对象object的格式化好的字符串</li>
+<li>sum(seq[,start])                       返回添加到可选参数start中的一系列数字的和</li>
+<li>super(type[,obj/type])                 返回给定类型的超类</li>
+<li>tuple([sequence])                      构造一个元祖,可选择使用sequence一样的项</li>
+<li>type(object)                           返回给定对象的类型</li>
+<li>type(name,bases,dict)                  使用给定的名称，基类和作用域返回一个新的类型对象</li>
+<li>unichr(number)                         chr的Unicode版本</li>
+<li>unicode(object[,encoding[,errors]])    返回给定对象的Unicode编码版本，可以给定编码方式和错误处理模式</li>
+<li>vars([object])                         返回表示局部作用于的字典，或者对应给定对象特性的字典</li>
+<li>xrange([start,]stop[,step])            类似于range，但是返回的对象使用较少的内存，而且只用于迭代</li>
+<li>zip(seq1,…)                          返回元祖的列表，每个元祖包括一个给定序列中的项。返回长度以最小为准.<h4 id="19-2、列表的方法"><a href="#19-2、列表的方法" class="headerlink" title="19.2、列表的方法"></a>19.2、列表的方法</h4></li>
+<li>L.append(obj)                          等同于L[len(L):len(L)] = [obj]</li>
+<li>L.count(obj)                           返回L[i] == obj中索引为i的值</li>
+<li>L.extend(obj)                          等同于L[len(L):len(L)] = seq</li>
+<li>L.index(obj)                           返回L[i] == obj中最小的i,不存在会触发ValueError异常</li>
+<li>L.insert(index,obj)                    index&gt;0,等同于L[index:index]=[obj],index&lt;0,插入列表最前面</li>
+<li>L.pop([index])                         移除并且返回给定索引的项(默认为:-1即最后一项)  </li>
+<li>L.remove(obj)                          等同于L[L.index(obj)]    </li>
+<li>L.sort([cmp][,key][,reverse])          对L中的项进行原地排序。可以提供比较函数cmp<pre><code>创建用于排序的键的key函数和reverse标志进行自定义
+</code></pre><h4 id="19-3、字典的方法"><a href="#19-3、字典的方法" class="headerlink" title="19.3、字典的方法"></a>19.3、字典的方法</h4></li>
+<li>D.clear()                              移除D中的所有项</li>
+<li>D.copy()                               返回D的副本</li>
+<li>D.fromkeys(seq[,val])                  返回从seq中获得的键和被设置为val的值的字典。可做类方法调用</li>
+<li>D.get(key[,default])                   如果D[key]存在，将其返回；否则返回给定的默认值None</li>
+<li>D.has_key(key)                         检查D是否有给定键key</li>
+<li>D.items()                              返回表示D项的(键，值)对列表</li>
+<li>D.iteritems()                          从D.items()返回的(键，值)对中返回一个可迭代的对象</li>
+<li>D.iterkeys()                           从D的键中返回一个可迭代对象</li>
+<li>D.itervalues()                         从D的值中返回一个可迭代对象</li>
+<li>D.keys()                               返回D键的列表</li>
+<li>D.pop(key[,d])                         移除并且返回对应给定键key或给定的默认值D的值</li>
+<li>D.popitem()                            从D中移除任意一项，并将其作为(键，值)对返回</li>
+<li>D.setdefault(key[,default])            如果D[key]存在则将其返回；否则返回默认值None</li>
+<li>D.update(other)                        将other中的每一项加入到D中。</li>
+<li>D.values()                             返回D中值的列表</li>
+</ul>
+<h4 id="19-4、字符串的方法"><a href="#19-4、字符串的方法" class="headerlink" title="19.4、字符串的方法"></a>19.4、字符串的方法</h4><ul>
+<li>S.capitalize()                          返回首字母大写的字符串的副本</li>
+<li>S.center(width[,fillchar])              返回一个长度为max(len(S),width),S居中，两侧fillchar填充</li>
+<li>S.count(sub[,start[,end]])              计算子字符串sub的出现次数，可将搜索范围限制为S[start:end]</li>
+<li>S.decode([encoding[,error]])            返回使用给定编码方式的字符串的解码版本，由error指定错误处理方式</li>
+<li>S.endswith(suffix[start[,end]])         检查S是否以suffix结尾，可给定[start:end]来选择匹配的范围</li>
+<li>S.expandtabs([tabsize])                 返回字符串的副本，其中tab字符会使用空格进行扩展，可选择tabsize</li>
+<li>S.find(sun[,start[,end]])               返回子字符串sub的第一个索引，不存在则为-1,可选择搜索范围</li>
+<li>S.index(sub[,start[,end]])              返回子字符串sub的第一个索引，不存在则引发- ValueError异常.</li>
+<li>S.isalnum()                             检查字符串是否由字母或数字字符组成</li>
+<li>S.isalpha()                             检查字符串是否由字母字符组成</li>
+<li>S.isdigit()                             检查字符串是否由数字字符组成</li>
+<li>S.islower()                             检查字符串是否由小写字母组成</li>
+<li>S.isspace()                             检查字符串是否由空格组成</li>
+<li>S.istitle()                             检查字符串时候首字母大写</li>
+<li>S.isupper()                             检查字符串是否由大写字母组成</li>
+<li>S.join(sequence)                        返回其中sequence的字符串元素由S连接的字符串</li>
+<li>S.ljust(width[,fillchar])               返回S副本左对齐的字符串,长度max(len(S),W),右侧fillchar填充</li>
+<li>S.lower()                               返回所有字符串都为小写的副本</li>
+<li>S.lstrip([char])                        向左移除所有char，默认移除(空格,tab,\n)</li>
+<li>S.partition(seq)                        在字符串中搜索seq并返回</li>
+<li>S.replace(old,new[,max])                将new替换olad,最多可替换max次</li>
+<li>S.rfind(sub[,start[,end]])              返回sub所在的最后一个索引，不存在则为-1,可定搜索范围S[start:end]</li>
+<li>S.rindex(sub[,start[,end]])             返回sub所在的最后一个索引，不存在则会引发ValueError异常。</li>
+<li>S.rjust(width[,fillchar])               返回S副本右对齐的字符串,长度max(len(S),W),左侧fillchar填充</li>
+<li>S.rpartition(seq)                       同Partition,但从右侧开始查找</li>
+<li>S.rstip([char])                         向右移除所有char，默认移除(空格,tab,\n)</li>
+<li>S.rsplit(sep[,maxsplit])                同split,但是使用maxsplit时是从右往左进行计数</li>
+<li>S.split(sep[,maxsplit])                 使用sep做为分割符,可使用maxsplit指定最大切分数</li>
+<li>S.zfill(width)                          在S的左侧以0填充width个字符</li>
+<li>S.upper()                               返回S的副本，所有字符大写</li>
+<li>S.splitlines([keepends])                返回S中所有行的列表，可选择是否包括换行符</li>
+<li>S.startswith(prefix[,start[,end]])      检查S是否以prefix开始，可用[start,end]来定义范围</li>
+<li>S.strip([chars])                        移除所有字符串中含chars的字符，默认移除(空格，tab,\n)</li>
+<li>S.swapcase()                            返回S的副本，所有大小写交换</li>
+<li>S.title()                               返回S的副本，所有单词以大写字母开头</li>
+<li>S.translate(table[,deletechars])        返回S的副本，所有字符都使用table进行的转换，<pre><code>可选择删除出现在deletechars中的所有字符
+</code></pre></li>
+</ul>
+
+                
+<p class="green-link-context">
+    <a href="/2017/05/18/python/Python中的类/" rel="next" title="Python中的类">
+    下一篇：Python中的类
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/05/06/hbase/HBase伪分布式搭建/" rel="next" title="HBase伪分布式搭建">
+    上一篇：HBase伪分布式搭建
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

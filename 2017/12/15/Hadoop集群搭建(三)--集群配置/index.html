@@ -1,0 +1,771 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Hadoop集群搭建(三)---集群配置 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Hadoop集群搭建(三)---集群配置"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/大数据/">大数据</a><a class="breadcrumb" href="/categories/技术/大数据/Hadoop/">Hadoop</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Hadoop集群搭建(三)---集群配置</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-12-14T16:38:37.270Z"><a href="/2017/12/15/Hadoop集群搭建(三)--集群配置/">2017-12-15</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/大数据/" class="chip green lighten-1">大数据</a>
+        
+            <a href="/tags/Hadoop/" class="chip green lighten-1">Hadoop</a>
+        
+            <a href="/tags/HDFS/" class="chip green lighten-1">HDFS</a>
+        
+            <a href="/tags/Yarn/" class="chip green lighten-1">Yarn</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1-节点规划"><span class="section table-of-contents-text">1. 节点规划</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2-安装HDFS"><span class="section table-of-contents-text">2. 安装HDFS</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3-配置HDFS"><span class="section table-of-contents-text">3. 配置HDFS</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-4-hadoop默认文件路径配置"><span class="section table-of-contents-text">4.4. hadoop默认文件路径配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-5-可选配置"><span class="section table-of-contents-text">4.5. 可选配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-6-验证-HDFS-结构："><span class="section table-of-contents-text">4.6.  验证 HDFS 结构：</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-7-同步配置文件"><span class="section table-of-contents-text">4.7. 同步配置文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-8-启动yarn"><span class="section table-of-contents-text">4.8. 启动yarn</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4-9-测试yarn"><span class="section table-of-contents-text">4.9 测试yarn</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>主要介绍vm安装centos7系统最小设置，采用3个虚拟机搭建大数据集群。安装chd5.7.4版本。<br>参考网址：<a href="http://blog.csdn.net/wisgood/article/details/47721355" target="_blank" rel="external">http://blog.csdn.net/wisgood/article/details/47721355</a><br>各参数说明：<a href="http://www.aboutyun.com/thread-8149-1-1.html" target="_blank" rel="external">http://www.aboutyun.com/thread-8149-1-1.html</a><br><a id="more"></a></p>
+<h2 id="1-节点规划"><a href="#1-节点规划" class="headerlink" title="1. 节点规划"></a>1. 节点规划</h2><p>集群各节点角色规划为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IP地址</th>
+<th style="text-align:center">节点名</th>
+<th style="text-align:center">HDFS</th>
+<th style="text-align:center">Hadoop</th>
+<th style="text-align:center">Hbase</th>
+<th style="text-align:center">Hive</th>
+<th>Impala</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.2.4</td>
+<td style="text-align:center">hadoop-master</td>
+<td style="text-align:center">NameNode</td>
+<td style="text-align:center">ResourceManager</td>
+<td style="text-align:center">HBase</td>
+<td style="text-align:center">Hive metastore</td>
+<td>Impala Catalog、Impala statestore、Sentry</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.2.5</td>
+<td style="text-align:center">hadoop-slaver1</td>
+<td style="text-align:center">DataNode、SecondaryNameNode</td>
+<td style="text-align:center">NodeManager</td>
+<td style="text-align:center">HBase</td>
+<td style="text-align:center">Hive Server2</td>
+<td>Impala Server</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.2.6</td>
+<td style="text-align:center">hadoop-slaver2</td>
+<td style="text-align:center">DataNode</td>
+<td style="text-align:center">NodeManager</td>
+<td style="text-align:center">HBase</td>
+<td style="text-align:center">Hive Server2</td>
+<td>Impala Server</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-安装HDFS"><a href="#2-安装HDFS" class="headerlink" title="2. 安装HDFS"></a>2. 安装HDFS</h2><p>根据节点规划，master 为NameNode节点，slaver1为SecondaryNameNode节点，slaver1 和slaver2 为DataNode节点</p>
+<p>在 master节点安装 hadoop-hdfs-namenode：</p>
+<p><code>$ yum install hadoop hadoop-hdfs hadoop-client hadoop-doc hadoop-debuginfo hadoop-hdfs-namenode</code></p>
+<p>在 slaver1 节点安装 hadoop-hdfs-secondarynamenode</p>
+<p><code>$ yum install hadoop-hdfs-secondarynamenode -y</code></p>
+<p>在 slaver1、slaver2节点安装 hadoop-hdfs-datanode</p>
+<p><code>$ yum install hadoop hadoop-hdfs hadoop-client hadoop-doc hadoop-debuginfo hadoop-hdfs-datanode -y</code></p>
+<p>NameNode HA 的配置过程请参考CDH中配置<a href="http://blog.javachen.com/2014/07/18/install-hdfs-ha-in-cdh.html" target="_blank" rel="external">HDFS HA</a>，建议暂时不用配置。</p>
+<h2 id="3-配置HDFS"><a href="#3-配置HDFS" class="headerlink" title="3. 配置HDFS"></a>3. 配置HDFS</h2><font color="green"><strong>注: 无论是master节点还是salver节点，其配置文件都是一致的，所以只需修改master节点的配置，然后同步到其他节点即可</strong></font><br>更多配置查看： <a href="http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/ClusterSetup.html" target="_blank" rel="external">Apache Cluster Setup</a><br>## 3.1. 配置namenode<br>配置文件:<code>/etc/hadoop/conf/core-site.xml</code><br>属性：<code>fs.defaultFS</code><br>属性含义: 指定NameNode是哪一个节点以及使用的文件系统是file还是hdfs，<br>value格式：<code>hdfs://&lt;namenode host&gt;:&lt;namenode port&gt;/</code>，默认的文件系统是<code>file:///</code>：<br>具体配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;fs.defaultFS&lt;/name&gt;</div><div class="line">  &lt;value&gt;hdfs://hadoop-master:8020&lt;/value&gt;</div><div class="line">  &lt;description&gt;fs.defaultFS指定namenode在那个节点上&lt;/description&gt; </div><div class="line"> &lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 3.2. 配置用户组<br><br>配置文件:<code>/etc/hadoop/conf/hdfs-site.xml</code><br>属性:<code>dfs.permissions.superusergroup</code><br>属性含义：该属性指定hdfs的超级用户，默认为hdfs，可以修改为hadoop。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;dfs.permissions.superusergroup&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop&lt;/value&gt;</div><div class="line">  &lt;description&gt;</div><div class="line">     指定hadoop为用户组</div><div class="line">  &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>注意：该配置无需手工在linux机器上创建用户组，hdfs初始化启动会自动创建，如果我们初始化启动后会在<code>cat /etc/group</code>就能看到该hadoop组，并且有hdfs，yarn，mapred用户。<br><img src="/images/cluster/1512024289065.png" alt="Alt text"><br><br>### 3.3. 指定本地文件目录<br>- 主要指定namenode、datanode、namesecondary的数据存放目录。hadoop默认的文件路径既权限要求如下：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">目录							        所有者		权限		默认路径</div><div class="line">hadoop.tmp.dir						hdfs:hdfs	drwx------	/var/hadoop</div><div class="line">dfs.namenode.name.dir				hdfs:hdfs	drwx------	file://$&#123;hadoop.tmp.dir&#125;/dfs/name</div><div class="line">dfs.datanode.data.dir				hdfs:hdfs	drwx------	file://$&#123;hadoop.tmp.dir&#125;/dfs/data</div><div class="line">dfs.namenode.checkpoint.dir			hdfs:hdfs	drwx------	file://$&#123;hadoop.tmp.dir&#125;/dfs/namesecondary</div></pre></td></tr></table></figure><br><br>- 说明你可以在 <code>/etc/hadoop/conf/hdfs-site.xml</code>中只配置hadoop.tmp.dir，也可以分别配置上面的路径。这里使用分别配置的方式，hdfs-site.xml中配置如下：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line"> &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</div><div class="line"> &lt;value&gt;file:///data/dfs/nn&lt;/value&gt;</div><div class="line"> &lt;description&gt;</div><div class="line">   指定NameNode存储其元数据和编辑日志的目录</div><div class="line"> &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</div><div class="line">&lt;value&gt;file:///data/dfs/dn&lt;/value&gt;</div><div class="line"> &lt;description&gt;</div><div class="line">   指定DataNode存储日志的目录</div><div class="line"> &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">  </div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.namenode.checkpoint.dir&lt;/name&gt;</div><div class="line">&lt;value&gt;file:///data/dfs/namesecondary&lt;/value&gt;</div><div class="line"> &lt;description&gt;</div><div class="line">   指定SecondaryNameNode存储日志的目录</div><div class="line"> &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>- 在<strong>NameNode（hadoop-master）</strong>上手动创建 <code>dfs.name.dir</code> 或 <code>dfs.namenode.name.dir</code> 的本地目录：(<code>dfs.name.dir</code> 或 <code>dfs.namenode.name.dir</code> 是一样的由于版本问题名字后面的取代了前面)<br>因为master只有namenode,所以只需要创建namenode对应的目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /data/dfs/nn</div><div class="line">$ chown -R hdfs:hdfs /data/dfs/nn</div></pre></td></tr></table></figure><br><br>在<strong>DataNode（hadoop-slaver1，hadoop-slaver2）</strong>上手动创建 <code>dfs.data.dir</code> 或 <code>dfs.datanode.data.dir</code> 的本地目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /data/dfs/dn</div><div class="line">$ chown -R hdfs:hdfs /data/dfs/dn</div></pre></td></tr></table></figure><br><br>按照上面的<code>chown -R</code>命令修改目录所有者<br><br>### 3.4. 配置 SecondaryNameNode<br>配置文件:<code>/etc/hadoop/conf/hdfs-site.xml</code><br>属性:<code>dfs.secondary.http.address</code><br>value含义:secondaryNameNode的http指向的节点<br>具体配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;dfs.secondary.http.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-slaver1:50090&lt;/value&gt;</div><div class="line">  &lt;description&gt; </div><div class="line">   指定第slaver1为nameSecond节点</div><div class="line">  &lt;/description&gt;</div><div class="line"> &lt;/property&gt;</div></pre></td></tr></table></figure><br><br>- 还可以添加如下参数(我暂时没配置这些)：<br>含义参考:<a href="http://blog.cloudera.com/blog/2014/03/a-guide-to-checkpointing-in-hadoop/" target="_blank" rel="external">http://blog.cloudera.com/blog/2014/03/a-guide-to-checkpointing-in-hadoop/</a><br>格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">   &lt;name&gt;属性名&lt;/name&gt;</div><div class="line">   &lt;value&gt;值&lt;/value&gt;</div><div class="line">&lt;property&gt;</div></pre></td></tr></table></figure><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dfs.namenode.checkpoint.check.period</div><div class="line">dfs.namenode.checkpoint.txns</div><div class="line">dfs.namenode.checkpoint.dir</div><div class="line">dfs.namenode.checkpoint.edits.dir</div><div class="line">dfs.namenode.num.checkpoints.retained</div></pre></td></tr></table></figure><br><br>设置多个secondarynamenode，请参考<a href="http://blog.cloudera.com/blog/2009/02/multi-host-secondarynamenode-configuration/" target="_blank" rel="external">multi-host-secondarynamenode-configuration.</a><br><br>### 3.5. 开启回收站功能<br><br>回收站功能默认是关闭的，建议打开。在 <code>/etc/hadoop/conf/core-site.xml</code> 中添加如下两个参数：<br><code>fs.trash.interval</code>，该参数值为时间间隔，单位为<strong>分钟</strong>，默认为0，表示回收站功能关闭。该值表示回收站中文件保存多长时间，如果服务端配置了该参数，则忽略客户端的配置；如果服务端关闭了该参数，则检查客户端是否有配置该参数；<br><code>fs.trash.checkpoint.interval</code>，该参数值为时间间隔，单位为<strong>分钟</strong>，默认为0。该值表示检查回收站时间间隔，该值要<strong>小于fs.trash.interval</strong>，该值在服务端配置。如果该值设置为0，则使用 <strong>fs.trash.interval 的值</strong>，<br>具体配置：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line"> &lt;name&gt;fs.trash.interval&lt;/name&gt;</div><div class="line"> &lt;value&gt;1440&lt;/value&gt;</div><div class="line"> &lt;description&gt;</div><div class="line">    回收站功能开启，1440分钟,一天</div><div class="line"> &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 3.6. 配置负载均衡<br>在 <code>/etc/hadoop/conf/hdfs-site.xml</code> 中配置以下三个参数：（我也不会，暂时未配置）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dfs.datanode.fsdataset. volume.choosing.policy</div><div class="line">dfs.datanode.available-space-volume-choosing-policy.balanced-space-threshold</div><div class="line">dfs.datanode.available-space-volume-choosing-policy.balanced-space-preference-fraction</div></pre></td></tr></table></figure><br><br>### 3.7. 开启WebHDFS<br><br>在NameNode节点上安装：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yum install hadoop-httpfs -y</div></pre></td></tr></table></figure><br><br>然后修改 /etc/hadoop/conf/core-site.xml配置代理用户：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;  </div><div class="line">	&lt;name&gt;hadoop.proxyuser.httpfs.hosts&lt;/name&gt;  </div><div class="line">	&lt;value&gt;*&lt;/value&gt;  </div><div class="line">&lt;/property&gt;  </div><div class="line">&lt;property&gt;  </div><div class="line">	&lt;name&gt;hadoop.proxyuser.httpfs.groups&lt;/name&gt;  </div><div class="line">	&lt;value&gt;*&lt;/value&gt;  </div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 3.8. 配置LZO<br><br>下载repo文件到 <code>/etc/yum.repos.d/:</code><br>如果你安装的是 CDH5，请下载<a href="http://archive.cloudera.com/gplextras5/redhat/7/x86_64/gplextras/cloudera-gplextras5.repo" target="_blank" rel="external">Red Hat/CentOS 7</a><br>按照之前课程二的那样：<br><code>/etc/yum.repos.d/CentOS-Cloudera.repo</code>添加<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[cloudera-gplextras5]</div><div class="line">name=Cloudera&apos;s Distribution for Hadoop, Version 5</div><div class="line">baseurl=https://archive.cloudera.com/gplextras5/redhat/7/x86_64/gplextras/5/</div><div class="line">gpgkey =https://archive.cloudera.com/gplextras5/redhat/7/x86_64/gplextras/RPM-GPG-KEY-cloudera    </div><div class="line">gpgcheck = 1</div></pre></td></tr></table></figure><br><br>进入到之前配置的本地yum仓库，下载<code>cloudera-gplextras5</code>仓库文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/bigdata</div><div class="line">reposync -r cloudera-gplextras5</div><div class="line">cp cloudera-gplextras5/RPMS/x86_64/* cdh/5/RPMS/x86_64/</div><div class="line">cd /usr/local/bigdata/cdh/5</div><div class="line">createrepo .    #在该目录下创建yum的新元数据文件</div><div class="line">yum clean all        #清理缓存</div></pre></td></tr></table></figure><br><br>在所有节点安装LZO<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yum install hadoop-lzo* impala-lzo  -y</div></pre></td></tr></table></figure><br><br>在 <code>/etc/hadoop/conf/core-site.xml</code> 中添加如下配置：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;io.compression.codecs&lt;/name&gt;</div><div class="line">  &lt;value&gt;org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.GzipCodec,</div><div class="line">org.apache.hadoop.io.compress.BZip2Codec,com.hadoop.compression.lzo.LzoCodec,</div><div class="line">com.hadoop.compression.lzo.LzopCodec&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;io.compression.codec.lzo.class&lt;/name&gt;</div><div class="line">  &lt;value&gt;com.hadoop.compression.lzo.LzoCodec&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 3.9. 同步配置文件到slaver节点<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ scp -r /etc/hadoop/conf root@hadoop-slaver1:/etc/hadoop/</div><div class="line">$ scp -r /etc/hadoop/conf root@hadoop-slaver2:/etc/hadoop/</div></pre></td></tr></table></figure><br><br>### 3.10. 启动HDFS<br><br>在master中格式化NameNode：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo -u hdfs hadoop namenode -format</div></pre></td></tr></table></figure><br><br>在<font color="red"><strong>每个节点</strong></font>运行下面命令启动hdfs：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ for x in `ls /etc/init.d/|grep  hadoop-hdfs`; do service $x start; done</div></pre></td></tr></table></figure><br><br><img src="/images/cluster/1512028800416.png" alt="Alt text"><br><br>在 hdfs 运行之后，创建 /tmp 临时目录，并设置权限为 1777：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo -u hdfs hadoop fs -mkdir /tmp</div><div class="line">$ sudo -u hdfs hadoop fs -chmod -R 1777 /tmp</div></pre></td></tr></table></figure><br><br>如果安装了HttpFS，则启动 HttpFS 服务：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ service hadoop-httpfs start</div></pre></td></tr></table></figure><br><br>### 3.11.  测试<br><br>1、通过 <a href="http://192.168.2.4:50070/" target="_blank" rel="external">http://192.168.2.4:50070/</a> 可以访问 NameNode 页面。<br><img src="/images/cluster/1512029163293.png" alt="Alt text"><br><br>2、使用 curl 运行下面命令，可以测试 webhdfs 并查看执行结果：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl &quot;http://192.168.2.4:14000/webhdfs/v1?op=gethomedirectory&amp;user.name=hdfs&quot;</div></pre></td></tr></table></figure><br><br><img src="/images/cluster/1512029306943.png" alt="Alt text"><br><br>## 4. 安装配置yarn<br><br><font color="green"><strong>注: 无论是master节点还是salver节点，其配置文件都是一致的，所以只需修改master节点的配置，然后同步到其他节点即可</strong></font><br>可以参考官网查看每个节点需要安装什么软件的：<a href="https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_cdh5_install.html#topic_4_4_4" target="_blank" rel="external">https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_cdh5_install.html#topic_4_4_4</a><br><br>hadoop-yarn 属于yarn的依赖包，都需要安装。<br>- 在 <strong>master</strong> 节点安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ yum install hadoop-yarn hadoop-yarn-resourcemanager -y</div><div class="line">#安装 historyserver</div><div class="line">$ yum install hadoop-mapreduce-historyserver hadoop-yarn-proxyserver -y</div></pre></td></tr></table></figure><br><br>- 在 <strong>slaver</strong> 节点安装计算软件<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install hadoop-yarn hadoop-yarn-nodemanager hadoop-mapreduce -y</div></pre></td></tr></table></figure><br><br>### 4.1. 配置yarn模式<br>要想使用YARN，需要在 <code>/etc/hadoop/conf/mapred-site.xml</code> 中做如下配置:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">       &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</div><div class="line">       &lt;value&gt;yarn&lt;/value&gt;</div><div class="line">       &lt;description&gt;如果采用yarn的运行方式，必须配置该参数为yarn&lt;/description&gt;</div><div class="line">  &lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 4.2. 配置resourceManager<br>修改<code>/etc/hadoop/conf/yarn-site.xml</code>，配置resourcemanager的节点名称以及一些服务的端口号：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-master:8031&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-master:8032&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-master:8030&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-master:8033&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</div><div class="line">  &lt;value&gt;hadoop-master:8088&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br>### 4.3. 其他配置<br>（我的配置文件中已经默认配置了这些参数，所以不再配置）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</div><div class="line">    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.nodemanager.aux-services.mapreduce_shuffle.class&lt;/name&gt;</div><div class="line">    &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</div><div class="line">    &lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.application.classpath&lt;/name&gt;</div><div class="line">   &lt;value&gt;</div><div class="line">    $HADOOP_CONF_DIR,</div><div class="line">    $HADOOP_COMMON_HOME/*,</div><div class="line">    $HADOOP_COMMON_HOME/lib/*,</div><div class="line">    $HADOOP_HDFS_HOME/*,</div><div class="line">    $HADOOP_HDFS_HOME/lib/*,</div><div class="line">    $HADOOP_MAPRED_HOME/*,</div><div class="line">    $HADOOP_MAPRED_HOME/lib/*,</div><div class="line">    $HADOOP_YARN_HOME/*,</div><div class="line">    $HADOOP_YARN_HOME/lib/*</div><div class="line">    &lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">	&lt;name&gt;yarn.log.aggregation.enable&lt;/name&gt;</div><div class="line">	&lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure><br><br><font color="red"><strong>注意：</strong></font>
+
+<ul>
+<li><code>yarn.nodemanager.aux-services</code> 的值在 <code>cdh4</code> 中应该为 <code>mapreduce.shuffle</code>，并配置参数<code>yarn.nodemanager.aux-services.mapreduce.shuffle.class</code>值为<code>org.apache.hadoop.mapred.ShuffleHandler</code> ，</li>
+<li><p>在<code>cdh5</code>中为<code>mapreduce_shuffle</code>，这时候请配置<code>yarn.nodemanager.aux-services.mapreduce_shuffle.class</code>参数</p>
+</li>
+<li><p>这里配置了 <code>yarn.application.classpath</code> 所以需要配置环境变量，添加<br><code>vi /etc/profile</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">export HADOOP_HOME=/usr/lib/hadoop</div><div class="line">export HIVE_HOME=/usr/lib/hive</div><div class="line">export HBASE_HOME=/usr/lib/hbase</div><div class="line">export HADOOP_HDFS_HOME=/usr/lib/hadoop-hdfs</div><div class="line">export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce</div><div class="line">export HADOOP_COMMON_HOME=$&#123;HADOOP_HOME&#125;</div><div class="line">export HADOOP_HDFS_HOME=/usr/lib/hadoop-hdfs</div><div class="line">export HADOOP_LIBEXEC_DIR=$&#123;HADOOP_HOME&#125;/libexec</div><div class="line">export HADOOP_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop</div><div class="line">export HDFS_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop</div><div class="line">export HADOOP_YARN_HOME=/usr/lib/hadoop-yarn</div><div class="line">export YARN_CONF_DIR=$&#123;HADOOP_HOME&#125;/etc/hadoop</div></pre></td></tr></table></figure>
+<h3 id="4-4-hadoop默认文件路径配置"><a href="#4-4-hadoop默认文件路径配置" class="headerlink" title="4.4. hadoop默认文件路径配置"></a>4.4. hadoop默认文件路径配置</h3><p>在hadoop中默认的文件路径以及权限要求如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">目录									                   所有者		 权限		        默认路径</div><div class="line">yarn.nodemanager.local-dirs			  yarn:yarn	  drwxr-xr-x    $&#123;hadoop.tmp.dir&#125;/nm-local-dir</div><div class="line">yarn.nodemanager.log-dirs			  yarn:yarn	  drwxr-xr-x	  $&#123;yarn.log.dir&#125;/userlogs</div><div class="line">yarn.nodemanager.remote-app-log-dir							                hdfs://cdh1:8020/var/log/hadoop-yarn/apps</div></pre></td></tr></table></figure>
+<p>故在 <code>/etc/hadoop/conf/yarn-site.xml</code> 文件中添加如下配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;description&gt;List of directories to store localized files in.&lt;/description&gt;</div><div class="line">  &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;</div><div class="line">  &lt;value&gt;/data/yarn/local&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">  &lt;description&gt;Where to store container logs.&lt;/description&gt;</div><div class="line">  &lt;name&gt;yarn.nodemanager.log-dirs&lt;/name&gt;</div><div class="line">  &lt;value&gt;/data/yarn/logs&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line"></div><div class="line">&lt;property&gt;</div><div class="line">  &lt;description&gt;Where to aggregate logs to.&lt;/description&gt;</div><div class="line">  &lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</div><div class="line">  &lt;value&gt;/yarn/apps&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p>创建 <code>yarn.nodemanager.local-dirs</code> 和 <code>yarn.nodemanager.log-dirs</code> 参数对应的目录(<strong>在每个节点都创建</strong>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /data/yarn/&#123;local,logs&#125;</div><div class="line">$ chown -R yarn:yarn /data/yarn</div></pre></td></tr></table></figure></p>
+<p>在 hdfs 上创建 <code>yarn.nodemanager.remote-app-log-dir</code> 对应的目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo -u hdfs hadoop fs -mkdir -p /yarn/apps</div><div class="line">$ sudo -u hdfs hadoop fs -chown yarn:mapred /yarn/apps</div><div class="line">$ sudo -u hdfs hadoop fs -chmod 1777 /yarn/apps</div></pre></td></tr></table></figure>
+<p>在 <code>/etc/hadoop/conf/mapred-site.xml</code> 中配置 MapReduce History Server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</div><div class="line">    &lt;value&gt;hadoop-master:10020&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</div><div class="line">    &lt;value&gt;hadoop-master:19888&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p>此外，确保 mapred、yarn 用户能够使用代理，在 <code>/etc/hadoop/conf/core-site.xml</code> 中添加如下参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hadoop.proxyuser.mapred.groups&lt;/name&gt;</div><div class="line">    &lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hadoop.proxyuser.mapred.hosts&lt;/name&gt;</div><div class="line">    &lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hadoop.proxyuser.yarn.groups&lt;/name&gt;</div><div class="line">    &lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hadoop.proxyuser.yarn.hosts&lt;/name&gt;</div><div class="line">    &lt;value&gt;*&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p> <code>mapred-site.xml</code>配置 Staging 目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;yarn.app.mapreduce.am.staging-dir&lt;/name&gt;</div><div class="line">    &lt;value&gt;/user&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure></p>
+<p>并在 hdfs 上创建相应的目录授权：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo -u hdfs hadoop fs -mkdir -p /user</div><div class="line">$ sudo -u hdfs hadoop fs -chmod 777 /user</div></pre></td></tr></table></figure>
+<h3 id="4-5-可选配置"><a href="#4-5-可选配置" class="headerlink" title="4.5. 可选配置"></a>4.5. 可选配置</h3><p>可选的，你可以在 <code>/etc/hadoop/conf/mapred-site.xml</code> 设置以下两个参数：</p>
+<p><code>mapreduce.jobhistory.intermediate-done-dir</code>，该目录权限应该为1777，默认值为 <code>${yarn.app.mapreduce.am.staging-dir}/history/done_intermediate</code><br><code>mapreduce.jobhistory.done-dir</code>，该目录权限应该为750，默认值为 <code>${yarn.app.mapreduce.am.staging-dir}/history/done</code><br>然后，在 hdfs 上创建目录并设置权限：</p>
+<p>（我进行配置，采用它本身的默认值，执行了如下命令）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> &lt;property&gt;</div><div class="line"> &lt;name&gt;mapreduce.jobhistory.intermediate-done-dir&lt;/name&gt;</div><div class="line"> &lt;value&gt;/user/history/done_intermediate&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line"> &lt;name&gt;mapreduce.jobhistory.done-dir&lt;/name&gt;</div><div class="line"> &lt;value&gt;/user/history/done&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ sudo -u hdfs hadoop fs -mkdir -p /user/history</div><div class="line">$ sudo -u hdfs hadoop fs -chmod -R 1777 /user/history</div><div class="line">$ sudo -u hdfs hadoop fs -chown mapred:hadoop /user/history</div><div class="line"></div><div class="line">$ sudo -u hdfs hadoop fs -mkdir -p /user/history/done_intermediate</div><div class="line">$ sudo -u hdfs hadoop fs -chmod -R 1777 /user/history/done_intermediate</div><div class="line">$ sudo -u hdfs hadoop fs -chown mapred:hadoop /user/history/done_intermediate</div><div class="line"></div><div class="line">$ sudo -u hdfs hadoop fs -mkdir -p /user/history/done</div><div class="line">$ sudo -u hdfs hadoop fs -chmod -R 750 /user/history/done</div><div class="line">$ sudo -u hdfs hadoop fs -chown mapred:hadoop /user/history/done</div></pre></td></tr></table></figure>
+<p>设置 <code>HADOOP_MAPRED_HOME</code>，或者把其加入到 <code>/etc/profile</code> 的配置文件中<br>我把它加到该配置文件中（记得执行<code>source /etc/profile</code>使配置文件生效）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ export HADOOP_MAPRED_HOME=/usr/lib/hadoop-mapreduce</div></pre></td></tr></table></figure></p>
+<h3 id="4-6-验证-HDFS-结构："><a href="#4-6-验证-HDFS-结构：" class="headerlink" title="4.6.  验证 HDFS 结构："></a>4.6.  验证 HDFS 结构：</h3><p><code>$ sudo -u hdfs hadoop fs -ls -R /</code></p>
+<p>你应该看到如下结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">drwxrwxrwt   - hdfs hadoop          0 2014-04-19 14:21 /tmp</div><div class="line">drwxrwxrwx   - hdfs hadoop          0 2014-04-19 14:26 /user</div><div class="line">drwxrwxrwt   - mapred hadoop        0 2014-04-19 14:31 /user/history</div><div class="line">drwxr-x---   - mapred hadoop        0 2014-04-19 14:38 /user/history/done</div><div class="line">drwxrwxrwt   - mapred hadoop        0 2014-04-19 14:48 /user/history/done_intermediate</div><div class="line">drwxr-xr-x   - hdfs   hadoop        0 2014-04-19 15:31 /yarn</div><div class="line">drwxrwxrwt   - yarn   mapred        0 2014-04-19 15:31 /yarn/apps</div></pre></td></tr></table></figure></p>
+<h3 id="4-7-同步配置文件"><a href="#4-7-同步配置文件" class="headerlink" title="4.7. 同步配置文件"></a>4.7. 同步配置文件</h3><p>同步配置文件到整个集群:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ scp -r /etc/hadoop/conf root@hadoop-slaver1:/etc/hadoop/</div><div class="line">$ scp -r /etc/hadoop/conf root@hadoop-slaver2:/etc/hadoop/</div></pre></td></tr></table></figure>
+<h3 id="4-8-启动yarn"><a href="#4-8-启动yarn" class="headerlink" title="4.8. 启动yarn"></a>4.8. 启动yarn</h3><ul>
+<li>在<font color="red"><strong>每个节点</strong></font>启动 YARN :<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ for x in `ls /etc/init.d/|grep hadoop-yarn` ; do service $x start ; done</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我最开始在master启动出现proxyserver启动失败（就是安装的<code>hadoop-yarn-proxyserver</code>，虽然不知道这东西有什么用，而且看官网也没安装这玩意），查看日志发现说<code>yarn.web-proxy.address</code>没有设置，<br><img src="/images/cluster/1512036969603.png" alt="Alt text"><br>所以又在<code>/etc/hadoop/conf/yarn-site.xml</code>添加 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;/property&gt;</div><div class="line">   &lt;property&gt;</div><div class="line">   &lt;name&gt;yarn.web-proxy.address&lt;/name&gt;</div><div class="line">   &lt;value&gt;hadoop-master&lt;/value&gt;</div><div class="line"> &lt;/property&gt;</div></pre></td></tr></table></figure>
+<p>配置文件也同步到各个节点去。<br>启动成功<br><img src="/images/cluster/1512036893212.png" alt="Alt text"></p>
+<h3 id="4-9-测试yarn"><a href="#4-9-测试yarn" class="headerlink" title="4.9 测试yarn"></a>4.9 测试yarn</h3><p>通过 <a href="http://192.168.2.4:8088/" target="_blank" rel="external">http://192.168.2.4:8088/</a> 可以访问 Yarn 的管理页面，查看在线的节点：<a href="http://192.168.2.4:8088/cluster/nodes。" target="_blank" rel="external">http://192.168.2.4:8088/cluster/nodes。</a></p>
+<p><img src="/images/cluster/1512038667483.png" alt="Alt text"></p>
+<p>运行下面的测试程序，看是否报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># Find how many jars name ending with examples you have inside location /usr/lib/按照规则搜索jar包</div><div class="line">$ find /usr/lib/ -name &quot;*hadoop*examples*.jar&quot;</div><div class="line"></div><div class="line"># To list all the class name inside jar搜索指定jar包所有class</div><div class="line">$ find /usr/lib/ -name &quot;hadoop-examples.jar&quot; | xargs -0 -I &apos;&#123;&#125;&apos; sh -c &apos;jar tf &#123;&#125;&apos;</div><div class="line"></div><div class="line"># To search for specific class name inside jar搜索指定jar包指定class</div><div class="line">$ find /usr/lib/ -name &quot;hadoop-examples.jar&quot; | xargs -0 -I &apos;&#123;&#125;&apos; sh -c &apos;jar tf &#123;&#125;&apos; | grep -i wordcount.class</div><div class="line"></div><div class="line"># 运行 randomwriter 例子</div><div class="line">$ sudo -u hdfs hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar randomwriter out</div></pre></td></tr></table></figure>
+<p>运行出错<br><img src="/images/cluster/1512039451061.png" alt="Alt text"><br>所以需要在配置副本参数：</p>
+<p>不过我的电脑内存已经挤爆了，执行非常非常非常慢。目前为止应该都是成功的,接下来安装zookeeper,hbase,hive等,参考文章开头的博客地址即可.<br><img src="/images/cluster/1512038975646.png" alt="Alt text"></p>
+
+                
+<p class="green-link-context">
+    <a href="/2017/12/15/Hadoop简介/" rel="next" title="Hadoop简介">
+    下一篇：Hadoop简介
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/12/15/Hadoop集群搭建(二)---软件安装/" rel="next" title="Hadoop集群搭建(二)--软件安装">
+    上一篇：Hadoop集群搭建(二)--软件安装
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

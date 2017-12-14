@@ -1,0 +1,705 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Python3的文件操作 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Python3的文件操作"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/Python/">Python</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Python3的文件操作</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-05-18T05:01:44.423Z"><a href="/2017/05/18/python/python3 的文件操作/">2017-05-18</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Python/" class="chip green lighten-1">Python</a>
+        
+            <a href="/tags/文件操作/" class="chip green lighten-1">文件操作</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#python3-的文件操作"><span class="section table-of-contents-text">python3 的文件操作</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1、读取文件操作"><span class="section table-of-contents-text">1、读取文件操作</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-1、最基本操作"><span class="section table-of-contents-text">1.1、最基本操作</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-1-1、打开文件时需要的参数。"><span class="section table-of-contents-text">1.1.1、打开文件时需要的参数。</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-2、with自动调用关闭文件方法close"><span class="section table-of-contents-text">1.2、with自动调用关闭文件方法close()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-3、读取部分内容，read-size-readline"><span class="section table-of-contents-text">1.3、读取部分内容，read(size),readline()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-4、写文件"><span class="section table-of-contents-text">1.4、写文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-5、读取方式总结"><span class="section table-of-contents-text">1.5、读取方式总结</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2、文件操作"><span class="section table-of-contents-text">2、文件操作</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1-1、文件路径分割"><span class="section table-of-contents-text">2.1.1、文件路径分割</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1-2、文件重命名和删除"><span class="section table-of-contents-text">2.1.2、文件重命名和删除</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-1-3、列出所有py文件，一行代码"><span class="section table-of-contents-text">2.1.3、列出所有py文件，一行代码</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>本人一直对各种语言的文件操作有阴影(以前学c语言留下来的后遗症),_(:з」∠)_所以对python中的文件操作进行记录一遍后续查找。<br><a id="more"></a></p>
+<h1 id="python3-的文件操作"><a href="#python3-的文件操作" class="headerlink" title="python3 的文件操作"></a>python3 的文件操作</h1><h2 id="1、读取文件操作"><a href="#1、读取文件操作" class="headerlink" title="1、读取文件操作"></a>1、读取文件操作</h2><h3 id="1-1、最基本操作"><a href="#1-1、最基本操作" class="headerlink" title="1.1、最基本操作"></a>1.1、最基本操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f = open(path ,&apos;r&apos;)</div><div class="line">f.read()#就能得到文本中的字符</div><div class="line">f.close()#注意文件读取完后必须关闭，这样才能节省内存消耗</div></pre></td></tr></table></figure>
+<h4 id="1-1-1、打开文件时需要的参数。"><a href="#1-1-1、打开文件时需要的参数。" class="headerlink" title="1.1.1、打开文件时需要的参数。"></a>1.1.1、打开文件时需要的参数。</h4><p>1、一般来时只需要path文件路径，和读取方式<br>2、但是也会添加以什么编码读入encoding,eg:<code>open(path,&#39;r&#39;,encoding=&#39;utf-8&#39;)</code><br>3、遇到有些编码不规范的文件，你可能会遇到UnicodeDecodeError，因为在文本文件中可能夹杂了一些非法编码的字符。遇到这种情况，open()函数还接收一个errors参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：<br> <code>f = open(&#39;/Users/michael/gbk.txt&#39;, &#39;r&#39;, encoding=&#39;gbk&#39;, errors=&#39;ignore&#39;)</code></p>
+<h3 id="1-2、with自动调用关闭文件方法close"><a href="#1-2、with自动调用关闭文件方法close" class="headerlink" title="1.2、with自动调用关闭文件方法close()"></a>1.2、with自动调用关闭文件方法close()</h3><p>采用with就无需关闭文件了with会自动帮我们关闭文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with open(path ,&apos;r&apos;) as f:</div><div class="line">	f.read()</div></pre></td></tr></table></figure></p>
+<h3 id="1-3、读取部分内容，read-size-readline"><a href="#1-3、读取部分内容，read-size-readline" class="headerlink" title="1.3、读取部分内容，read(size),readline()"></a>1.3、读取部分内容，read(size),readline()</h3><p>read(size)：采用该方法循环读取一定字节的内容，这样内存不容易爆炸<br>readlines():对文本内容循环一行一行的读取。然后遍历</p>
+<h3 id="1-4、写文件"><a href="#1-4、写文件" class="headerlink" title="1.4、写文件"></a>1.4、写文件</h3><p>读写文件采用with是一个好习惯。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">with open(&apos;/Users/michael/test.txt&apos;, &apos;w&apos;) as f:</div><div class="line">    f.write(&apos;Hello, world!&apos;)</div></pre></td></tr></table></figure></p>
+<h3 id="1-5、读取方式总结"><a href="#1-5、读取方式总结" class="headerlink" title="1.5、读取方式总结"></a>1.5、读取方式总结</h3><p>要么读，要么写，代码简单，性能高</p>
+<p>所以一般只需要用r, rb, w, wb就够了</p>
+<ul>
+<li><strong>r 以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。</strong></li>
+<li><p><strong>rb 以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。</strong></p>
+</li>
+<li><p>r+ 打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+</li>
+<li><p>rb+ 以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。</p>
+</li>
+<li><p><strong>w 打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</strong></p>
+</li>
+<li><p><strong>wb 以二进制格式打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</strong></p>
+</li>
+<li><p>w+ 打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</p>
+</li>
+<li><p>wb+ 以二进制格式打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。</p>
+</li>
+<li><p>a 打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+</li>
+<li><p>ab 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</p>
+</li>
+<li><p>a+ 打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</p>
+</li>
+<li><p>ab+ 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</p>
+</li>
+</ul>
+<h2 id="2、文件操作"><a href="#2、文件操作" class="headerlink" title="2、文件操作"></a>2、文件操作</h2><h3 id="2-1-1、文件路径分割"><a href="#2-1-1、文件路径分割" class="headerlink" title="2.1.1、文件路径分割"></a>2.1.1、文件路径分割</h3><p>通过<code>os.path.split()</code>函数，这样可以把一个路径拆分为两部分，后一部分总是最后级别的目录或文件名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; os.path.split(&apos;/Users/michael/testdir/file.txt&apos;)</div><div class="line">(&apos;/Users/michael/testdir&apos;, &apos;file.txt&apos;)</div></pre></td></tr></table></figure>
+<h3 id="2-1-2、文件重命名和删除"><a href="#2-1-2、文件重命名和删除" class="headerlink" title="2.1.2、文件重命名和删除"></a>2.1.2、文件重命名和删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 对文件重命名:</div><div class="line">&gt;&gt;&gt; os.rename(&apos;test.txt&apos;, &apos;test.py&apos;)</div><div class="line"># 删掉文件:</div><div class="line">&gt;&gt;&gt; os.remove(&apos;test.py&apos;)</div></pre></td></tr></table></figure>
+<h3 id="2-1-3、列出所有py文件，一行代码"><a href="#2-1-3、列出所有py文件，一行代码" class="headerlink" title="2.1.3、列出所有py文件，一行代码"></a>2.1.3、列出所有py文件，一行代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; [x for x in os.listdir(&apos;.&apos;) if os.path.isfile(x) and os.path.splitext(x)[1]==&apos;.py&apos;]</div><div class="line">[&apos;apis.py&apos;, &apos;config.py&apos;, &apos;models.py&apos;, &apos;pymonitor.py&apos;, &apos;test_db.py&apos;, &apos;urls.py&apos;, &apos;wsgiapp.py&apos;]</div></pre></td></tr></table></figure>
+
+                
+<p class="green-link-context">
+    <a href="/2017/12/14/Hadoop集群搭建(一)--环境配置/" rel="next" title="Hadoop集群搭建(一)--环境配置">
+    下一篇：Hadoop集群搭建(一)--环境配置
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/05/18/python/Python中的类/" rel="next" title="Python中的类">
+    上一篇：Python中的类
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

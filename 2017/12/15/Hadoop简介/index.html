@@ -1,0 +1,791 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Hadoop简介 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Hadoop简介"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/大数据/">大数据</a><a class="breadcrumb" href="/categories/技术/大数据/Hadoop/">Hadoop</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Hadoop简介</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-12-14T17:54:24.220Z"><a href="/2017/12/15/Hadoop简介/">2017-12-15</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/大数据/" class="chip green lighten-1">大数据</a>
+        
+            <a href="/tags/Hadoop/" class="chip green lighten-1">Hadoop</a>
+        
+            <a href="/tags/MapReduce/" class="chip green lighten-1">MapReduce</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#1、Hadoop到底是什么？"><span class="section table-of-contents-text">1、Hadoop到底是什么？</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#2、hdfs的认识和流程"><span class="section table-of-contents-text">2、hdfs的认识和流程</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#3、MapReduce"><span class="section table-of-contents-text">3、MapReduce</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-1、Map介绍"><span class="section table-of-contents-text">3.1、Map介绍</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-1-1、map干什么用的"><span class="section table-of-contents-text">3.1.1、map干什么用的</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-1-2、如何来写一个Mapper类"><span class="section table-of-contents-text">3.1.2、如何来写一个Mapper类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-1-2-1-定义实现Mapper泛型接口的Mapper类"><span class="section table-of-contents-text">3.1.2.1 定义实现Mapper泛型接口的Mapper类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-1-2-2-Mapper中的四个函数"><span class="section table-of-contents-text">3.1.2.2 Mapper中的四个函数</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-2、shuffle-性能优化的核心"><span class="section table-of-contents-text">3.2、shuffle(性能优化的核心)</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-3、reducer作用"><span class="section table-of-contents-text">3.3、reducer作用</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#3-3-1、如何编写一个reduce，"><span class="section table-of-contents-text">3.3.1、如何编写一个reduce，</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-4-、主函数的设置"><span class="section table-of-contents-text">3.4 、主函数的设置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3-5，hadoop的动态参数设置"><span class="section table-of-contents-text">3.5，hadoop的动态参数设置</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#4、Myeclipse的远程调试"><span class="section table-of-contents-text">4、Myeclipse的远程调试</span></a></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>本文主要讲解了Hadoop的计算模型MapReduce。<br><a id="more"></a></p>
+<h2 id="1、Hadoop到底是什么？"><a href="#1、Hadoop到底是什么？" class="headerlink" title="1、Hadoop到底是什么？"></a>1、Hadoop到底是什么？</h2><p>简单地说就是一种处理大量文本数据的编程框架，也可称为解决办法<br>hadoop = hdfs(存取)+mapreduce(处理方法)<br>这里有篇文章里通过生活中的问题描述了hadoop的核心思想，看一下就能明白hadoop到底干什么用的了<br><a href="http://www.aboutyun.com/forum.php?mod=viewthread&amp;tid=5541&amp;highlight=hadoop" target="_blank" rel="external">http://www.aboutyun.com/forum.php?mod=viewthread&amp;tid=5541&amp;highlight=hadoop</a></p>
+<h2 id="2、hdfs的认识和流程"><a href="#2、hdfs的认识和流程" class="headerlink" title="2、hdfs的认识和流程"></a>2、hdfs的认识和流程</h2><p>认识了hadoop下面就来介绍hdfs是如何取数据和存放数据的。<br>参考：<a href="http://blog.csdn.net/weixuehao/article/details/16967485" target="_blank" rel="external">http://blog.csdn.net/weixuehao/article/details/16967485</a><br>三个主要角色：</p>
+<ul>
+<li><strong>NameNode：</strong>是Master节点，是大领导。管理数据块映射，整个目录树结构；处理客户端的读写请求；配置副本策略；管理HDFS的名称空间；</li>
+<li><strong>SecondaryNameNode：</strong>是一个小弟，秘书，分担大哥namenode的工作量；是NameNode的冷备份(为大哥工作但不能代替大哥工作)；主要作用：合并fsimage和fsedits然后再发给namenode。</li>
+<li><strong>DataNode：</strong>Slave节点，奴隶，干活的。负责存储client发来的数据块block；执行数据块的读写操作。</li>
+</ul>
+<p>词语解释：</p>
+<ul>
+<li><strong>热备份：</strong>b是a的热备份，如果a坏掉。那么b马上运行代替a的工作。</li>
+<li><strong>冷备份：</strong>b是a的冷备份，如果a坏掉。那么b不能马上代替a工作。但是b上存储a的一些信息，减少a坏掉之后的损失。</li>
+<li>namenode<strong>内存</strong>中信息：<ul>
+<li>存储的是元数据信息，<strong>fsimage+edits</strong>（当然本地磁盘也存在备份，启动时回加载该信息到内存中）。</li>
+</ul>
+</li>
+<li>namenode<strong>磁盘</strong>存放文件：<ul>
+<li><strong>fsimage:</strong>元数据镜像文件（文件系统的目录树，日志操作等。），存储一段时间内namenode内存中存储的是元数据信息</li>
+<li><strong>edits：</strong>元数据的操作日志（针对文件系统做的修改操作记录）</li>
+<li><strong>fstime:</strong>保存最近一次checkpoint的时间（checkpoint相当于还原点,类似快照时间）。</li>
+</ul>
+</li>
+<li><strong>SecondaryNameNode工作</strong>：负责定时默认1小时或者edits文件达到64M，从namenode上，获取fsimage和edits来进行合并，然后再发送给namenode采用新的fsimage代替原先的fsimage文件，合并<strong>过程中</strong>生成新的edits.new来记录新的操作。合并后，edits.new替换原先的edits并改名edits。fsimage则替换原先的fsimage文件目的：减少namenode的工作量。</li>
+<li>元数据是什么，元——mate，元数据——matedata，mate意思是“关于…的..”。元数据就是关于数据的数据信息。参考：<a href="https://www.zhihu.com/question/20679872/answer/65565699" target="_blank" rel="external">https://www.zhihu.com/question/20679872/answer/65565699</a></li>
+</ul>
+<p>总结：<br>  ①写<strong>1T</strong>文件，我们需要<strong>3T</strong>的存储，<strong>3T</strong>的网络流量带宽。<br>    ②在执行读或写的过程中，NameNode和DataNode通过HeartBeat进行保存通信，确定DataNode活着。如果发现DataNode死掉了，就将死掉的DataNode上的数据，放到其他节点去。读取时，要读其他节点去。<br>    ③挂掉一个节点，没关系，还有其他节点可以备份；甚至，挂掉某一个机架，也没关系；其他机架上，也有备份。</p>
+<h2 id="3、MapReduce"><a href="#3、MapReduce" class="headerlink" title="3、MapReduce"></a>3、MapReduce</h2><p>编程模型参考：<a href="http://www.aboutyun.com/thread-7040-1-1.html" target="_blank" rel="external">http://www.aboutyun.com/thread-7040-1-1.html</a><br>整个流程为如下：<br><img src="/images/cluster/1484463005988.png" alt="Alt text"></p>
+<ol>
+<li><p>首先, 我们能确定我们有一份输入, 而且他的数据量会很大。</p>
+</li>
+<li><p>通过split之后, 他变成了若干的分片, <strong>每个分片</strong>交给一个<strong>Map作业</strong>处理，（<strong>作业中map函数</strong>中再采用一行一行的读取文本方式）</p>
+</li>
+<li><p><strong>Map作业</strong>处理完后, tasktracker会把数据进行复制和排序, 然后通过输出的key 和value中间值——》进行 partition的划分 并把每一个<strong>partition</strong>,分区分给一个<strong>Reducer作业</strong>。</p>
+</li>
+<li><p><strong>Reducer作业</strong>通过处理传来的分区,并把数据输出。 每个相同的key, 一定在一个<strong>reduce函数中</strong>处理完, 每一个<strong>reduce函数</strong>至少对应一份输出(可以通过扩展MultipleOutputFormat来得到多分输出)</p>
+<p>注意：<br>可以把Map作业看成Mapper类，Reduce作业看做Reducer类。</p>
+</li>
+</ol>
+<ul>
+<li><strong>Map作业</strong>处理一个输入数据的分片，可能需要调用多次<strong>map函数</strong>来处理每个输入键值对；<strong>Reduce作业</strong>处理一个分区的中间键值对，期间要对<strong>每个不同的键调用一次reduce函数</strong>，Reduce作业最终也对应一个输出文件。</li>
+<li>分片、 分区和分组的概念：<br><strong>分片:</strong> 是把原始数据大化成小数据并且交给Map处理，比如600M–&gt;6个100M的数据，<strong>一个分片对应一个Map作业</strong><br><strong>分区:</strong> map结果排序后进行区间划分(为了保证合理性中间还有采样等过程),保证了同一个key键值的key-value对必定在同一个分区，当然该分区可包含多个key。<strong>一个分区对应一个Reducer作业类，对应多个reduce函数</strong><br><strong>分组:</strong>把分区中的相同key的值合在一起，这个就是分组，<strong>一个分组对应一个reduce函数处理</strong></li>
+</ul>
+<p>几个问题：</p>
+<ul>
+<li><p>mapreduce的过程都包含什么操作？<br>细分每行数据—排序–复制–合并</p>
+</li>
+<li><p>map处理完后，tasktracer会完成什么任务？<br>tasktracker会把数据进行复制和排序, 然后通过输出的key 和value进行 partition的划分, 并把partition中相同的map(即key相同的键值对)输出, 合并为相同的reduce的输入.</p>
+</li>
+<li>reducer的作用是什么？<br>把数据输出, 每个相同的key, 一定在一个reduce中处理完, 每一个reduce至少对应一份输出</li>
+<li>map中经过谁的处理之后，变为reduce输入？<br>通过shuffle之后, 变成reduce的输入, 这时相同的key对应的value被组合成了一个迭代器</li>
+</ul>
+<p>下面我按照执行的顺序介绍mapreduce需要经历的几个重要的步骤：</p>
+<ul>
+<li>1，map任务处理<ul>
+<li>1.1读取输入文件内容，解析成key，value对，对输入文件的每一行，解析成key， - value对，每一个键值对调用一次map函数。</li>
+<li>1.2写自己的逻辑，对输入的key，value处理，转换成新的key，value输出</li>
+<li>1.3对输出的key，value进行分区。</li>
+<li>1.4 对不同分区的数据，按照key进行排序，分组，相同key的value放到一个集合中，</li>
+<li>1.5（可选）分组后的数据进行归约。</li>
+</ul>
+</li>
+<li>2、reduce任务处理<ul>
+<li>2.1 对多个map任务的输出，按照不同的分区，通过网络copy到不同的reduce节点。</li>
+<li>2.2对多个map任务的输出进行合并，排序，写reduce函数自己的逻辑，对输入的key，value处理，转换成新的key，value输出，</li>
+<li>2.3把reduce的输出保存到文件中。<h3 id="3-1、Map介绍"><a href="#3-1、Map介绍" class="headerlink" title="3.1、Map介绍"></a>3.1、Map介绍</h3><h4 id="3-1-1、map干什么用的"><a href="#3-1-1、map干什么用的" class="headerlink" title="3.1.1、map干什么用的"></a>3.1.1、map干什么用的</h4>简单来说：map就是来把文本变成key-value的键值对。<h4 id="3-1-2、如何来写一个Mapper类"><a href="#3-1-2、如何来写一个Mapper类" class="headerlink" title="3.1.2、如何来写一个Mapper类"></a>3.1.2、如何来写一个Mapper类</h4>编写mapper类，首先需要实现Mapper接口，并规定好输入输出的各种操作，其次就是其中的四个函数。<h4 id="3-1-2-1-定义实现Mapper泛型接口的Mapper类"><a href="#3-1-2-1-定义实现Mapper泛型接口的Mapper类" class="headerlink" title="3.1.2.1 定义实现Mapper泛型接口的Mapper类"></a>3.1.2.1 定义实现Mapper泛型接口的Mapper类</h4>这是词频统计中的map类的实现<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenizerMapper</span> </span></div><div class="line">    <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">Object</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt;&#123;</div><div class="line"><span class="comment">//这是里定义了输入输出的key-value类型。</span></div><div class="line"><span class="comment">//采用Writable实现int类型，才放入到context中。</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> IntWritable one = <span class="keyword">new</span> IntWritable(<span class="number">1</span>);</div><div class="line"><span class="keyword">private</span> Text word = <span class="keyword">new</span> Text();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(Object key, Text value, Context context</span></span></div><div class="line">                 ) <span class="keyword">throws</span> IOException, InterruptedException &#123;</div><div class="line">   StringTokenizer itr = <span class="keyword">new</span> StringTokenizer(value.toString());</div><div class="line">   <span class="keyword">while</span> (itr.hasMoreTokens()) &#123;</div><div class="line">     word.set(itr.nextToken());</div><div class="line">     context.write(word, one);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>Mapper源码中定义泛型接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public class Mapper&lt;KEYIN, VALUEIN, KEYOUT, VALUEOUT&gt;</div></pre></td></tr></table></figure>
+<p>可以知道我们在实现泛型接口时需要实现以下四个泛型类型，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">输入key、输入value-------输出key、输入value</div></pre></td></tr></table></figure>
+<p>注意Mapper类的泛型不是java的基本类型，而是Hadoop的数据类型Text、IntWritable。<br>hadoop中的使用数据类型，都需要转化为实现Writable，这样数据能被序列化后完成网络传输或文件输入/输出</p>
+<ul>
+<li>BooleanWritable:标准布尔型数值——–&gt;boolean</li>
+<li>ByteWritable:单字节数值——&gt;byte</li>
+<li>DoubleWritable:双字节数值——-&gt;double</li>
+<li>FloatWritable:浮点数——&gt;float</li>
+<li>IntWritable:整型数———&gt;int</li>
+<li>LongWritable:长整型数——-&gt;long</li>
+<li>Text:使用UTF8格式存储的文本——对应String</li>
+<li>NullWritable:当<key, value="">中的key或value为空时使用。</key,></li>
+</ul>
+<h4 id="3-1-2-2-Mapper中的四个函数"><a href="#3-1-2-2-Mapper中的四个函数" class="headerlink" title="3.1.2.2 Mapper中的四个函数"></a>3.1.2.2 Mapper中的四个函数</h4><p>在Hadoop的mapper类中，有4个主要的函数，分别是：setup，clearup，map，run</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调用map处理之前执行</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</div><div class="line"><span class="comment">// NOTHING</span></div><div class="line">&#125;</div><div class="line"><span class="comment">//文本处理---我们主要的实现的</span></div><div class="line"><span class="comment">/* </span></div><div class="line">   * key:一般是输入长度的偏移量，默认是长整形 ，LongWritable </div><div class="line">   * value：输入文件的一行字符串 </div><div class="line">   * context：上下文对象，利用把map后的输出 </div><div class="line">   */ </div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(KEYIN key, VALUEIN value, </span></span></div><div class="line">                     Context context) <span class="keyword">throws</span> IOException, InterruptedException &#123;</div><div class="line">context.write((KEYOUT) key, (VALUEOUT) value);</div><div class="line">&#125;</div><div class="line"><span class="comment">//处理map之后调用</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</div><div class="line"><span class="comment">// NOTHING</span></div><div class="line">&#125;</div><div class="line"><span class="comment">//主函数调用Mapper类需要执行的方法</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</div><div class="line">    setup(context);</div><div class="line">    <span class="keyword">while</span> (context.nextKeyValue()) &#123;</div><div class="line">      map(context.getCurrentKey(), context.getCurrentValue(), context);</div><div class="line">    &#125;</div><div class="line">    cleanup(context);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当调用到map时，通常会先执行一个setup函数，最后会执行一个cleanup函数。而默认情况下，这两个函数的内容都是nothing。因此，当<strong>map方法不符合应用要求时，可以试着通过增加setup和cleanup的内容来满足应用的需求</strong>。</p>
+<p>注意一下几点:</p>
+<ul>
+<li>map函数中的输入 input 默认是一行一条记录, 每行记录都放在value里边，key就是该行的首字母相对于文本文件的首地址的偏移量（也就是该行第一个字符距离第一行第一个字符的中间字符个数），key默认长整形LongWritable</li>
+<li>每次搜集一条 K-V记录, 一个K可以对应多个value, 在reduce函数里面体现为一个 iterator</li>
+</ul>
+<h3 id="3-2、shuffle-性能优化的核心"><a href="#3-2、shuffle-性能优化的核心" class="headerlink" title="3.2、shuffle(性能优化的核心)"></a>3.2、shuffle(性能优化的核心)</h3><ul>
+<li>经历的步骤：<br>输入map的结果—&gt;缓冲区—-&gt;sort排序———&gt;combiner合并同key—-&gt;结果n个partition(分区),n也就是后面reduce作业的数量</li>
+<li>得到的结果：<br>key–value(相同的key对应的value被组合成了一个迭代器)</li>
+</ul>
+<p>不过很多人都是把这一步的过程都包含在map的步骤里面，统一称为Map处理。</p>
+<h3 id="3-3、reducer作用"><a href="#3-3、reducer作用" class="headerlink" title="3.3、reducer作用"></a>3.3、reducer作用</h3><p>reduce作用：总的来说就是整合各map处理的结果，并输出（文本或数据库）</p>
+<h4 id="3-3-1、如何编写一个reduce，"><a href="#3-3-1、如何编写一个reduce，" class="headerlink" title="3.3.1、如何编写一个reduce，"></a>3.3.1、如何编写一个reduce，</h4><p>在Hadoop的reducer类中，有3个主要的函数，分别是：setup，clearup，reduce。代码如下，还有一个run的运行函数。当调用到reduce时，通常会先执行一个setup函数，最后会执行一个cleanup函数。而默认情况下，这两个函数的内容都是nothing。因此，当reduce不符合应用要求时，可以试着通过增加setup和cleanup的内容来满足应用的需求。主要还是编写reduce函数：需要注意的是reduce中的values是迭代器，因为同一个key可能对应多个value值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">protected void reduce(KEYIN key, Iterable&lt;VALUEIN&gt; values, Context context</div><div class="line">                      ) throws IOException, InterruptedException &#123;</div><div class="line">  for(VALUEIN value: values) &#123;</div><div class="line">    context.write((KEYOUT) key, (VALUEOUT) value);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-4-、主函数的设置"><a href="#3-4-、主函数的设置" class="headerlink" title="3.4 、主函数的设置"></a>3.4 、主函数的设置</h3><p>要执行一段hadoop程序得对主函数设置基本信息，<br><code>System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;root&quot;);</code>//这句话很重要，要不然会告你没有权限执行,我还暂时没用到这句话<br>路径的输入格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String[] ioArgs = new String[] &#123; &quot;hdfs://192.168.1.101:7001/input&quot;,</div><div class="line">                &quot;hdfs://192.168.1.101:7001/output&quot; &#125;;</div></pre></td></tr></table></figure></p>
+<p>1、定义Job，并命名为“wordCount”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Configuration conf = new Configuration();</div><div class="line">Job job = Job.getInstance(conf ,&quot;wordCount&quot;);</div></pre></td></tr></table></figure>
+<p>2、设置jar包的主要运行类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">job.setJarByClass(WordCountTest.class);</div></pre></td></tr></table></figure></p>
+<p>   3、设置Mapper与Reudcer的类  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">job.setMapperClass(WordMapper.class);</div><div class="line">job.setCombinerClass(WordReducer.class);</div></pre></td></tr></table></figure>
+<p>4.1、设置job的输入输出格式，前者默认是TextInputFormat，后者是FileOutputFormat。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">void    setInputFormatClass(Class&lt;? extends InputFormat&gt; cls)  </div><div class="line">void    setOutputFormatClass(Class&lt;? extends OutputFormat&gt; cls)</div></pre></td></tr></table></figure></p>
+<p>   4、设置map和reduce的输出键值类型  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//设置map输出的key和value类型 </div><div class="line">job.setMapOutputKeyClass(Class&lt;?&gt; theClass)  </div><div class="line">job.setMapOutputValueClass(Class&lt;?&gt; theClass) </div><div class="line"></div><div class="line">//设置reducer的key和value类型，(通常来说如果map和reduce输出一致，上面的map不设置，下面这两条即可也能指定map的输出)</div><div class="line"> job.setOutputKeyClass(Text.class);</div><div class="line"> job.setOutputValueClass(IntWritable.class);</div></pre></td></tr></table></figure>
+<p>   5、设置输入输出路径  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FileInputFormat.addInputPath(job, new Path(otherArgs[0]));</div><div class="line">#可设置多个文件问输入（路径参数可以多个）：FileInputFormat.setInputPaths( job, inputPaths );</div><div class="line">FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));</div></pre></td></tr></table></figure>
+<p>6、执行程序job.waitForCompletion(true)<br>一般采用下面的方式，如果配置正确运行。<br>true—打印进度和详情<br>false—–不打印进度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.exit(job.waitForCompletion(true) ? 0 : 1);</div></pre></td></tr></table></figure></p>
+<h3 id="3-5，hadoop的动态参数设置"><a href="#3-5，hadoop的动态参数设置" class="headerlink" title="3.5，hadoop的动态参数设置"></a>3.5，hadoop的动态参数设置</h3><p>已打包好的jar包中已经设置了主函数。<br>执行的文件大小为：2 415M<br>hdfs的分片大小默认128M<br>1、采用默认参数执行的jar包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop jar threecount2.jar /workdir/chenshg/all_Login/allLoginLog_2017-05-01 /workdir/chenshg/all_Login/retdir/ret2 20170501</div></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="/images/cluster/1494582639220.png" alt="Alt text"><br>mapper个数:19<br>reducer个数：1<br><strong>原因:</strong> 2415/128=18.86…所以大文件会被分为19个片，从而产生了19个map<br>2、动态配置参数的运行jar包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hadoop jar threecount2.jar -Dmapreduce.input.fileinputformat.split.maxsize=536870912 -Dmapreduce.input.fileinputformat.split.minsize=268435456 -Dmapreduce.job.queuename=stat /workdir/chenshg/all_Login/allLoginLog_2017-05-01 /workdir/chenshg/all_Login/retdir/ret2 20170501</div></pre></td></tr></table></figure>
+<p><img src="/images/cluster/1494582880215.png" alt="Alt text"><br>mapper个数：10<br>reducer个数：1<br><strong>原因：</strong>按照分片大小的原则:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Math.max(minSize, Math.min(maxSize, blockSize));</div></pre></td></tr></table></figure>
+<p>而 <code>maxsize（536870912 ）&gt; minSize（268435456 byte=256M） &gt; blockSize（128M）</code><br>所以 ：最终分片大小为minsize,也就是256M为一片，<br>mapper个数=2415/256=9.43=》10个map</p>
+<h2 id="4、Myeclipse的远程调试"><a href="#4、Myeclipse的远程调试" class="headerlink" title="4、Myeclipse的远程调试"></a>4、Myeclipse的远程调试</h2><p>在hadoop中的配置hadoop.env.sh文件中加上以下内容，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#远程调试namenode</div><div class="line">export HADOOP_NAMENODE_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8888&quot;</div><div class="line">#远程调试datanode</div><div class="line">export HADOOP_DATANODE_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=9888&quot;</div><div class="line">#远程调试ResourceManager</div><div class="line">#export YARN_RESOURCEMANAGER_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=9568&quot;</div><div class="line">#远程调试nodemanager</div><div class="line">#export YARN_NODEMANAGER_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=9981&quot;</div></pre></td></tr></table></figure></p>
+<p>然后在namenode.class中的main主函数中右键debug configurations,<img src="/images/cluster/1485137901045.png" alt="Alt text"></p>
+
+                
+<p class="green-link-context">
+    <a href="/2017/12/15/Hive随笔/" rel="next" title="HIVE随笔">
+    下一篇：HIVE随笔
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/12/15/Hadoop集群搭建(三)--集群配置/" rel="next" title="Hadoop集群搭建(三)---集群配置">
+    上一篇：Hadoop集群搭建(三)---集群配置
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

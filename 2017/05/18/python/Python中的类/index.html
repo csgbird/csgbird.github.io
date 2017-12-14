@@ -1,0 +1,795 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Python中的类 | csg技术交流博客</title>
+    <meta name="author" content="陈双刚">
+    
+    <meta name="description" content="欢迎来到我的博客">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Python中的类"/>
+    <meta property="og:site_name" content="CSG博客. 放飞梦想"/>
+
+    
+    <meta property="og:image" content="undefined"/>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="CSG博客. 放飞梦想" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="blue lighten-2">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">CSG博客. 放飞梦想</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav blue darken-2" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://ss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/a713e697a5e79086e4b88738e58f88e9b89f3433" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈双刚</p>
+                        <p class="desc">Java | BigData | 技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav blue darken-2" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">9 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/大数据/">
+                    大数据 <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/hadoop/">
+                    hadoop <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hadoop/">
+                    Hadoop <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/大数据/Hive/">
+                    Hive <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Linux/">
+                    Linux <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-2" collapse-level="2">
+                <a class="no-padding" href="/categories/技术/Linux/大数据/">
+                    大数据 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/Python/">
+                    Python <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper blue lighten-2">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/Python/">Python</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Python中的类</h1>
+    
+
+
+            </div>
+            <time class="green-link-context" datetime="2017-05-18T04:12:20.887Z"><a href="/2017/05/18/python/Python中的类/">2017-05-18</a></time>
+
+			<div style="float: right;color: #00897b">
+				<span id="busuanzi_container_page_pv" style="display: none;">
+				阅读次数 <span id="busuanzi_value_page_pv"></span>
+				</span>
+			</div>
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Python/" class="chip green lighten-1">Python</a>
+        
+            <a href="/tags/函数式编程/" class="chip green lighten-1">函数式编程</a>
+        
+    </div>
+
+
+            <div class="toc green-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1、访问权限"><span class="section table-of-contents-text">1、访问权限</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-1、直接访问公用的属性"><span class="section table-of-contents-text">1.1、直接访问公用的属性</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-2、私有属性的设置"><span class="section table-of-contents-text">1.2、私有属性的设置</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2、静态语言-vs-动态语言"><span class="section table-of-contents-text">2、静态语言 vs 动态语言</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#3、获取类中的所有属性和方法—dir-object"><span class="section table-of-contents-text">3、获取类中的所有属性和方法—dir(object)</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#面向对象高级编程"><span class="section table-of-contents-text">面向对象高级编程</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#4、使用-slots"><span class="section table-of-contents-text">4、使用__slots__</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#5、-property的使用"><span class="section table-of-contents-text">5、@property的使用</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#6、python的多重继承MaxIn，"><span class="section table-of-contents-text">6、python的多重继承MaxIn，</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#7、定制类"><span class="section table-of-contents-text">7、定制类</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-1定制打印输出-str-和-repr"><span class="section table-of-contents-text">7.1定制打印输出__str__()和__repr__()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7、2定制迭代-iter"><span class="section table-of-contents-text">7、2定制迭代__iter__()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-3、取得迭代中的具体某个值-getitem"><span class="section table-of-contents-text">7.3、取得迭代中的具体某个值__getitem__</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-4动态返回一个属性-getattr"><span class="section table-of-contents-text">7.4动态返回一个属性__getattr__</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#7-5对象调用自身-call"><span class="section table-of-contents-text">7.5对象调用自身__call__</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#8、枚举类型"><span class="section table-of-contents-text">8、枚举类型</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#8-1、派生的枚举类-unique"><span class="section table-of-contents-text">8.1、派生的枚举类@unique</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#8-2、枚举的访问方法"><span class="section table-of-contents-text">8.2、枚举的访问方法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#9、元类的使用"><span class="section table-of-contents-text">9、元类的使用</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-1、type-动态创建类"><span class="section table-of-contents-text">9.1、type()动态创建类</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#9-2、metaclass创建修改类"><span class="section table-of-contents-text">9.2、metaclass创建修改类</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry green-link-context">
+                <p>本文也是学习<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="external">廖雪峰的python教程</a>中的知识总结。<br><a id="more"></a></p>
+<h3 id="1、访问权限"><a href="#1、访问权限" class="headerlink" title="1、访问权限"></a>1、访问权限</h3><h4 id="1-1、直接访问公用的属性"><a href="#1-1、直接访问公用的属性" class="headerlink" title="1.1、直接访问公用的属性"></a>1.1、直接访问公用的属性</h4><p>命名直接采用字符串命名就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Student:</div><div class="line">	def __init__(self, name, score):</div><div class="line">		self.name = name</div><div class="line">		self.score = score</div><div class="line">	def printStu(self):</div><div class="line">		print(&apos;name is :&apos;, self.name, &apos;my score is:&apos;, self.score)</div></pre></td></tr></table></figure>
+<p>外部可直接访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">stu = Student(&apos;csg&apos;,&apos;100&apos;)</div><div class="line">&gt;&gt;&gt;stu.name</div><div class="line">csg</div></pre></td></tr></table></figure>
+<h4 id="1-2、私有属性的设置"><a href="#1-2、私有属性的设置" class="headerlink" title="1.2、私有属性的设置"></a>1.2、私有属性的设置</h4><p>让内部属性不被外部访问，可以把属性的名称前加上两个下划线<code>__</code>，在Python中，实例的变量名如果以<code>__</code>开头，就变成了一个私有变量（private），只有内部可以访问，外部不能访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; bart = Student(&apos;Bart Simpson&apos;, 98)</div><div class="line">&gt;&gt;&gt; bart.__name</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;__name&apos;</div></pre></td></tr></table></figure>
+<p>所以要获取或修改里面成员的数据就得为类增加<code>get_name(self)</code>和<code>set_name(self,name)</code>的方法</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>变量名类似<code>__xxx__</code>的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用<code>__name__、__score__</code>这样的变量名。</li>
+<li>一个下划线开头的实例变量名，比如<code>_name</code>，这样的实例变量外部是可以访问的，但是，按照约定俗成的规定，当你看到这样的变量时，意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”</li>
+<li>不能直接访问<code>__name</code>是因为Python解释器对外把<code>__name</code>变量改成了<code>_Student__name</code>，所以，仍然可以通过<code>_Student__name</code>来访问<code>__name</code>变量。但是强烈建议你不要这么干，因为不同版本的Python解释器可能会把<code>__name</code>改成不同的变量名。</li>
+<li>特别注意以下写法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; bart = Student(&apos;Bart Simpson&apos;, 98)</div><div class="line">&gt;&gt;&gt; bart.get_name()</div><div class="line">&apos;Bart Simpson&apos;</div><div class="line">&gt;&gt;&gt; bart.__name = &apos;New Name&apos; # 设置__name变量！</div><div class="line">&gt;&gt;&gt; bart.__name</div><div class="line">&apos;New Name&apos;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>外部代码“成功”地设置了<code>__name</code>变量，但实际上这个<code>__name</code>变量和class内部的<code>__name</code>变量不是一个变量！内部的<code>__name</code>变量已经被Python解释器自动改成了<code>_Student__name</code>，而外部代码给bart新增了一个<code>__name</code>变量。<br><strong>总结：</strong></p>
+<ul>
+<li>开头有双下划线    ====》》  私有变量（外部不可访问）</li>
+<li>开头和结尾都有双下划线  ====》》 特殊变量（外部可访问）</li>
+<li>开头单下划线  ====》》  视为私有变量（不建议访问）<br>若要访问，可在class内部单独添加函数。<h3 id="2、静态语言-vs-动态语言"><a href="#2、静态语言-vs-动态语言" class="headerlink" title="2、静态语言 vs 动态语言"></a>2、静态语言 vs 动态语言</h3></li>
+</ul>
+<p>对于静态语言（例如Java）来说，如果需要传入Animal类型，则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。</p>
+<p>对于Python这样的动态语言来说，则不一定需要传入Animal类型。我们只需要保证传入的对象有一个run()方法就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Timer(object):</div><div class="line">    def run(self):</div><div class="line">        print(&apos;Start...&apos;)</div></pre></td></tr></table></figure>
+<p>动态语言的“鸭子类型”，它并不要求严格的继承体系，一个对象只要“看起来像鸭子，走起路来像鸭子”，那它就可以被看做是鸭子。</p>
+<h3 id="3、获取类中的所有属性和方法—dir-object"><a href="#3、获取类中的所有属性和方法—dir-object" class="headerlink" title="3、获取类中的所有属性和方法—dir(object)"></a>3、获取类中的所有属性和方法—dir(object)</h3><p>返回一个包含字符串的list。<br>类似<code>__xxx__</code>的属性和方法在Python中都是有特殊用途的，比如<code>__len__</code>方法返回长度。在Python中，如果你调用len()函数试图获取一个对象的长度，实际上，在len()函数内部，它自动去调用该对象的<code>__len__()</code>方法，所以，下面的代码是等价的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; len(&apos;ABC&apos;)</div><div class="line">3</div><div class="line">&gt;&gt;&gt; &apos;ABC&apos;.__len__()</div><div class="line">3</div></pre></td></tr></table></figure>
+<p>我们自己写的类，如果也想用len(myObj)的话，就自己写一个<strong>len</strong>()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; class MyDog(object):</div><div class="line">...     def __len__(self):</div><div class="line">...         return 100</div><div class="line">...</div><div class="line">&gt;&gt;&gt; dog = MyDog()</div><div class="line">&gt;&gt;&gt; len(dog)</div><div class="line">100</div></pre></td></tr></table></figure>
+<p>仅仅把属性和方法列出来是不够的，配合getattr()、setattr()以及hasattr()，我们可以直接操作一个对象的状态，（一般不这么用，除非不知道类中的内容）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; class MyObject(object):</div><div class="line">...     def __init__(self):</div><div class="line">...         self.x = 9</div><div class="line">...     def power(self):</div><div class="line">...         return self.x * self.x</div><div class="line">...</div><div class="line">&gt;&gt;&gt; obj = MyObject()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; hasattr(obj, &apos;x&apos;) # 有属性&apos;x&apos;吗？</div><div class="line">True</div><div class="line">&gt;&gt;&gt; obj.x</div><div class="line">9</div><div class="line">&gt;&gt;&gt; hasattr(obj, &apos;y&apos;) # 有属性&apos;y&apos;吗？</div><div class="line">False</div><div class="line">&gt;&gt;&gt; setattr(obj, &apos;y&apos;, 19) # 设置一个属性&apos;y&apos;</div><div class="line">&gt;&gt;&gt; hasattr(obj, &apos;y&apos;) # 有属性&apos;y&apos;吗？</div><div class="line">True</div><div class="line">&gt;&gt;&gt; getattr(obj, &apos;y&apos;) # 获取属性&apos;y&apos;</div><div class="line">19</div><div class="line">&gt;&gt;&gt; obj.y # 获取属性&apos;y&apos;</div><div class="line">19</div></pre></td></tr></table></figure>
+<p>如果试图获取不存在的属性，会抛出AttributeError的错误,可以传入一个default参数，如果属性不存在，就返回默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; getattr(obj, &apos;z&apos;, 404) # 获取属性&apos;z&apos;，如果不存在，返回默认值404</div><div class="line">404</div></pre></td></tr></table></figure>
+<h2 id="面向对象高级编程"><a href="#面向对象高级编程" class="headerlink" title="面向对象高级编程"></a>面向对象高级编程</h2><h3 id="4、使用-slots"><a href="#4、使用-slots" class="headerlink" title="4、使用__slots__"></a>4、使用<code>__slots__</code></h3><p>python属于动态语言，能够在定义类后，随意绑定某个实例的属性和方法，eg：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Student(object):</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<p>1、实例绑定一个属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = Student()</div><div class="line">&gt;&gt;&gt; s.name = &apos;Michael&apos; # 动态给实例绑定一个属性</div><div class="line">&gt;&gt;&gt; print(s.name)</div><div class="line">Michael</div></pre></td></tr></table></figure>
+<p>2、实例绑定一个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; def set_age(self, age): # 定义一个函数作为实例方法</div><div class="line">...     self.age = age</div><div class="line">...</div><div class="line">&gt;&gt;&gt; from types import MethodType</div><div class="line">&gt;&gt;&gt; s.set_age = MethodType(set_age, s) # 给实例绑定一个方法</div><div class="line">&gt;&gt;&gt; s.set_age(25) # 调用实例方法</div><div class="line">&gt;&gt;&gt; s.age # 测试结果</div><div class="line">25</div></pre></td></tr></table></figure>
+<p>3、给实例绑定的方法对另一个实例不起作用，也就是如下错误，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s2 = Student() # 创建新的实例</div><div class="line">&gt;&gt;&gt; s2.set_age(25) # 尝试调用方法</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;set_age&apos;</div></pre></td></tr></table></figure>
+<p>4、所以要给所有实例绑定方法，就得采用类class的方法绑定</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Student.set_score = set_score</div></pre></td></tr></table></figure>
+<p><strong>重点：</strong>通常情况下我们想要限制实例的属性和方法怎么办？比如，只允许对Student实例添加name和age属性。这时就用到我们的特殊变量<code>__slots__</code>,来限制class<strong>实例</strong>（特别注意只是限制实例不限制类本身）中添加的属性和方法 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Student(object):</div><div class="line">    __slots__ = (&apos;name&apos;, &apos;age&apos;) # 用tuple定义允许绑定的属性名称</div></pre></td></tr></table></figure>
+<p>实验结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = Student() # 创建新的实例</div><div class="line">&gt;&gt;&gt; s.name = &apos;Michael&apos; # 绑定属性&apos;name&apos;</div><div class="line">&gt;&gt;&gt; s.age = 25 # 绑定属性&apos;age&apos;</div><div class="line">&gt;&gt;&gt; s.score = 99 # 绑定属性&apos;score&apos;</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;score&apos;</div></pre></td></tr></table></figure>
+<p><font color="red"><strong>特别注意：</strong></font></p>
+<ul>
+<li><code>__slots__</code>定义的属性仅对<strong>当前类的<font color="red">实例</font></strong>起作用，对<strong>继承的子类是不起作用的</strong>，而且对类的本身也不起作用，</li>
+<li>除非在子类中也定义<code>__slots__</code>，这样，子类实例允许定义的属性就是自身的<code>__slots__</code>加上父类的<code>__slots__</code>。 <code>__slots__ = ()</code>  # 可以将父类的 <code>__slots__</code> 单独继承过来<br>例子：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class Student:</div><div class="line">	__slots__ = (&apos;name&apos;, &apos;age&apos;)</div><div class="line">	</div><div class="line">	def __init__(self, name):</div><div class="line">		self.name = name</div><div class="line">		# self.sex = name #这一句报错，</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">	s1 = Student(&apos;男&apos;)</div><div class="line">	s1.name = &apos;csg&apos;</div><div class="line">	s1.age = 26</div><div class="line">	# s1.score = 30 # 这一句报错，因为限制实例的属性</div><div class="line">	Student.score = 35 #成功能直接给类添加属性，但是这样该属性对于实例来说只能可读，而且都一样</div><div class="line">	print(s1.score)  #35</div></pre></td></tr></table></figure>
+<h3 id="5、-property的使用"><a href="#5、-property的使用" class="headerlink" title="5、@property的使用"></a>5、@property的使用</h3><p>@property装饰器就是负责把一个方法变成属性调用的：@property的实现比较复杂，我们先考察如何使用。把一个getter方法变成属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class Student:</div><div class="line">	</div><div class="line">	def set_sex(self,sex):</div><div class="line">		self._sex=sex</div><div class="line">	</div><div class="line">	def get_sex(self):</div><div class="line">		return self._sex</div><div class="line">	</div><div class="line">	@property</div><div class="line">	def name(self): #类似get</div><div class="line">		print(&apos;use name.property functiong ---&apos;)</div><div class="line">		return self._name</div><div class="line">	</div><div class="line">	@name.setter</div><div class="line">	def name(self, name): #类似set</div><div class="line">		print(&apos;use name.setter functiong ---&apos;)</div><div class="line">		self._name = name</div><div class="line"></div><div class="line">	@property</div><div class="line">	def score(self):</div><div class="line">		return self._score</div><div class="line">	</div><div class="line">	@score.setter</div><div class="line">	def score(self,value):</div><div class="line">		if not isinstance(value, int):</div><div class="line">			raise ValueError(&apos;score must be an integer!&apos;)</div><div class="line">		if value &lt; 0 or value &gt; 100:</div><div class="line">			raise ValueError(&apos;score must between 0 ~ 100!&apos;)</div><div class="line">		self._score = value</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">	</div><div class="line">	s1 = Student()</div><div class="line">	s1.set_sex(&apos;男男男男男男&apos;)</div><div class="line">	print(s1.get_sex())</div><div class="line">	s1.name=&apos;csg&apos; #就可以使用&quot;.&quot;来操作类中的函数了。</div><div class="line">	#s1.name(&apos;csl&apos;) #再来把name方法调用就会出错，因为装饰器已经把name变成了一个属性，属性后面再加括号()什么鬼</div><div class="line">	print(s1.name)</div><div class="line">	# s1.score=80 #对于socre来说，分数没有@score.setter方法，只能可读</div></pre></td></tr></table></figure>
+<p><strong>彩蛋：</strong><br>在进行属性访问控制定义的时候你可能会很容易的引起一个错误。考虑下面的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def __setattr__(self, name, value):</div><div class="line">    self.name = value</div></pre></td></tr></table></figure>
+<p>每当属性被赋值的时候，<code>__setattr__()</code> 会被调用，这样就造成了递归调用。</p>
+<p>这意味着调用 <code>self.__setattr__(&#39;name&#39;, value)</code> 时每次方法都会调用自己。这样会造成程序崩溃。修改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def __setattr__(self, name, value):</div><div class="line">    self.__dict__[name] = value  #给类中的属性名分配值，定制特有属性</div><div class="line">即可。</div></pre></td></tr></table></figure>
+<h3 id="6、python的多重继承MaxIn，"><a href="#6、python的多重继承MaxIn，" class="headerlink" title="6、python的多重继承MaxIn，"></a>6、python的多重继承MaxIn，</h3><p>python和java不同，java属于单继承，只能有一个父类，而python却可以拥有几个父类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Person(Teacher, Woman)：</div><div class="line">	pass</div></pre></td></tr></table></figure></p>
+<h3 id="7、定制类"><a href="#7、定制类" class="headerlink" title="7、定制类"></a>7、定制类</h3><h4 id="7-1定制打印输出-str-和-repr"><a href="#7-1定制打印输出-str-和-repr" class="headerlink" title="7.1定制打印输出__str__()和__repr__()"></a>7.1定制打印输出<code>__str__()</code>和<code>__repr__()</code></h4><p>打印某个类的时候，出现的输出结果是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">print(Student(&apos;Michael&apos;))</div><div class="line">&lt;__main__.Student object at 0x109afb190&gt;</div></pre></td></tr></table></figure></p>
+<p>需要打印好看，需在原类中重写<code>__str__(self)</code>方法，这样打印就会按照自己的返回结果了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def __str__(self):</div><div class="line">         return &apos;Student object (name: %s)&apos; % self.name</div><div class="line">&gt;&gt;&gt; print(Student(&apos;Michael&apos;))#再次打印，就成了我们定义的名字</div><div class="line">Student object (name: Michael)</div></pre></td></tr></table></figure>
+<p>注意：<br>虽然定义了<code>__str__()</code>若此时直接输出也是显示类的内存地址，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt;Student(&apos;Michael&apos;)</div><div class="line">&lt;__main__.Student object at 0x109afb310&gt;</div></pre></td></tr></table></figure></p>
+<p>因为直接输出是调用的<code>__repr__()</code>方式<code>__str__()</code>返回用户看到的字符串，而<code>__repr__()</code>返回程序开发者看到的字符串，也就是说，<code>__repr__()</code>是为调试服务的。解决办法：再定一个<code>__repr()__</code>即可，因为和str中输出一致，可采用简便方式如下添加：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__repr__ = __str__</div></pre></td></tr></table></figure></p>
+<h4 id="7、2定制迭代-iter"><a href="#7、2定制迭代-iter" class="headerlink" title="7、2定制迭代__iter__()"></a>7、2定制迭代<code>__iter__()</code></h4><p>如果一个类想被用于for … in循环，类似list或tuple那样，就必须实现一个<code>__iter__(</code>)方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<code>__next__()</code>方法拿到循环的下一个值，直到遇到<code>StopIteration</code>错误时退出循环。<br>斐波那契类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Fib(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.a, self.b = 0, 1 # 初始化两个计数器a，b</div><div class="line"></div><div class="line">    def __iter__(self):</div><div class="line">        return self # 实例本身就是迭代对象，故返回自己</div><div class="line"></div><div class="line">    def __next__(self):</div><div class="line">        self.a, self.b = self.b, self.a + self.b # 计算下一个值</div><div class="line">        if self.a &gt; 100000: # 退出循环的条件</div><div class="line">            raise StopIteration();</div><div class="line">        return self.a # 返回下一个值</div></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; for n in Fib():</div><div class="line">...     print(n)</div><div class="line">1</div><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td></tr></table></figure>
+<h4 id="7-3、取得迭代中的具体某个值-getitem"><a href="#7-3、取得迭代中的具体某个值-getitem" class="headerlink" title="7.3、取得迭代中的具体某个值__getitem__"></a>7.3、取得迭代中的具体某个值<code>__getitem__</code></h4><p>上面的斐波那契数列想要取得某个索引的值，这一项当然不受是否有<code>__iter__</code>的影响，也就是不管类中是否有<code>__iter__</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Fib(object):</div><div class="line">    def __getitem__(self, n):</div><div class="line">        a, b = 1, 1</div><div class="line">        for x in range(n):</div><div class="line">            a, b = b, a + b</div><div class="line">        return a</div></pre></td></tr></table></figure></p>
+<p>取值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; f = Fib()</div><div class="line">&gt;&gt;&gt; f[0]</div><div class="line">1</div><div class="line">&gt;&gt;&gt; f[1]</div><div class="line">1</div><div class="line">&gt;&gt;&gt; f[2]</div><div class="line">2</div></pre></td></tr></table></figure></p>
+<p>当然目前这个尚未对list中切片处理，比如传入参数为f[1:5]就会报错。要实现就必须做各种判断，可参考：<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319098638265527beb24f7840aa97de564ccc7f20f6000#0" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014319098638265527beb24f7840aa97de564ccc7f20f6000#0</a></p>
+<h4 id="7-4动态返回一个属性-getattr"><a href="#7-4动态返回一个属性-getattr" class="headerlink" title="7.4动态返回一个属性__getattr__"></a>7.4动态返回一个属性<code>__getattr__</code></h4><p>当我们调用类的方法或属性时，如果不存在，就会报错。比如定义Student类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Student(object):</div><div class="line">    def __init__(self):</div><div class="line">        self.name = &apos;Michael&apos;</div></pre></td></tr></table></figure>
+<p>调用时出错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = Student()</div><div class="line">&gt;&gt;&gt; print(s.name)</div><div class="line">Michael</div><div class="line">&gt;&gt;&gt; print(s.score)</div><div class="line">Traceback (most recent call last):</div><div class="line">  ...</div><div class="line">AttributeError: &apos;Student&apos; object has no attribute &apos;score&apos;</div></pre></td></tr></table></figure></p>
+<p>此时就可以用类中的<code>__getattr__</code>动态的返回一个默认值，类中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def __getattr__(self, attr):</div><div class="line">        if attr==&apos;score&apos;:</div><div class="line">            return 99</div></pre></td></tr></table></figure>
+<p>再次调用时会返回99，Python解释器会试图调用<code>__getattr__(self, &#39;score&#39;)</code>来尝试获得属性，<br>，只有在没有找到属性的情况下，才调用<code>__getattr__</code>，已有的属性，比如name，不会在<code>__getattr__</code>中查找。<br>还能返回函数，只是在调用的时候<br>返回函数也是完全可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Student(object):</div><div class="line"></div><div class="line">    def __getattr__(self, attr):</div><div class="line">        if attr==&apos;age&apos;:</div><div class="line">            return lambda: 25</div></pre></td></tr></table></figure>
+<p>只是调用方式要变为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s.age()</div><div class="line">25</div></pre></td></tr></table></figure>
+<p><strong>注意: 只有在没有找到属性的情况下，才调用<code>__getattr__</code>，已有的属性，比如name，不会在<code>__getattr__</code>中查找。</strong></p>
+<p>此外，注意到任意调用如s.abc都会返回None，这是因为我们定义的<code>__getattr__</code>默认返回就是None。要让class只响应特定的几个属性，我们就要按照约定，抛出AttributeError的错误：</p>
+<p>Rest的链式调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Chain(object):</div><div class="line"></div><div class="line">    def __init__(self, path=&apos;&apos;):</div><div class="line">        self._path = path</div><div class="line"></div><div class="line">    def __getattr__(self, path):</div><div class="line">        return Chain(&apos;%s/%s&apos; % (self._path, path))</div><div class="line"></div><div class="line">    def __str__(self):</div><div class="line">        return self._path</div><div class="line"></div><div class="line">    __repr__ = __str__</div></pre></td></tr></table></figure>
+<p>试试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; Chain().status.user.timeline.list</div><div class="line">&apos;/status/user/timeline/list&apos;</div></pre></td></tr></table></figure>
+<h4 id="7-5对象调用自身-call"><a href="#7-5对象调用自身-call" class="headerlink" title="7.5对象调用自身__call__"></a>7.5对象调用自身<code>__call__</code></h4><p>一个对象实例可以有自己的属性和方法，当我们调用实例方法时，我们用instance.method()来调用。能不能直接在实例本身上调用呢？在Python中，答案是肯定的。</p>
+<p>任何类，只需要定义一个<code>__call__</code>()方法，就可以直接对实例进行调用。请看示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Student(object):</div><div class="line">    def __init__(self, name):</div><div class="line">        self.name = name</div><div class="line"></div><div class="line">    def __call__(self):</div><div class="line">        print(&apos;My name is %s.&apos; % self.name)</div></pre></td></tr></table></figure>
+<p>调用方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = Student(&apos;Michael&apos;)</div><div class="line">&gt;&gt;&gt; s() # self参数不要传入</div><div class="line">My name is Michael.</div></pre></td></tr></table></figure>
+<p><code>__call__</code>()还可以定义参数。对实例进行直接调用就好比对一个函数进行调用一样，所以你完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。</p>
+<p>如果你把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，因为类的实例都是运行期创建出来的，这么一来，我们就模糊了对象和函数的界限。</p>
+<ul>
+<li>callable(Object)函数，我们就可以判断一个对象是否是“可调用”对象。<h3 id="8、枚举类型"><a href="#8、枚举类型" class="headerlink" title="8、枚举类型"></a>8、枚举类型</h3>定义方法如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Month = Enum(&apos;Month&apos;, (&apos;Jan&apos;, &apos;Feb&apos;, &apos;Mar&apos;, &apos;Apr&apos;, &apos;May&apos;, &apos;Jun&apos;, &apos;Jul&apos;, &apos;Aug&apos;, &apos;Sep&apos;, &apos;Oct&apos;, &apos;Nov&apos;, &apos;Dec&apos;))</div><div class="line">print(Month.Jan)</div><div class="line">for name, number in Month.__members__.items():</div><div class="line">	print(name, &apos;==&gt;&apos;, number, &apos;:&apos;, number.value)#value属性则是自动赋给成员的int常量，默认从1开始计数。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="8-1、派生的枚举类-unique"><a href="#8-1、派生的枚举类-unique" class="headerlink" title="8.1、派生的枚举类@unique"></a>8.1、派生的枚举类@unique</h4><p>如果需要更精确地控制枚举类型，可以从Enum派生出自定义类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from enum import Enum, unique</div><div class="line">@unique</div><div class="line">class Weekday(Enum):</div><div class="line">    Sun = 0 # Sun的value被设定为0</div><div class="line">    Mon = 1</div><div class="line">    Tue = 2</div><div class="line">    Wed = 3</div><div class="line">    Thu = 4</div><div class="line">    Fri = 5</div><div class="line">    Sat = 6</div></pre></td></tr></table></figure>
+<p>@unique装饰器可以帮助我们检查保证没有重复值。</p>
+<h4 id="8-2、枚举的访问方法"><a href="#8-2、枚举的访问方法" class="headerlink" title="8.2、枚举的访问方法"></a>8.2、枚举的访问方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; day1 = Weekday.Mon</div><div class="line">&gt;&gt;&gt; print(day1)--------》直接知道属性</div><div class="line">Weekday.Mon</div><div class="line">&gt;&gt;&gt; print(Weekday[&apos;Tue&apos;])-----》属性名</div><div class="line">Weekday.Tue</div><div class="line">&gt;&gt;&gt; print(Weekday.Tue.value)-----》属性值</div><div class="line">2</div><div class="line">&gt;&gt;&gt; print(day1 == Weekday.Mon)</div><div class="line">True</div><div class="line">&gt;&gt;&gt; print(day1 == Weekday.Tue)</div><div class="line">False</div><div class="line">&gt;&gt;&gt; print(Weekday(1))------------》成员索引</div><div class="line">Weekday.Mon</div></pre></td></tr></table></figure>
+<p>Enum可以把一组相关常量定义在一个class中，且class不可变，而且成员可以直接比较。</p>
+<h3 id="9、元类的使用"><a href="#9、元类的使用" class="headerlink" title="9、元类的使用"></a>9、元类的使用</h3><h4 id="9-1、type-动态创建类"><a href="#9-1、type-动态创建类" class="headerlink" title="9.1、type()动态创建类"></a>9.1、type()动态创建类</h4><p>type()一般两个作用</p>
+<ul>
+<li>type()函数可以查看一个类型或变量的类型</li>
+<li>type()函数可以创建出新的类型，也就是可以动态创建类无需定义</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-&gt;&gt;&gt; def fn(self, name=&apos;world&apos;): # 先定义函数</div><div class="line">...     print(&apos;Hello, %s.&apos; % name)</div><div class="line">...</div><div class="line">&gt;&gt;&gt; Hello = type(&apos;Hello&apos;, (object,), dict(hello=fn)) # 创建Hello class</div><div class="line">&gt;&gt;&gt; h = Hello()</div><div class="line">&gt;&gt;&gt; h.hello()</div><div class="line">Hello, world.</div><div class="line">&gt;&gt;&gt; print(type(Hello))</div><div class="line">&lt;class &apos;type&apos;&gt;</div><div class="line">&gt;&gt;&gt; print(type(h))</div><div class="line">&lt;class &apos;__main__.Hello&apos;&gt;</div></pre></td></tr></table></figure>
+<p>传入的三个参数</p>
+<ol>
+<li>class的名称；</li>
+<li>继承的父类集合，注意Python支持多重继承，如果只有一个父类，别忘了<strong>tuple的单元素写法；</strong></li>
+<li>class的方法名称与函数绑定，这里我们把函数fn绑定到方法名hello上。<h4 id="9-2、metaclass创建修改类"><a href="#9-2、metaclass创建修改类" class="headerlink" title="9.2、metaclass创建修改类"></a>9.2、metaclass创建修改类</h4>修改类中的定义<br>声明自己的MyList类，在原本list类上添加add方法，<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class ListMetaclass(type):</div><div class="line">	def __new__(cls, name, bases, attrs):</div><div class="line">		attrs[&apos;add&apos;] = lambda self, x: self.append(x)</div><div class="line">		return type.__new__(cls, name, bases, attrs)</div><div class="line">#新生成的MyList类</div><div class="line">class MyList(list, metaclass=ListMetaclass):</div><div class="line">	pass</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>测试结果如下，普通的list类就没有add方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; L = MyList()</div><div class="line">&gt;&gt;&gt; L.add(1)</div><div class="line">&gt;&gt; L</div><div class="line">[1]</div></pre></td></tr></table></figure></p>
+<p><code>ListMetaclass.__new__()</code>来创建，在此，我们可以修改类的定义，比如，加上新的方法，然后，返回修改后的定义。<br><code>__new__()</code>方法接收到的参数依次是：</p>
+<ul>
+<li>当前准备创建的类的对象；</li>
+<li>类的名字；</li>
+<li>类继承的父类集合；</li>
+<li>类的方法集合。</li>
+</ul>
+
+                
+<p class="green-link-context">
+    <a href="/2017/05/18/python/python3 的文件操作/" rel="next" title="Python3的文件操作">
+    下一篇：Python3的文件操作
+  </a>
+</p>
+
+
+
+<p class="green-link-context">
+    <a href="/2017/05/16/python/python小记/" rel="next" title="Python小记">
+    上一篇：Python小记
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href,
+        sourceId: "",
+        productKey: "45f3b519a74e444e9e312c4373c7b474",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large green">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect teal darken-2" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse purple darken-1"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer blue lighten-2 darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="http://weibo.com/u/2898076553" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/csgbird" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://github.com/raytaylorlin" target="_blank">主题设置</a>
+                
+                    <a class="social-link" href="http://dongxicheng.org/" target="_blank">董的博客</a>
+                
+                    <a class="social-link" href="https://www.zhihu.com/question/22913650" target="_blank">心灵毒汤</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright green-link-context">
+        <div class="container">
+            ©2017 csgbird.github.io
+			<p class="right" style="margin-top: 0;">
+				<span id="busuanzi_container_site_uv" style="display: none;">
+				您好，您是本站点的第 <span id="busuanzi_value_site_uv" style="color: yellow;"></span> 位访客，祝您生活工作愉快
+				</span>
+			</p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('green lighten-2');
+
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword green lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=62154353" charset="UTF-8"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
