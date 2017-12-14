@@ -487,7 +487,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
             
             <category> 大数据 </category>
             
-            <category> hadoop </category>
+            <category> Hadoop </category>
             
         </categories>
         
@@ -541,9 +541,9 @@ fromClause: FROM baseTable (lateralView)*</code></p>
             
             <category> 技术 </category>
             
-            <category> Linux </category>
-            
             <category> 大数据 </category>
+            
+            <category> Hadoop </category>
             
         </categories>
         
@@ -613,9 +613,9 @@ fromClause: FROM baseTable (lateralView)*</code></p>
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> 文件操作 </tag>
+            
+            <tag> Python </tag>
             
         </tags>
         
@@ -1210,7 +1210,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
             
             <category> 大数据 </category>
             
-            <category> Hadoop </category>
+            <category> HBase </category>
             
         </categories>
         

@@ -462,7 +462,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     <link href="http://yoursite.com/2017/12/15/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA(%E4%BA%8C)---%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
     <id>http://yoursite.com/2017/12/15/Hadoop集群搭建(二)---软件安装/</id>
     <published>2017-12-14T16:09:02.148Z</published>
-    <updated>2017-12-14T16:48:52.498Z</updated>
+    <updated>2017-12-14T18:49:13.252Z</updated>
     
     <content type="html"><![CDATA[<p>主要介绍vm安装centos7系统最小设置，采用3个虚拟机搭建大数据集群。安装chd5.7.4版本。<br>参考网址：<a href="https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_command_line.html" target="_blank" rel="external">https://www.cloudera.com/documentation/enterprise/5-7-x/topics/cdh_ig_command_line.html</a><br><a id="more"></a></p>
 <p>前面已经讲解了三台机器<code>hadoop-master</code>、<code>hadoop-slaver1</code>、<code>hadoop-slaver2</code>的基本环境配置，下面在master机器上搭建yum服务器，然后只需要master下载安装包，slaver1，slaver2就能够直接从master下载安装无需在通过网络。</p>
@@ -514,7 +514,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     
       <category term="大数据" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-      <category term="hadoop" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/hadoop/"/>
+      <category term="Hadoop" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/"/>
     
     
       <category term="大数据" scheme="http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
@@ -530,7 +530,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     <link href="http://yoursite.com/2017/12/14/Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA(%E4%B8%80)--%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2017/12/14/Hadoop集群搭建(一)--环境配置/</id>
     <published>2017-12-14T15:53:44.166Z</published>
-    <updated>2017-12-14T16:45:11.046Z</updated>
+    <updated>2017-12-14T18:49:55.369Z</updated>
     
     <content type="html"><![CDATA[<p>主要介绍vm安装centos7系统最小设置，采用3个虚拟机搭建大数据集群。CDH版本的hdfs，hadoop，Hbase搭建。<br><a id="more"></a></p>
 <p>环境：centos7–三台<br>软件版本:CDH5.7.4</p>
@@ -570,9 +570,9 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     
       <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="Linux" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/Linux/"/>
+      <category term="大数据" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-      <category term="大数据" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/Linux/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="Hadoop" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/"/>
     
     
       <category term="大数据" scheme="http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
@@ -640,9 +640,9 @@ fromClause: FROM baseTable (lateralView)*</code></p>
       <category term="Python" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/Python/"/>
     
     
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
       <category term="文件操作" scheme="http://yoursite.com/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
     
   </entry>
   
@@ -1117,7 +1117,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     <link href="http://yoursite.com/2017/05/06/hbase/HBase%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
     <id>http://yoursite.com/2017/05/06/hbase/HBase伪分布式搭建/</id>
     <published>2017-05-06T07:58:34.005Z</published>
-    <updated>2017-05-16T09:54:46.406Z</updated>
+    <updated>2017-12-14T18:48:35.520Z</updated>
     
     <content type="html"><![CDATA[<p>主要讲解了Linux系统的部分设置，CDH版本的hdfs，hadoop，Hbase的伪分布式搭建。<br><a id="more"></a></p>
 <h1 id="HBase伪分布式搭建"><a href="#HBase伪分布式搭建" class="headerlink" title="HBase伪分布式搭建"></a>HBase伪分布式搭建</h1><p>运行环境：centos7 64位<br>vm虚拟机<br>参考地址：<a href="http://www.jikexueyuan.com/course/2089_3.html?ss=1" target="_blank" rel="external">http://www.jikexueyuan.com/course/2089_3.html?ss=1</a></p>
@@ -1247,7 +1247,7 @@ fromClause: FROM baseTable (lateralView)*</code></p>
     
       <category term="大数据" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-      <category term="Hadoop" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/Hadoop/"/>
+      <category term="HBase" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E5%A4%A7%E6%95%B0%E6%8D%AE/HBase/"/>
     
     
       <category term="大数据" scheme="http://yoursite.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
