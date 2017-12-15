@@ -608,9 +608,9 @@ fromClause: FROM baseTable (lateralView)*</code></p>
             
             <tag> 大数据 </tag>
             
-            <tag> Linux </tag>
-            
             <tag> Hadoop </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
         
