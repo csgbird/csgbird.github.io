@@ -1,8 +1,11 @@
+  
+  
+--- 
+  title: "GStack 使用文档"
+  date: "2026-05-02"
+  tags: ["工具", "gstack"]
 ---
-title: "GStack 使用文档"
-date: "2026-05-02"
-tags: ["工具", "gstack"]
----
+# GStack 使用文档
 
 > **版本**: 1.24.0 | **作者**: Garry Tan (Y Combinator CEO) | **安装路径**: `~/.claude/skills/gstack/`
 
