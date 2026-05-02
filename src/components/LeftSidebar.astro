@@ -30,7 +30,11 @@ for (const note of allNotes) {
 ---
 
 <aside class="left-sidebar">
-  <div class="sidebar-inner">
+  <button class="sidebar-toggle" id="sidebar-toggle-btn" aria-expanded="false">
+    <span class="toggle-label">{currentType === 'notes' ? '📖 笔记目录' : '📝 文章目录'}</span>
+    <span class="toggle-arrow">▼</span>
+  </button>
+  <div class="sidebar-inner" id="sidebar-content">
 
     <section class="sidebar-section">
       <details open={currentType === 'blog' || !currentType}>
@@ -189,7 +193,65 @@ for (const note of allNotes) {
     font-weight: 600;
   }
 
+  .sidebar-toggle {
+    display: none;
+  }
+
   @media (max-width: 1100px) {
-    .left-sidebar { display: none; }
+    .left-sidebar {
+      width: 100%;
+      position: static;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .sidebar-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.625rem 1rem;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .sidebar-toggle:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .toggle-arrow {
+      font-size: 0.75rem;
+      transition: transform 0.2s;
+    }
+
+    .sidebar-toggle[aria-expanded="true"] .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .sidebar-inner {
+      display: none;
+      margin-top: 0.375rem;
+    }
+
+    .sidebar-inner.open {
+      display: block;
+    }
   }
 </style>
+
+<script>
+  const btn = document.getElementById('sidebar-toggle-btn');
+  const content = document.getElementById('sidebar-content');
+  btn?.addEventListener('click', () => {
+    const isOpen = content?.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

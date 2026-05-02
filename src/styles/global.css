@@ -36,6 +36,19 @@ html {
 
 body {
   min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/bg.png');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.10;
+  pointer-events: none;
 }
 
 a {
