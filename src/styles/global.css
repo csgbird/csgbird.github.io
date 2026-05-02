@@ -36,7 +36,6 @@ html {
 
 body {
   min-height: 100vh;
-  position: relative;
 }
 
 body::before {
@@ -44,7 +43,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('/bg.png');
+  background-image: url('/bg.jpg');
   background-size: cover;
   background-position: center top;
   opacity: 0.10;
