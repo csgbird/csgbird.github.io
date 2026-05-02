@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "csgbird 的个人站点" } = Astro.props;
+const { title, description = "C雙G 的个人站点" } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,12 +17,12 @@ const { title, description = "csgbird 的个人站点" } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@300;400;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <header class="site-header">
       <nav class="nav-container">
-        <a href="/" class="site-logo">csgbird</a>
+        <a href="/" class="site-logo">C雙G</a>
         <ul class="nav-links">
           <li><a href="/blog">博客</a></li>
           <li><a href="/notes">笔记</a></li>
@@ -37,7 +37,7 @@ const { title, description = "csgbird 的个人站点" } = Astro.props;
     </main>
 
     <footer class="site-footer">
-      <p>© {new Date().getFullYear()} csgbird · 用 <a href="https://astro.build" target="_blank">Astro</a> 构建</p>
+      <p>© {new Date().getFullYear()} C雙G · 用 <a href="https://astro.build" target="_blank">Astro</a> 构建</p>
     </footer>
   </body>
 </html>
@@ -47,7 +47,7 @@ const { title, description = "csgbird 的个人站点" } = Astro.props;
     border-bottom: 1px solid var(--color-border);
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(253, 246, 236, 0.92);
     backdrop-filter: blur(8px);
     z-index: 100;
   }

@@ -1,14 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 5);
 ---
 
-<BaseLayout title="csgbird - 个人站点">
+<BaseLayout title="C雙G - 个人站点">
   <div class="home">
+
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-inner">
-        <h1>你好，我是 csgbird</h1>
-        <p>记录技术学习、生活随记与家庭故事的个人角落。</p>
+      <div class="hero-inner fade-in-up">
+        <p class="hero-sub">山高水远，记事成册</p>
+        <h1>你好，我是 C雙G</h1>
+        <p class="hero-desc">记录技术学习、生活随记与家庭故事的个人角落。</p>
         <div class="hero-links">
           <a href="/blog" class="btn-primary">读博客</a>
           <a href="/notes" class="btn-outline">看笔记</a>
@@ -21,22 +28,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="container">
         <h2 class="section-title">内容分区</h2>
         <div class="card-grid">
-          <a href="/blog" class="category-card">
+          <a href="/blog" class="category-card scroll-fade">
             <div class="card-icon">📝</div>
             <h3>博客</h3>
             <p>技术笔记、生活随笔、个人思考</p>
           </a>
-          <a href="/notes" class="category-card">
+          <a href="/notes" class="category-card scroll-fade">
             <div class="card-icon">📚</div>
             <h3>笔记</h3>
             <p>系统整理的知识库，按主题分类</p>
           </a>
-          <a href="/photos" class="category-card">
+          <a href="/photos" class="category-card scroll-fade">
             <div class="card-icon">📷</div>
             <h3>相册</h3>
             <p>家庭记录，生活瞬间</p>
           </a>
-          <a href="/about" class="category-card">
+          <a href="/about" class="category-card scroll-fade">
             <div class="card-icon">👤</div>
             <h3>关于</h3>
             <p>关于这个站点和这个人</p>
@@ -49,99 +56,128 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section class="recent-posts">
       <div class="container">
         <h2 class="section-title">最近文章</h2>
-        <p class="empty-hint">还没有文章，快去 <code>src/content/blog/</code> 目录新建一篇吧。</p>
+        {recentPosts.length === 0 ? (
+          <p class="empty-hint">还没有文章，快去 <code>src/content/blog/</code> 目录新建一篇吧。</p>
+        ) : (
+          <ul class="post-list">
+            {recentPosts.map((post) => (
+              <li class="post-item scroll-fade">
+                <a href={`/blog/${post.id}`} class="post-link">
+                  <span class="post-date">{post.data.date}</span>
+                  <span class="post-title">{post.data.title}</span>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <span class="post-tags">
+                      {post.data.tags.map(tag => <span class="tag">{tag}</span>)}
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="more-link-wrap">
+            <a href="/blog" class="more-link">查看全部文章 →</a>
+          </div>
+        )}
       </div>
     </section>
   </div>
 </BaseLayout>
 
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+</script>
+
 <style>
-  .home {
-    padding-bottom: 4rem;
-  }
+  .home { padding-bottom: 4rem; }
 
   /* Hero */
   .hero {
-    background: linear-gradient(135deg, #f0f4ff 0%, #fafafa 100%);
+    background: linear-gradient(160deg, #F5EBDA 0%, #FDF6EC 60%);
     border-bottom: 1px solid var(--color-border);
     padding: 5rem 1.5rem;
     text-align: center;
   }
 
-  .hero-inner {
-    max-width: 600px;
-    margin: 0 auto;
+  .hero-inner { max-width: 600px; margin: 0 auto; }
+
+  .hero-sub {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
   }
 
   .hero h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
   }
 
-  .hero p {
-    font-size: 1.125rem;
+  .hero-desc {
+    font-size: 1.1rem;
     color: var(--color-text-muted);
     margin-bottom: 2rem;
   }
 
-  .hero-links {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
+  .hero-links { display: flex; gap: 1rem; justify-content: center; }
 
   .btn-primary {
     background: var(--color-primary);
-    color: white;
+    color: #FDF6EC;
     padding: 0.625rem 1.5rem;
     border-radius: var(--radius);
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.15s;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
   }
-
   .btn-primary:hover {
     background: var(--color-primary-hover);
+    transform: translateY(-2px);
     text-decoration: none;
-    color: white;
+    color: #FDF6EC;
   }
 
   .btn-outline {
-    border: 1px solid var(--color-border);
+    border: 1.5px solid var(--color-border);
     color: var(--color-text);
     padding: 0.625rem 1.5rem;
     border-radius: var(--radius);
     font-weight: 500;
-    text-decoration: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.2s, transform 0.2s;
   }
-
   .btn-outline:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
+    transform: translateY(-2px);
     text-decoration: none;
   }
 
   /* 通用 */
-  .container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
 
   .section-title {
-    font-size: 1.375rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
   }
 
   /* 分类卡片 */
-  .categories {
-    padding: 3.5rem 0;
-  }
+  .categories { padding: 3.5rem 0; }
 
   .card-grid {
     display: grid;
@@ -151,42 +187,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .category-card {
     border: 1px solid var(--color-border);
+    background: var(--color-bg-card);
     border-radius: var(--radius);
     padding: 1.5rem;
     text-decoration: none;
     color: var(--color-text);
-    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
     display: block;
   }
-
   .category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
     border-color: var(--color-primary);
-    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
     text-decoration: none;
     color: var(--color-text);
   }
 
-  .card-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
+  .card-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
 
   .category-card h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.4rem;
+    color: var(--color-primary);
   }
 
   .category-card p {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
     line-height: 1.5;
   }
 
   /* 最近文章 */
-  .recent-posts {
-    padding: 0 0 2rem;
-  }
+  .recent-posts { padding: 0 0 2rem; }
 
   .empty-hint {
     color: var(--color-text-muted);
@@ -196,4 +230,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: var(--radius);
     text-align: center;
   }
+
+  .post-list { list-style: none; }
+
+  .post-item { border-bottom: 1px solid var(--color-border-soft); }
+
+  .post-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.875rem 0;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color 0.15s;
+    flex-wrap: wrap;
+  }
+  .post-link:hover { color: var(--color-primary); text-decoration: none; }
+
+  .post-date {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .post-title { font-size: 0.975rem; font-weight: 500; flex: 1; }
+
+  .post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.6rem;
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    color: var(--color-text-muted);
+  }
+
+  .more-link-wrap { text-align: right; margin-top: 1rem; }
+
+  .more-link {
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .more-link:hover { text-decoration: underline; }
 </style>

@@ -1,34 +1,79 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const categories = [
-  { name: 'Java', slug: 'java', icon: '☕', desc: 'Spring、JVM、后端开发' },
-  { name: '前端', slug: 'frontend', icon: '🌐', desc: 'React、CSS、浏览器原理' },
-  { name: '数据库', slug: 'database', icon: '🗄️', desc: 'MySQL、Redis、SQL调优' },
-  { name: '工具', slug: 'tools', icon: '🔧', desc: 'Git、Linux、Docker' },
-  { name: '算法', slug: 'algorithm', icon: '🧮', desc: '数据结构与算法' },
-  { name: '读书', slug: 'reading', icon: '📖', desc: '读书笔记与摘录' },
-];
+const allNotes = await getCollection('notes');
+
+// 按 category frontmatter 分组，没有则归入「未分类」
+type Note = typeof allNotes[0];
+const grouped = new Map<string, Note[]>();
+
+for (const note of allNotes) {
+  const cat = note.data.category ?? '未分类';
+  if (!grouped.has(cat)) grouped.set(cat, []);
+  grouped.get(cat)!.push(note);
+}
+
+// 图标映射
+const catIcons: Record<string, string> = {
+  'Java': '☕', '前端': '🌐', '数据库': '🗄️',
+  '工具': '🔧', '算法': '🧮', '读书': '📖', '未分类': '📄',
+};
 ---
 
-<BaseLayout title="笔记 - csgbird">
+<BaseLayout title="笔记 - C雙G">
   <div class="notes-container">
-    <h1 class="page-title">笔记</h1>
-    <p class="page-desc">系统整理的知识库，从 Obsidian 同步过来。</p>
-
-    <div class="category-grid">
-      {categories.map((cat) => (
-        <a href={`/notes/${cat.slug}`} class="category-card">
-          <span class="cat-icon">{cat.icon}</span>
-          <div class="cat-info">
-            <h3>{cat.name}</h3>
-            <p>{cat.desc}</p>
-          </div>
-        </a>
-      ))}
+    <div class="page-header fade-in-up">
+      <h1 class="page-title">笔记</h1>
+      <p class="page-desc">
+        系统整理的知识库，从 Obsidian 同步。
+        共 <strong>{allNotes.length}</strong> 篇。
+      </p>
     </div>
+
+    {allNotes.length === 0 ? (
+      <p class="empty-hint">
+        还没有笔记。把 <code>.md</code> 文件放到
+        <code>~/notebook/wiki/</code> 目录里，下次 commit 时会自动同步。
+      </p>
+    ) : (
+      <div class="notes-body">
+        {[...grouped.entries()].map(([cat, notes]) => (
+          <section class="cat-section scroll-fade">
+            <h2 class="cat-title">
+              <span class="cat-icon">{catIcons[cat] ?? '📄'}</span>
+              {cat}
+              <span class="cat-count">{notes.length}</span>
+            </h2>
+            <ul class="note-list">
+              {notes.map((note) => {
+                const title = note.data.title ?? note.id.replace(/[-_]/g, ' ');
+                return (
+                  <li class="note-item">
+                    <a href={`/notes/${note.id}`} class="note-link">
+                      <span class="note-title">{title}</span>
+                      {note.data.description && (
+                        <span class="note-desc">{note.data.description}</span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </div>
+    )}
   </div>
 </BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+</script>
 
 <style>
   .notes-container {
@@ -37,56 +82,83 @@ const categories = [
     padding: 3rem 1.5rem;
   }
 
+  .page-header { margin-bottom: 2.5rem; }
+
   .page-title {
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
   }
 
-  .page-desc {
+  .page-desc { color: var(--color-text-muted); font-size: 0.95rem; }
+  .page-desc strong { color: var(--color-primary); }
+
+  .empty-hint {
     color: var(--color-text-muted);
-    margin-bottom: 2.5rem;
+    padding: 2rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    text-align: center;
   }
 
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-  }
+  .notes-body { display: flex; flex-direction: column; gap: 2.5rem; }
 
-  .category-card {
+  /* 分类区块 */
+  .cat-section {}
+
+  .cat-title {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .cat-icon { font-size: 1.1rem; }
+
+  .cat-count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+    background: var(--color-bg-soft);
     border: 1px solid var(--color-border);
+    padding: 0.1rem 0.5rem;
+    border-radius: 100px;
+  }
+
+  /* 笔记列表 */
+  .note-list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+
+  .note-item {}
+
+  .note-link {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.6rem 0.75rem;
     border-radius: var(--radius);
     text-decoration: none;
     color: var(--color-text);
-    transition: border-color 0.15s, box-shadow 0.15s;
+    transition: background 0.15s, color 0.15s;
+    flex-wrap: wrap;
   }
-
-  .category-card:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
+  .note-link:hover {
+    background: var(--color-bg-soft);
+    color: var(--color-primary);
     text-decoration: none;
-    color: var(--color-text);
   }
 
-  .cat-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-  }
+  .note-title { font-size: 0.95rem; font-weight: 500; }
 
-  .cat-info h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.2rem;
-  }
-
-  .cat-info p {
-    font-size: 0.8rem;
+  .note-desc {
+    font-size: 0.82rem;
     color: var(--color-text-muted);
+    flex: 1;
   }
 </style>

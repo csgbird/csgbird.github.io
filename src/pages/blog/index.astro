@@ -4,114 +4,249 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+// 按年月分组
+type Post = typeof allPosts[0];
+type MonthGroup = { month: string; posts: Post[] };
+type YearGroup = { year: string; months: MonthGroup[] };
+
+const grouped: YearGroup[] = [];
+
+for (const post of allPosts) {
+  const [year, month] = post.data.date.split('-');
+  let yg = grouped.find(g => g.year === year);
+  if (!yg) { yg = { year, months: [] }; grouped.push(yg); }
+  let mg = yg.months.find(m => m.month === month);
+  if (!mg) { mg = { month, posts: [] }; yg.months.push(mg); }
+  mg.posts.push(post);
+}
+
+const monthNames: Record<string, string> = {
+  '01':'一月','02':'二月','03':'三月','04':'四月',
+  '05':'五月','06':'六月','07':'七月','08':'八月',
+  '09':'九月','10':'十月','11':'十一月','12':'十二月',
+};
 ---
 
-<BaseLayout title="博客 - csgbird">
+<BaseLayout title="博客 - C雙G">
   <div class="page-container">
-    <h1 class="page-title">博客</h1>
-    <p class="page-desc">技术笔记、生活随笔、个人思考。</p>
+    <div class="page-header fade-in-up">
+      <h1 class="page-title">博客</h1>
+      <p class="page-desc">技术笔记、生活随笔、个人思考。</p>
+    </div>
 
     {allPosts.length === 0 ? (
-      <p class="empty-hint">还没有文章，在 <code>src/content/blog/</code> 目录下新建 <code>.md</code> 文件开始写吧。</p>
+      <p class="empty-hint">
+        还没有文章，在 <code>src/content/blog/</code> 目录下新建 <code>.md</code> 文件开始写吧。
+      </p>
     ) : (
-      <ul class="post-list">
-        {allPosts.map((post) => (
-          <li class="post-item">
-            <a href={`/blog/${post.id}`} class="post-link">
-              <span class="post-date">{post.data.date}</span>
-              <span class="post-title">{post.data.title}</span>
-              {post.data.tags && (
-                <span class="post-tags">
-                  {post.data.tags.map(tag => <span class="tag">{tag}</span>)}
-                </span>
-              )}
-            </a>
-          </li>
+      <div class="timeline">
+        {grouped.map((yg) => (
+          <div class="year-group scroll-fade">
+            <div class="year-marker">
+              <span class="year-dot"></span>
+              <span class="year-label">{yg.year}</span>
+            </div>
+            <div class="year-content">
+              {yg.months.map((mg) => (
+                <div class="month-group">
+                  <div class="month-label">{monthNames[mg.month] ?? mg.month}月</div>
+                  <ul class="post-list">
+                    {mg.posts.map((post) => (
+                      <li class="post-item">
+                        <a href={`/blog/${post.id}`} class="post-link">
+                          <span class="post-day">{post.data.date.slice(8)}</span>
+                          <span class="post-title">{post.data.title}</span>
+                          {post.data.tags && post.data.tags.length > 0 && (
+                            <span class="post-tags">
+                              {post.data.tags.slice(0,3).map(tag => <span class="tag">{tag}</span>)}
+                            </span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
         ))}
-      </ul>
+        <div class="timeline-end">
+          <span class="end-dot"></span>
+          <span class="end-label">从这里开始</span>
+        </div>
+      </div>
     )}
   </div>
 </BaseLayout>
 
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+</script>
+
 <style>
   .page-container {
-    max-width: var(--max-width);
+    max-width: 780px;
     margin: 0 auto;
-    padding: 3rem 1.5rem;
+    padding: 3rem 1.5rem 5rem;
   }
+
+  .page-header { margin-bottom: 2.5rem; }
 
   .page-title {
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
   }
 
-  .page-desc {
-    color: var(--color-text-muted);
-    margin-bottom: 2.5rem;
-  }
+  .page-desc { color: var(--color-text-muted); font-size: 0.95rem; }
 
   .empty-hint {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
     padding: 2rem;
     border: 1px dashed var(--color-border);
     border-radius: var(--radius);
     text-align: center;
   }
 
-  .post-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
+  /* ── 时间轴 ───────────────────── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
   }
 
-  .post-item {
-    border-bottom: 1px solid var(--color-border);
+  /* 左侧竖线 */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-border));
+    border-radius: 2px;
   }
+
+  /* 年份节点 */
+  .year-group { margin-bottom: 2.5rem; }
+
+  .year-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .year-dot {
+    position: absolute;
+    left: -2rem;
+    width: 14px;
+    height: 14px;
+    background: var(--color-primary);
+    border: 3px solid var(--color-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .year-label {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+  }
+
+  /* 年份内容 */
+  .year-content { padding-left: 0.5rem; }
+
+  .month-group { margin-bottom: 1.25rem; }
+
+  .month-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+    padding-left: 0.25rem;
+  }
+
+  .post-list { list-style: none; }
+
+  .post-item {
+    border-left: 2px solid var(--color-border-soft);
+    transition: border-color 0.2s;
+  }
+  .post-item:hover { border-left-color: var(--color-primary); }
 
   .post-link {
     display: flex;
     align-items: baseline;
-    gap: 1.25rem;
-    padding: 1rem 0;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
     text-decoration: none;
     color: var(--color-text);
-    transition: color 0.15s;
+    transition: color 0.15s, background 0.15s;
+    border-radius: 0 var(--radius) var(--radius) 0;
     flex-wrap: wrap;
   }
-
   .post-link:hover {
     color: var(--color-primary);
+    background: var(--color-bg-soft);
     text-decoration: none;
   }
 
-  .post-date {
-    font-size: 0.85rem;
+  .post-day {
+    font-size: 0.8rem;
     color: var(--color-text-muted);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
+    min-width: 2rem;
   }
 
-  .post-title {
-    font-size: 1rem;
-    font-weight: 500;
-    flex: 1;
-  }
+  .post-title { font-size: 0.95rem; font-weight: 500; flex: 1; }
 
-  .post-tags {
-    display: flex;
-    gap: 0.4rem;
-  }
+  .post-tags { display: flex; gap: 0.35rem; }
 
   .tag {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.5rem;
     background: var(--color-bg-soft);
     border: 1px solid var(--color-border);
     border-radius: 100px;
     color: var(--color-text-muted);
+  }
+
+  /* 时间轴底部 */
+  .timeline-end {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .end-dot {
+    position: absolute;
+    left: -2rem;
+    width: 10px;
+    height: 10px;
+    background: var(--color-border);
+    border: 2px solid var(--color-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-border);
+  }
+
+  .end-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-style: italic;
   }
 </style>
