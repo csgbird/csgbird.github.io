@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const categories = [
+  { name: 'Java', slug: 'java', icon: '☕', desc: 'Spring、JVM、后端开发' },
+  { name: '前端', slug: 'frontend', icon: '🌐', desc: 'React、CSS、浏览器原理' },
+  { name: '数据库', slug: 'database', icon: '🗄️', desc: 'MySQL、Redis、SQL调优' },
+  { name: '工具', slug: 'tools', icon: '🔧', desc: 'Git、Linux、Docker' },
+  { name: '算法', slug: 'algorithm', icon: '🧮', desc: '数据结构与算法' },
+  { name: '读书', slug: 'reading', icon: '📖', desc: '读书笔记与摘录' },
+];
+---
+
+<BaseLayout title="笔记 - csgbird">
+  <div class="notes-container">
+    <h1 class="page-title">笔记</h1>
+    <p class="page-desc">系统整理的知识库，从 Obsidian 同步过来。</p>
+
+    <div class="category-grid">
+      {categories.map((cat) => (
+        <a href={`/notes/${cat.slug}`} class="category-card">
+          <span class="cat-icon">{cat.icon}</span>
+          <div class="cat-info">
+            <h3>{cat.name}</h3>
+            <p>{cat.desc}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .notes-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .category-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .category-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .cat-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .cat-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .cat-info p {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+</style>

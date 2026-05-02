@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="相册 - csgbird">
+  <div class="photos-container">
+    <h1 class="page-title">相册</h1>
+    <p class="page-desc">家庭记录，生活瞬间。</p>
+    <p class="empty-hint">相册功能即将上线，敬请期待。</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .photos-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .empty-hint {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    padding: 2rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+</style>

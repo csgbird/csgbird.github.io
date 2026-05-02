@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于 - csgbird">
+  <div class="about-container">
+    <h1>关于</h1>
+    <p>这里是 csgbird 的个人站点，记录技术成长、生活随记与家庭故事。</p>
+    <p>用 <a href="https://astro.build" target="_blank">Astro</a> 构建，部署在 GitHub Pages。</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+</style>

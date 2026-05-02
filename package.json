@@ -1,0 +1,14 @@
+{
+  "name": "blogweb",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync:notes": "rsync -a --exclude='.obsidian/' --exclude='.DS_Store' --exclude='*.canvas' --delete /Users/shuanggangchen/notebook/wiki/ src/content/notes-sync/"
+  },
+  "dependencies": {
+    "astro": "^5.7.0"
+  }
+}

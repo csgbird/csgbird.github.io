@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="csgbird - 个人站点">
+  <div class="home">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>你好，我是 csgbird</h1>
+        <p>记录技术学习、生活随记与家庭故事的个人角落。</p>
+        <div class="hero-links">
+          <a href="/blog" class="btn-primary">读博客</a>
+          <a href="/notes" class="btn-outline">看笔记</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分类导航卡片 -->
+    <section class="categories">
+      <div class="container">
+        <h2 class="section-title">内容分区</h2>
+        <div class="card-grid">
+          <a href="/blog" class="category-card">
+            <div class="card-icon">📝</div>
+            <h3>博客</h3>
+            <p>技术笔记、生活随笔、个人思考</p>
+          </a>
+          <a href="/notes" class="category-card">
+            <div class="card-icon">📚</div>
+            <h3>笔记</h3>
+            <p>系统整理的知识库，按主题分类</p>
+          </a>
+          <a href="/photos" class="category-card">
+            <div class="card-icon">📷</div>
+            <h3>相册</h3>
+            <p>家庭记录，生活瞬间</p>
+          </a>
+          <a href="/about" class="category-card">
+            <div class="card-icon">👤</div>
+            <h3>关于</h3>
+            <p>关于这个站点和这个人</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最近文章 -->
+    <section class="recent-posts">
+      <div class="container">
+        <h2 class="section-title">最近文章</h2>
+        <p class="empty-hint">还没有文章，快去 <code>src/content/blog/</code> 目录新建一篇吧。</p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    padding-bottom: 4rem;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #f0f4ff 0%, #fafafa 100%);
+    border-bottom: 1px solid var(--color-border);
+    padding: 5rem 1.5rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.625rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover);
+    text-decoration: none;
+    color: white;
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.625rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  /* 通用 */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* 分类卡片 */
+  .categories {
+    padding: 3.5rem 0;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .category-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: block;
+  }
+
+  .category-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .card-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .category-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* 最近文章 */
+  .recent-posts {
+    padding: 0 0 2rem;
+  }
+
+  .empty-hint {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    padding: 2rem;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+</style>
