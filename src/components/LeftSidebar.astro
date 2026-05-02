@@ -1,0 +1,195 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentId?: string;
+  currentType?: 'blog' | 'notes';
+}
+
+const { currentId, currentType } = Astro.props;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allNotes = await getCollection('notes');
+
+// Blog 按年份分组，新到旧
+const blogByYear = new Map<number, typeof allPosts>();
+for (const post of allPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())) {
+  const year = new Date(post.data.date).getFullYear();
+  if (!blogByYear.has(year)) blogByYear.set(year, []);
+  blogByYear.get(year)!.push(post);
+}
+const sortedYears = [...blogByYear.keys()].sort((a, b) => b - a);
+
+// Notes 按 category 分组
+const notesByCategory = new Map<string, typeof allNotes>();
+for (const note of allNotes) {
+  const cat = note.data.category ?? '未分类';
+  if (!notesByCategory.has(cat)) notesByCategory.set(cat, []);
+  notesByCategory.get(cat)!.push(note);
+}
+---
+
+<aside class="left-sidebar">
+  <div class="sidebar-inner">
+
+    <section class="sidebar-section">
+      <details open={currentType === 'blog' || !currentType}>
+        <summary class="section-title">
+          <span>📝 博客</span>
+          <span class="count">{allPosts.length}</span>
+        </summary>
+        <div class="section-body">
+          {sortedYears.map(year => (
+            <div class="year-group">
+              <p class="year-label">{year}</p>
+              <ul>
+                {blogByYear.get(year)!.map(post => (
+                  <li>
+                    <a
+                      href={`/blog/${post.id}`}
+                      class:list={['sidebar-link', { active: currentType === 'blog' && currentId === post.id }]}
+                    >
+                      {post.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
+    </section>
+
+    <section class="sidebar-section">
+      <details open={currentType === 'notes'}>
+        <summary class="section-title">
+          <span>📖 笔记</span>
+          <span class="count">{allNotes.length}</span>
+        </summary>
+        <div class="section-body">
+          {[...notesByCategory.entries()].map(([cat, notes]) => (
+            <div class="year-group">
+              <p class="year-label">{cat}</p>
+              <ul>
+                {notes.map(note => {
+                  const title = note.data.title ?? note.id.replace(/\.md$/, '').replace(/[-_]/g, ' ');
+                  return (
+                    <li>
+                      <a
+                        href={`/notes/${note.id}`}
+                        class:list={['sidebar-link', { active: currentType === 'notes' && currentId === note.id }]}
+                      >
+                        {title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
+    </section>
+
+  </div>
+</aside>
+
+<style>
+  .left-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+
+  .left-sidebar::-webkit-scrollbar { width: 4px; }
+  .left-sidebar::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+
+  .sidebar-inner {
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-card);
+    border-radius: var(--radius);
+    padding: 0.75rem 0;
+  }
+
+  .sidebar-section {
+    border-bottom: 1px solid var(--color-border-soft);
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .sidebar-section:last-child { border-bottom: none; margin-bottom: 0; }
+
+  details { }
+
+  summary.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-text-muted);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+  summary.section-title::-webkit-details-marker { display: none; }
+  summary.section-title:hover { color: var(--color-primary); }
+
+  .count {
+    font-size: 0.7rem;
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
+    padding: 0.05rem 0.4rem;
+    border-radius: 100px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .section-body { padding: 0 0.5rem 0.5rem; }
+
+  .year-group { margin-bottom: 0.5rem; }
+
+  .year-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    padding: 0.15rem 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  ul { list-style: none; }
+
+  .sidebar-link {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    line-height: 1.4;
+    transition: background 0.15s, color 0.15s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sidebar-link:hover {
+    background: var(--color-bg-soft);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .sidebar-link.active {
+    background: var(--color-bg-soft);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1100px) {
+    .left-sidebar { display: none; }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeftSidebar from '../../components/LeftSidebar.astro';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes');
@@ -13,12 +14,13 @@ export async function getStaticPaths() {
 const { note } = Astro.props;
 const { Content, headings } = await render(note);
 
-// 没有 frontmatter title 时，从 id 推断标题（去掉扩展名，替换连字符）
 const title = note.data.title ?? note.id.replace(/\.md$/, '').replace(/[-_]/g, ' ');
 ---
 
 <BaseLayout title={`${title} - C雙G 笔记`} description={note.data.description}>
-  <div class="note-layout">
+  <div class="three-col-layout">
+    <LeftSidebar currentId={note.id} currentType="notes" />
+
     <article class="note-content">
       <header class="note-header">
         <a href="/notes" class="back-link">← 笔记</a>
@@ -50,12 +52,12 @@ const title = note.data.title ?? note.id.replace(/\.md$/, '').replace(/[-_]/g, '
 </BaseLayout>
 
 <style>
-  .note-layout {
-    max-width: calc(var(--max-width) + 260px);
+  .three-col-layout {
+    max-width: calc(var(--max-width) + 520px);
     margin: 0 auto;
     padding: 3rem 1.5rem;
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     align-items: flex-start;
   }
 
@@ -87,10 +89,9 @@ const title = note.data.title ?? note.id.replace(/\.md$/, '').replace(/[-_]/g, '
 
   .note-desc { color: var(--color-text-muted); font-size: 0.95rem; }
 
-  /* 正文样式 */
   .prose { line-height: 1.85; font-size: 1rem; }
 
-  .prose :global(h1) { display: none; } /* 已在 header 显示 */
+  .prose :global(h1) { display: none; }
 
   .prose :global(h2) {
     font-size: 1.375rem;
@@ -159,7 +160,6 @@ const title = note.data.title ?? note.id.replace(/\.md$/, '').replace(/[-_]/g, '
     border: 1px solid var(--color-border);
   }
 
-  /* 右侧目录 */
   .toc {
     width: 220px;
     flex-shrink: 0;

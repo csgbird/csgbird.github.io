@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeftSidebar from '../../components/LeftSidebar.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -15,7 +16,9 @@ const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={`${post.data.title} - C雙G`} description={post.data.description}>
-  <div class="post-layout">
+  <div class="three-col-layout">
+    <LeftSidebar currentId={post.id} currentType="blog" />
+
     <article class="post-content">
       <header class="post-header">
         <time class="post-date">{post.data.date}</time>
@@ -52,12 +55,12 @@ const { Content, headings } = await render(post);
 </BaseLayout>
 
 <style>
-  .post-layout {
-    max-width: calc(var(--max-width) + 260px);
+  .three-col-layout {
+    max-width: calc(var(--max-width) + 520px);
     margin: 0 auto;
     padding: 3rem 1.5rem;
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     align-items: flex-start;
   }
 
@@ -108,11 +111,7 @@ const { Content, headings } = await render(post);
     color: var(--color-text-muted);
   }
 
-  /* 文章正文样式 */
-  .prose {
-    line-height: 1.8;
-    font-size: 1rem;
-  }
+  .prose { line-height: 1.8; font-size: 1rem; }
 
   .prose :global(h2) {
     font-size: 1.375rem;
@@ -136,9 +135,7 @@ const { Content, headings } = await render(post);
     margin: 1rem 0 1.25rem 1.5rem;
   }
 
-  .prose :global(li) {
-    margin-bottom: 0.4rem;
-  }
+  .prose :global(li) { margin-bottom: 0.4rem; }
 
   .prose :global(blockquote) {
     border-left: 3px solid var(--color-primary);
@@ -153,7 +150,6 @@ const { Content, headings } = await render(post);
     margin: 2.5rem 0;
   }
 
-  /* 右侧目录 */
   .toc {
     width: 220px;
     flex-shrink: 0;
@@ -191,23 +187,12 @@ const { Content, headings } = await render(post);
     padding: 0.2rem 0;
     transition: color 0.15s;
   }
+  .toc-item a:hover { color: var(--color-primary); text-decoration: none; }
 
-  .toc-item a:hover {
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-
-  .toc-item.depth-3 {
-    padding-left: 0.75rem;
-  }
-
-  .toc-item.depth-4 {
-    padding-left: 1.5rem;
-  }
+  .toc-item.depth-3 { padding-left: 0.75rem; }
+  .toc-item.depth-4 { padding-left: 1.5rem; }
 
   @media (max-width: 900px) {
-    .toc {
-      display: none;
-    }
+    .toc { display: none; }
   }
 </style>
